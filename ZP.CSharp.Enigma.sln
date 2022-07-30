@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZP.CSharp.Enigma", "ZP.CSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZP.CSharp.Enigma.Cli", "ZP.CSharp.Enigma.Cli\ZP.CSharp.Enigma.Cli.csproj", "{E93B313D-FBB7-45E5-B92C-541384F31B14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZP.CSharp.Enigma.Tests", "ZP.CSharp.Enigma.Tests\ZP.CSharp.Enigma.Tests.csproj", "{60D1A2B1-162B-4203-8E83-D8E01AF563F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E93B313D-FBB7-45E5-B92C-541384F31B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E93B313D-FBB7-45E5-B92C-541384F31B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E93B313D-FBB7-45E5-B92C-541384F31B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60D1A2B1-162B-4203-8E83-D8E01AF563F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D1A2B1-162B-4203-8E83-D8E01AF563F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D1A2B1-162B-4203-8E83-D8E01AF563F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D1A2B1-162B-4203-8E83-D8E01AF563F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
