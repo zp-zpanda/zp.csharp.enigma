@@ -21,6 +21,12 @@ namespace ZP.CSharp.Enigma
             </para>
         </remarks>
         */
-        public virtual char RunOn(char c) => c;
+        public abstract char RunOn(char c);
+        /**
+        <summary>
+            Steps the enigma.
+        </summary>
+        */
+        public abstract void Step();
     }
 }
