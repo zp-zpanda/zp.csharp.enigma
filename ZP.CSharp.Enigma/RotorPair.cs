@@ -5,7 +5,7 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The rotor pair.</summary>
     */
-    public class RotorPair
+    public class RotorPair : IEquatable<RotorPair>
     {
         /**
         <summary>The character on the Entrywheel side.</summary>
@@ -39,51 +39,51 @@ namespace ZP.CSharp.Enigma
             this.ReflectorSide = map[1];
         }
         /**
-        <inheritdoc cref="operator ==" />
-        <param name="obj">The object to compare to.</param>
+        <summary>Produces the hash code for the rotor pair.</summary>
+        */
+        public override int GetHashCode() => (new char[]{this.EntryWheelSide, this.ReflectorSide}).GetHashCode();
+        /**
+        <summary>Checks rotor pair equality.</summary>
+        <param name="pair">The rotor pair to compare to.</param>
+        <returns>The result.</returns>
+        <seealso cref="Equals(System.Object?)" />
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj)
+        public bool Equals(RotorPair? pair)
         {
-            if (obj is null)
+            if (pair is null)
             {
                 return false;
             }
-            else if (obj is RotorPair pair)
-            {
-                return pair == this;
-            }
-            return false;
+            return (pair.EntryWheelSide == this.EntryWheelSide) && (pair.ReflectorSide == this.ReflectorSide);
         }
         /**
-        <summary>Produces the hash code for the rotor pair.</summary>
-        */
-        public override int GetHashCode()
-        {
-            return (new char[]{this.EntryWheelSide, this.ReflectorSide}).GetHashCode();
-        }
-        /**
-        <summary>Checks rotor pair equality.</summary>
-        <param name="pair1">Rotor pair 1.</param>
-        <param name="pair2">Rotor pair 2.</param>
-        <returns>The result.</returns>
-        <seealso cref="Equals(System.Object?)" />
+        <inheritdoc cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
+        <param name="obj">The object to compare to.</param>
+        <seealso cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
+        <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public static bool operator ==(RotorPair pair1, RotorPair pair2)
-        {
-            return (pair1.EntryWheelSide == pair2.EntryWheelSide) && (pair1.ReflectorSide == pair2.ReflectorSide);
-        }
+        public override bool Equals(object? obj) => this.Equals(obj as RotorPair);
         /**
-        <inheritdoc cref="operator ==" />
-        <summary>Checks rotor pair inequality.</summary>
+        <inheritdoc cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
+        <param name="pair1">Rotor pair 1.</param>
+        <param name="pair2">Rotor pair 2.</param>
         <seealso cref="Equals(System.Object?)" />
+        <seealso cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
+        <seealso cref="operator !=" />
+        */
+        public static bool operator ==(RotorPair pair1, RotorPair pair2) => pair1.Equals(pair2);
+        /**
+        <inheritdoc cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
+        <summary>Checks rotor pair inequality.</summary>
+        <param name="pair1">Rotor pair 1.</param>
+        <param name="pair2">Rotor pair 2.</param>
+        <seealso cref="Equals(System.Object?)" />
+        <seealso cref="Equals(ZP.CSharp.Enigma.RotorPair?)" />
         <seealso cref="operator ==" />
         */
-        public static bool operator !=(RotorPair pair1, RotorPair pair2)
-        {
-            return !(pair1 == pair2);
-        }
+        public static bool operator !=(RotorPair pair1, RotorPair pair2) => !pair1.Equals(pair2);
     }
 }
