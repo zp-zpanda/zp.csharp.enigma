@@ -26,17 +26,5 @@ namespace ZP.CSharp.Enigma.Tests
             var pair = new RotorPair(c, c);
             Assert.Equal(pair.EntryWheelSide, pair.ReflectorSide);
         }
-        [Theory]
-        [InlineData("ab", "cd", new char[]{'a', 'b'}, new char[]{'c', 'd'})]
-        [InlineData("你我他", "大熊貓", new char[]{'你', '我', '他'}, new char[]{'大', '熊', '貓'})]
-        public void RotorPairsCanBeMassConstructed(string e, string r, char[] eChars, char[] rChars)
-        {
-            var rotor = new Rotor(e, r);
-            var i = 0;
-            Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, new RotorPair(eChars[i], rChars[i]));
-                i++;
-            });
-        }
     }
 }
