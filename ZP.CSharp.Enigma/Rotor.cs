@@ -64,7 +64,9 @@ namespace ZP.CSharp.Enigma
         */
         public bool IsValid()
         {
-            return true;
+            var e = !this.Pairs.Select(pair => pair.EntryWheelSide).GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
+            var r = !this.Pairs.Select(pair => pair.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
+            return (e && r);
         }
     }
 }
