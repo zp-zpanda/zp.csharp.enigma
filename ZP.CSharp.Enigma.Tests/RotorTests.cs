@@ -59,18 +59,27 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(false, false, "aac", "abc")]
         [InlineData(true, false, "aa", "ab", "cc", "dc")]
         [InlineData(false, false, "aacd", "abcc")]
-        public void RotorCanBeValidated(bool useTwoCharMap, bool result, params string[] maps)
+        public void RotorCanBeValidated(bool useTwoCharMap, bool isValid, params string[] maps)
         {
-            Rotor rotor;
-            if (useTwoCharMap)
+            var ex = Record.Exception(() => {
+                Rotor rotor;
+                if (useTwoCharMap)
+                {
+                    rotor = new Rotor(maps);
+                }
+                else
+                {
+                    rotor = new Rotor(maps[0], maps[1]);
+                }
+            });
+            if (isValid)
             {
-                rotor = new Rotor(maps);
+                Assert.Null(ex);
             }
             else
             {
-                rotor = new Rotor(maps[0], maps[1]);
+                Assert.IsType<ArgumentException>(ex);
             }
-            Assert.Equal(result, rotor.IsValid());
         }
     }
 }
