@@ -72,7 +72,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
-        <returns><c>true</c> if valid, else <c>false</c>.</returns>
+        <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
         */
         public virtual bool IsValid()
         {
