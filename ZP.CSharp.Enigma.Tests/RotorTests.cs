@@ -1,7 +1,6 @@
 using System;
 using Xunit;
 using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Models;
 using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
