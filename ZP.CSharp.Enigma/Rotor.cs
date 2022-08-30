@@ -36,7 +36,7 @@ namespace ZP.CSharp.Enigma
         */
         public Rotor(params string[] maps)
         {
-            if (!maps.All(map => map.Length == 2))
+            if (!maps.All(map => map.Count() == 2))
             {
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{EntryWheelSide}{ReflectorSide}\"");
             }
@@ -49,8 +49,8 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Creates a rotor with rotor pairs created from a Entrywheel-side and a reflector-side mapping.</summary>
-        <param name="e">The Entrywheel-side mapping.</param>
+        <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
+        <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
         public Rotor(string e, string r)
