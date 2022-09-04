@@ -74,6 +74,8 @@ namespace ZP.CSharp.Enigma.Tests
         [Theory]
         [InlineData("abcde", "bcdea", 'c', 'd')]
         [InlineData("abcde", "bcdea", 'f', null)]
+        [InlineData("大熊貓可愛", "可愛熊貓大", '貓', '熊')]
+        [InlineData("大熊貓可愛", "可愛熊貓大", '人', null)]
         public void RotorCanPassCharacterFromEntrywheel(string e, string r, char input, char? expected)
         {
             var action = () => Assert.Equal(expected, new Rotor(e, r).FromEntryWheel(input));
