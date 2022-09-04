@@ -81,6 +81,12 @@ namespace ZP.CSharp.Enigma
             var r = !this.Pairs.Select(pair => pair.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
             return (e && r);
         }
+        /**
+        <summary>Matches a character from the entry wheel.</summary>
+        <param name="c">The character to map.</param>
+        <returns>The mapped character.</returns>
+        <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
+        */
         public char FromEntryWheel(char c)
         {
             try
@@ -92,6 +98,12 @@ namespace ZP.CSharp.Enigma
                 throw new CharacterNotFoundException();
             }
         }
+        /**
+        <summary>Matches a character from the reflector.</summary>
+        <param name="c">The character to map.</param>
+        <returns>The mapped character.</returns>
+        <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
+        */
         public char FromReflector(char c)
         {
             try

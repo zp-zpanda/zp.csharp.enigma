@@ -4,6 +4,8 @@ namespace ZP.CSharp.Enigma
 {
     /**
     <summary>Represents the situation where no character could be found.</summary>
+    <seealso cref="Rotor.FromEntryWheel(char)" />
+    <seealso cref="Rotor.FromReflector(char)" />
     */
     [Serializable]
     public class CharacterNotFoundException : Exception
