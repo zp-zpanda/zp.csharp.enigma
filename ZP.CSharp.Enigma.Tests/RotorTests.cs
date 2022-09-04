@@ -76,9 +76,27 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("abcde", "bcdea", 'f', null)]
         [InlineData("大熊貓可愛", "可愛熊貓大", '貓', '熊')]
         [InlineData("大熊貓可愛", "可愛熊貓大", '人', null)]
-        public void RotorCanPassCharacterFromEntrywheel(string e, string r, char input, char? expected)
+        public void RotorCanPassCharacterFromEntryWheel(string e, string r, char input, char? expected)
         {
             var action = () => Assert.Equal(expected, new Rotor(e, r).FromEntryWheel(input));
+            if (expected is not null)
+            {
+                action();
+            }
+            else
+            {
+                var ex = Record.Exception(action);
+                Assert.IsType<CharacterNotFoundException>(ex);
+            }
+        }
+        [Theory]
+        [InlineData("bcdea", "abcde", 'c', 'd')]
+        [InlineData("bcdea", "abcde", 'f', null)]
+        [InlineData("可愛熊貓大", "大熊貓可愛", '貓', '熊')]
+        [InlineData("可愛熊貓大", "大熊貓可愛", '人', null)]
+        public void RotorCanPassCharacterFromReflector(string e, string r, char input, char? expected)
+        {
+            var action = () => Assert.Equal(expected, new Rotor(e, r).FromReflector(input));
             if (expected is not null)
             {
                 action();
