@@ -46,38 +46,45 @@ namespace ZP.CSharp.Enigma.Tests
             });
         }
         [Theory]
-        [InlineData(true, true, "aa", "bb", "cc")]
-        [InlineData(false, true, "abc", "abc")]
-        [InlineData(true, true, "ac", "bb", "ca")]
-        [InlineData(false, true, "abc", "cba")]
-        [InlineData(true, true, "ab", "bc", "ca")]
-        [InlineData(false, true, "abc", "bca")]
-        [InlineData(true, false, "aa", "ba", "cc")]
-        [InlineData(false, false, "abc", "aac")]
-        [InlineData(true, false, "aa", "ab", "cc")]
-        [InlineData(false, false, "aac", "abc")]
-        [InlineData(true, false, "aa", "ab", "cc", "dc")]
-        [InlineData(false, false, "aacd", "abcc")]
-        public void RotorCanBeValidated(bool useTwoCharMap, bool isValid, params string[] maps)
+        [InlineData(true, true, new[]{"aa", "bb", "cc"})]
+        [InlineData(false, true, new[]{"abc", "abc"})]
+        [InlineData(true, true, new[]{"ac", "bb", "ca"})]
+        [InlineData(false, true, new[]{"abc", "cba"})]
+        [InlineData(true, true, new[]{"ab", "bc", "ca"})]
+        [InlineData(false, true, new[]{"abc", "bca"})]
+        [InlineData(true, false, new[]{"aa", "ba", "cc"})]
+        [InlineData(false, false, new[]{"abc", "aac"})]
+        [InlineData(true, false, new[]{"aa", "ab", "cc"})]
+        [InlineData(false, false, new[]{"aac", "abc"})]
+        [InlineData(true, false, new[]{"aa", "ab", "cc", "dc"})]
+        [InlineData(false, false, new[]{"aacd", "abcc"})]
+        public void RotorCanBeValidated(bool twoStrings, bool isValid, string[] maps)
         {
-            var ex = Record.Exception(() => {
-                Rotor rotor;
-                if (useTwoCharMap)
-                {
-                    rotor = new Rotor(maps);
-                }
-                else
-                {
-                    rotor = new Rotor(maps[0], maps[1]);
-                }
-            });
+            var action = () => {var rotor = twoStrings ? new Rotor(maps) : new Rotor(maps[0], maps[1]);};
             if (isValid)
             {
-                Assert.Null(ex);
+                action();
             }
             else
             {
+                var ex = Record.Exception(action);
                 Assert.IsType<ArgumentException>(ex);
+            }
+        }
+        [Theory]
+        [InlineData("abcde", "bcdea", 'c', 'd')]
+        [InlineData("abcde", "bcdea", 'f', null)]
+        public void RotorCanPassCharacterFromEntrywheel(string e, string r, char input, char? expected)
+        {
+            var action = () => Assert.Equal(expected, new Rotor(e, r).FromEntryWheel(input));
+            if (expected is not null)
+            {
+                action();
+            }
+            else
+            {
+                var ex = Record.Exception(action);
+                Assert.IsType<CharacterNotFoundException>(ex);
             }
         }
     }

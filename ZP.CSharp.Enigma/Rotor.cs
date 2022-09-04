@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
@@ -7,17 +8,17 @@ namespace ZP.CSharp.Enigma
     */
     public class Rotor
     {
+        private RotorPair[] _Pairs = new RotorPair[0];
         /**
         <summary>The rotor pairs this rotor has.</summary>
         */
-        public RotorPair[] Pairs;
+        public RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        
         /**
         <summary>Creates a rotor with zero rotor pairs.</summary>
         */
         public Rotor()
-        {
-            this.Pairs = new RotorPair[0];
-        }
+        {}
         /**
         <summary>Creates a rotor with the rotor pairs provided.</summary>
         <param name="pairs">The rotor pairs.</param>
@@ -74,11 +75,33 @@ namespace ZP.CSharp.Enigma
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
         */
-        public virtual bool IsValid()
+        public bool IsValid()
         {
             var e = !this.Pairs.Select(pair => pair.EntryWheelSide).GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
             var r = !this.Pairs.Select(pair => pair.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
             return (e && r);
+        }
+        public char FromEntryWheel(char c)
+        {
+            try
+            {
+                return this.Pairs.Where(pair => c == pair.EntryWheelSide).Single().ReflectorSide;
+            }
+            catch
+            {
+                throw new CharacterNotFoundException();
+            }
+        }
+        public char FromReflector(char c)
+        {
+            try
+            {
+                return this.Pairs.Where(pair => c == pair.ReflectorSide).Single().EntryWheelSide;
+            }
+            catch
+            {
+                throw new CharacterNotFoundException();
+            }
         }
     }
 }
