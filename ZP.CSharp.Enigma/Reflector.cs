@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
@@ -7,17 +8,16 @@ namespace ZP.CSharp.Enigma
     */
     public class Reflector
     {
+        private ReflectorPair[] _Pairs = new ReflectorPair[0];
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */
-        public ReflectorPair[] Pairs;
+        public ReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
         <summary>Creates a reflector with zero reflector pairs.</summary>
         */
         public Reflector()
-        {
-            this.Pairs = new ReflectorPair[0];
-        }
+        {}
         /**
         <summary>Creates a reflector with the reflector pairs provided.</summary>
         <param name="pairs">The reflector pairs.</param>
@@ -50,7 +50,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
-        <param name="e">The Entrywheel-side mapping.</param>
+        <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
         public Reflector(string map)
@@ -76,7 +76,26 @@ namespace ZP.CSharp.Enigma
         */
         public bool IsValid()
         {
-            return true;
+            var chars = new HashSet<char>();
+            var isValid = true;
+            this.Pairs.ToList().ForEach(pair => {
+                if (!(chars.Add(pair.Map.One) && chars.Add(pair.Map.Two)))
+                {
+                    isValid = false;
+                }});
+            return isValid;
+        }
+        public virtual char Reflect(char c)
+        {
+            try
+            {
+                var found = this.Pairs.Where(pair => new[]{pair.Map.One, pair.Map.Two}.Contains(c)).Single();
+                return new[]{found.Map.One, found.Map.Two}.Except(new[]{c}).Single();
+            }
+            catch
+            {
+                throw new CharacterNotFoundException();
+            }
         }
     }
 }
