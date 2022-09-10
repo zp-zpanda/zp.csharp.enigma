@@ -13,8 +13,8 @@ namespace ZP.CSharp.Enigma.Tests
         public void RotorPairCanBeSetWithTwoChars(char e, char r)
         {
             var pair = new RotorPair(e, r);
-            Assert.Equal(e, pair.EntryWheelSide);
-            Assert.Equal(r, pair.ReflectorSide);
+            Assert.Equal(e, pair.Map.EntryWheelSide);
+            Assert.Equal(r, pair.Map.ReflectorSide);
         }
         [Theory]
         [InlineData('a')]
@@ -23,7 +23,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void RotorPairCanHaveSameCharOnBothSides(char c)
         {
             var pair = new RotorPair(c, c);
-            Assert.Equal(pair.EntryWheelSide, pair.ReflectorSide);
+            Assert.Equal(pair.Map.EntryWheelSide, pair.Map.ReflectorSide);
         }
     }
 }

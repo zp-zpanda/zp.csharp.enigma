@@ -9,13 +9,9 @@ namespace ZP.CSharp.Enigma
     public class RotorPair : IEquatable<RotorPair>
     {
         /**
-        <summary>The character on the entry wheel side.</summary>
+        <summary>The mapping.</summary>
         */
-        public char EntryWheelSide;
-        /**
-        <summary>The character on the reflector side.</summary>
-        */
-        public char ReflectorSide;
+        public (char EntryWheelSide, char ReflectorSide) Map;
         /**
         <summary>Creates a rotor pair with two characters.</summary>
         <param name="eSide">The character on the entry wheel side.</param>
@@ -23,8 +19,7 @@ namespace ZP.CSharp.Enigma
         */
         public RotorPair(char eSide, char rSide)
         {
-            this.EntryWheelSide = eSide;
-            this.ReflectorSide = rSide;
+            this.Map = (eSide, rSide);
         }
         /**
         <summary>Creates a rotor pair with a two-character-long map.</summary>
@@ -36,13 +31,12 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{EntryWheelSide}{ReflectorSide}\"");
             }
-            this.EntryWheelSide = map[0];
-            this.ReflectorSide = map[1];
+            this.Map = (map[0], map[1]);
         }
         /**
         <summary>Produces the hash code for the rotor pair.</summary>
         */
-        public override int GetHashCode() => (this.EntryWheelSide, this.ReflectorSide).GetHashCode();
+        public override int GetHashCode() => this.Map.GetHashCode();
         /**
         <summary>Checks rotor pair equality.</summary>
         <param name="pair">The rotor pair to compare to.</param>
@@ -57,7 +51,7 @@ namespace ZP.CSharp.Enigma
             {
                 return false;
             }
-            return pair.EntryWheelSide == this.EntryWheelSide && pair.ReflectorSide == this.ReflectorSide;
+            return pair.Map == this.Map;
         }
         /**
         <inheritdoc cref="Equals(RotorPair?)" />

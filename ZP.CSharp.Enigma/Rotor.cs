@@ -78,8 +78,8 @@ namespace ZP.CSharp.Enigma
         */
         public bool IsValid()
         {
-            var e = !this.Pairs.Select(pair => pair.EntryWheelSide).GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
-            var r = !this.Pairs.Select(pair => pair.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
+            var e = !this.Pairs.Select(pair => pair.Map.EntryWheelSide).GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
+            var r = !this.Pairs.Select(pair => pair.Map.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
             return (e && r);
         }
         /**
@@ -92,7 +92,7 @@ namespace ZP.CSharp.Enigma
         {
             try
             {
-                return this.Pairs.Where(pair => c == pair.EntryWheelSide).Single().ReflectorSide;
+                return this.Pairs.Where(pair => c == pair.Map.EntryWheelSide).Single().Map.ReflectorSide;
             }
             catch
             {
@@ -109,7 +109,7 @@ namespace ZP.CSharp.Enigma
         {
             try
             {
-                return this.Pairs.Where(pair => c == pair.ReflectorSide).Single().EntryWheelSide;
+                return this.Pairs.Where(pair => c == pair.Map.ReflectorSide).Single().Map.EntryWheelSide;
             }
             catch
             {
