@@ -1,32 +1,27 @@
 ﻿using System;
+using System.Linq;
+using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
-    /**
-    <summary>
-    The base class for the enigma.
-    </summary>
-    */
-    public abstract class Enigma
+    public class Enigma
     {
-        /**
-        <summary>
-            Runs the enigma on the specified character.
-        </summary>
-        <param name="c">The character to run on.</param>
-        <returns>The resulting character.</returns>
-        <remarks>
-            <para>
-                The enigma can perform encoding and decoding at the same time
-                so there is only one method.
-            </para>
-        </remarks>
-        */
-        public abstract char RunOn(char c);
-        /**
-        <summary>
-            Steps the enigma.
-        </summary>
-        */
-        public abstract void Step();
+        public Rotor[] _Rotors;
+        public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
+        public Reflector _Reflector;
+        public Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
+        public Enigma(Reflector reflector, params Rotor[] rotors)
+        {
+            this.Rotors = rotors;
+            this.Reflector = reflector;
+        }
+
+        public virtual char RunOn(char c)
+        {
+            var input = c;
+            this.Rotors.ToList().ForEach(rotor => input = rotor.FromEntryWheel(input));
+            input = this.Reflector.Reflect(input);
+            this.Rotors.Reverse().ToList().ForEach(rotor => input = rotor.FromReflector(input));
+            return input;
+        }
     }
 }
