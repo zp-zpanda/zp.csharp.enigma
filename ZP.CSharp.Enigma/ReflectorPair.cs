@@ -8,10 +8,11 @@ namespace ZP.CSharp.Enigma
     */
     public class ReflectorPair : IEquatable<ReflectorPair>
     {
+        private (char One, char Two) _Map;
         /**
         <summary>The mapping.</summary>
         */
-        public (char One, char Two) Map;
+        public (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
         <summary>Creates a reflector pair with two characters.</summary>
         <param name="one">The first character.</param>

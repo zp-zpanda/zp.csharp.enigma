@@ -8,12 +8,12 @@ namespace ZP.CSharp.Enigma
     */
     public class Enigma
     {
-        public Rotor[] _Rotors;
+        private Rotor[] _Rotors;
         /**
         <summary>The rotors this enigma has.</summary>
         */
         public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
-        public Reflector _Reflector;
+        private Reflector _Reflector;
         /**
         <summary>The reflector this enigma has.</summary>
         */

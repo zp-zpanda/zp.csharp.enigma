@@ -8,10 +8,11 @@ namespace ZP.CSharp.Enigma
     */
     public class RotorPair : IEquatable<RotorPair>
     {
+        private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
         <summary>The mapping.</summary>
         */
-        public (char EntryWheelSide, char ReflectorSide) Map;
+        public (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
         <summary>Creates a rotor pair with two characters.</summary>
         <param name="eSide">The character on the entry wheel side.</param>
