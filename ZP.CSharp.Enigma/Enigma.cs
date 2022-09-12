@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -50,5 +50,10 @@ namespace ZP.CSharp.Enigma
             }
             return result;
         }
+        /**
+        <summary>Steps the enigma.</summary>
+        */
+        public void Step()
+        {}
     }
 }
