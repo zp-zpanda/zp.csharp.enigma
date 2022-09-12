@@ -29,7 +29,7 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to run on.</param>
         <returns>The encoded/decoded character.</returns>
         */
-        public virtual char RunOn(char c)
+        public char RunOn(char c)
         {
             var input = c;
             this.Rotors.ToList().ForEach(rotor => input = rotor.FromEntryWheel(input));
@@ -39,10 +39,10 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Runs the enigma on a string.</summary>
-        <param cref="s">The string to run on.</param>
+        <param name="s">The string to run on.</param>
         <returns>The encoded/decoded string.</returns>
         */
-        public virtual string RunOn(string s)
+        public string RunOn(string s)
         {
             var result = "";
             for (int i = 0; i < s.Length; i++)
