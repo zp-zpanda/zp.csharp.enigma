@@ -15,8 +15,14 @@ namespace ZP.CSharp.Enigma
         */
         public RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         private string _Domain = "";
-        public string Domain {get => this._Domain; private set => this._Domain = value;}
+        /**
+        <summary>The domain of this rotor.</summary>
+        */
+        public string Domain {get => this._Domain; set => this._Domain = value;}
         private int _Position = 0;
+        /**
+        <summary>The position of this rotor.</summary>
+        */
         public int Position {get => this._Position; set => this._Position = value;}
         /**
         <summary>Creates a rotor with zero rotor pairs.</summary>
@@ -25,6 +31,7 @@ namespace ZP.CSharp.Enigma
         {}
         /**
         <summary>Creates a rotor with the rotor pairs provided.</summary>
+        <param name="pos">The position.</param>
         <param name="pairs">The rotor pairs.</param>
         */
         public Rotor(int pos, params RotorPair[] pairs)
@@ -39,6 +46,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
+        <param name="pos">The position.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
         public Rotor(int pos, params string[] maps)
@@ -59,6 +67,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
+        <param name="pos">The position.</param>
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
@@ -128,13 +137,27 @@ namespace ZP.CSharp.Enigma
                 throw new CharacterNotFoundException();
             }
         }
+        /**
+        <summary>Computes the domain of this rotor.</summary>
+        <returns>The domain.</returns>
+        */
         public string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        /**
+        <summary>Transposes a character coming to the rotor.</summary>
+        <param name="c">The character to transpose.</param>
+        <returns>The transposed character.</returns>
+        */
         public char TransposeIn(char c)
         {
             var index = this.Domain.IndexOf(c);
             var length = this.Domain.Length;
             return this.Domain[(index + this.Position) % length];
         }
+        /**
+        <summary>Transposes a character going away from the rotor.</summary>
+        <param name="c">The character to transpose.</param>
+        <returns>The transposed character.</returns>
+        */
         public char TransposeOut(char c)
         {
             var index = this.Domain.IndexOf(c);
