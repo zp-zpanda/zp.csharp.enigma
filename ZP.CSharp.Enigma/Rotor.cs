@@ -78,9 +78,12 @@ namespace ZP.CSharp.Enigma
         */
         public bool IsValid()
         {
-            var e = !this.Pairs.Select(pair => pair.Map.EntryWheelSide).GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
-            var r = !this.Pairs.Select(pair => pair.Map.ReflectorSide).GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
-            return (e && r);
+            var eArr = this.Pairs.Select(pair => pair.Map.EntryWheelSide).OrderBy(e => e);
+            var rArr = this.Pairs.Select(pair => pair.Map.ReflectorSide).OrderBy(r => r);
+            var e = !eArr.GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
+            var r = !rArr.GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
+            var same = eArr.SequenceEqual(rArr);
+            return (e && r && same);
         }
         /**
         <summary>Matches a character from the entry wheel.</summary>
