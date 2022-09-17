@@ -14,7 +14,8 @@ namespace ZP.CSharp.Enigma
         <summary>The rotor pairs this rotor has.</summary>
         */
         public RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
-        
+        private int _Position = 0;
+        public int Position {get => this._Position; set => this._Position = value;}
         /**
         <summary>Creates a rotor with zero rotor pairs.</summary>
         */
@@ -24,19 +25,20 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a rotor with the rotor pairs provided.</summary>
         <param name="pairs">The rotor pairs.</param>
         */
-        public Rotor(params RotorPair[] pairs)
+        public Rotor(int pos, params RotorPair[] pairs)
         {
             this.Pairs = pairs;
             if (!this.IsValid())
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Position = pos % this.Pairs.Length;
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public Rotor(params string[] maps)
+        public Rotor(int pos, params string[] maps)
         {
             if (!maps.All(map => map.Count() == 2))
             {
@@ -49,13 +51,14 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Position = pos % this.Pairs.Length;
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public Rotor(string e, string r)
+        public Rotor(int pos, string e, string r)
         {
             if (e.Length != r.Length)
             {
@@ -71,6 +74,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Position = pos % this.Pairs.Length;
         }
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
