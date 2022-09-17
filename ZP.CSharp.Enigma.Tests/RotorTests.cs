@@ -108,6 +108,17 @@ namespace ZP.CSharp.Enigma.Tests
             }
         }
         [Theory]
+        [InlineData("abcde", "edcba", 5, 'a', new[]{'e', 'c', 'a', 'd', 'b'})]
+        public void RotorCanRotate(string e, string r, int total, char eChar, char[] rArr)
+        {
+            var rotor = new Rotor(0, e, r);
+            for (int i = 0; i < (total - 1); i++)
+            {
+                Assert.Equal(rArr[i], rotor.FromEntryWheel(eChar));
+                rotor.Step();
+            }
+        }
+        [Theory]
         [InlineData("abcde", "edcba", 0, 'a', 'e')]
         [InlineData("abcde", "edcba", 2, 'a', 'a')]
         [InlineData("abcde", "edcba", 4, 'a', 'b')]
