@@ -164,5 +164,9 @@ namespace ZP.CSharp.Enigma
             var length = this.Domain.Length;
             return this.Domain[(index - this.Position + length) % length];
         }
+        /**
+        <summary>Steps the rotor.</summary>
+        */
+        public void Step() => this.Position = ((this.Position + 1) % this.Pairs.Length);
     }
 }
