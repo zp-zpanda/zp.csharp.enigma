@@ -99,7 +99,7 @@ namespace ZP.CSharp.Enigma
         {
             try
             {
-                return this.Pairs.Where(pair => c == pair.Map.EntryWheelSide).Single().Map.ReflectorSide;
+                return this.TransposeOut(this.Pairs.Where(pair => this.TransposeIn(c) == pair.Map.EntryWheelSide).Single().Map.ReflectorSide);
             }
             catch
             {
@@ -116,12 +116,25 @@ namespace ZP.CSharp.Enigma
         {
             try
             {
-                return this.Pairs.Where(pair => c == pair.Map.ReflectorSide).Single().Map.EntryWheelSide;
+                return this.TransposeOut(this.Pairs.Where(pair => this.TransposeIn(c) == pair.Map.ReflectorSide).Single().Map.EntryWheelSide);
             }
             catch
             {
                 throw new CharacterNotFoundException();
             }
+        }
+        public string GetDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public char TransposeIn(char c)
+        {
+            var index = this.GetDomain().IndexOf(c);
+            var length = this.GetDomain().Length;
+            return this.GetDomain()[(index + this.Position) % length];
+        }
+        public char TransposeOut(char c)
+        {
+            var index = this.GetDomain().IndexOf(c);
+            var length = this.GetDomain().Length;
+            return this.GetDomain()[(index - this.Position + length) % length];
         }
     }
 }
