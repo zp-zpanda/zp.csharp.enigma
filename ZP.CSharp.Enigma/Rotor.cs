@@ -14,6 +14,8 @@ namespace ZP.CSharp.Enigma
         <summary>The rotor pairs this rotor has.</summary>
         */
         public RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        private string _Domain = "";
+        public string Domain {get => this._Domain; private set => this._Domain = value;}
         private int _Position = 0;
         public int Position {get => this._Position; set => this._Position = value;}
         /**
@@ -32,6 +34,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
         }
         /**
@@ -51,6 +54,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
         }
         /**
@@ -74,6 +78,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
         }
         /**
@@ -123,18 +128,18 @@ namespace ZP.CSharp.Enigma
                 throw new CharacterNotFoundException();
             }
         }
-        public string GetDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
         public char TransposeIn(char c)
         {
-            var index = this.GetDomain().IndexOf(c);
-            var length = this.GetDomain().Length;
-            return this.GetDomain()[(index + this.Position) % length];
+            var index = this.Domain.IndexOf(c);
+            var length = this.Domain.Length;
+            return this.Domain[(index + this.Position) % length];
         }
         public char TransposeOut(char c)
         {
-            var index = this.GetDomain().IndexOf(c);
-            var length = this.GetDomain().Length;
-            return this.GetDomain()[(index - this.Position + length) % length];
+            var index = this.Domain.IndexOf(c);
+            var length = this.Domain.Length;
+            return this.Domain[(index - this.Position + length) % length];
         }
     }
 }
