@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using Xunit.Abstractions;
 using System.Linq;
 using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Tests;
