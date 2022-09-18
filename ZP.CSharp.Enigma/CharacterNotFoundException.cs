@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.Serialization;
+using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
     /**
