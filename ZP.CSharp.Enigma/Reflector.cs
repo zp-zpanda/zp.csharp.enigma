@@ -51,8 +51,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
-        <param name="e">The entry wheel-side mapping.</param>
-        <param name="r">The reflector-side mapping.</param>
+        <param name="map">The mapping.</param>
         */
         public Reflector(string map)
         {
@@ -86,6 +85,11 @@ namespace ZP.CSharp.Enigma
                 }});
             return isValid;
         }
+        /**
+        <summary>Reflects a character.</summary>
+        <param name="c">The character to reflect.</param>
+        <returns>The reflected character.</returns>
+        */
         public virtual char Reflect(char c)
         {
             try
