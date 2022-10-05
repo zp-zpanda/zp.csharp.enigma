@@ -130,7 +130,9 @@ namespace ZP.CSharp.Enigma.Tests
             Assert.Equal(eChar, rotor.FromReflector(rChar));
         }
         [Theory]
-        [InlineData(20, 5)]
+        [InlineData(5, 2)]
+        [InlineData(14, 7)]
+        [InlineData(345, 56)]
         public void RotorCanAllowNextToStep(int total, int notch)
         {
             var map = new string(Enumerable.Range('a', total).Select(i => (char) i).ToArray());
