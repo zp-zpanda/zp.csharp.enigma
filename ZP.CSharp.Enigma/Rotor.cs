@@ -105,7 +105,7 @@ namespace ZP.CSharp.Enigma
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
         */
-        public bool IsValid()
+        public virtual bool IsValid()
         {
             var eArr = this.Pairs.Select(pair => pair.Map.EntryWheelSide).OrderBy(e => e);
             var rArr = this.Pairs.Select(pair => pair.Map.ReflectorSide).OrderBy(r => r);
@@ -152,7 +152,7 @@ namespace ZP.CSharp.Enigma
         <summary>Computes the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public virtual string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>
