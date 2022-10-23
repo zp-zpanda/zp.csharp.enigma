@@ -36,7 +36,7 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to run on.</param>
         <returns>The encoded/decoded character.</returns>
         */
-        public char RunOn(char c)
+        public virtual char RunOn(char c)
         {
             this.Step();
             var input = c;
@@ -62,7 +62,6 @@ namespace ZP.CSharp.Enigma
         /**
         <summary>Steps the enigma.</summary>
         */
-        public void Step()
-        {}
+        public virtual void Step() {}
     }
 }
