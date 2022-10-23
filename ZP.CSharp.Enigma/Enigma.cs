@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -13,11 +13,6 @@ namespace ZP.CSharp.Enigma
         <summary>The rotors this enigma has.</summary>
         */
         public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
-        private RotorStepper _Stepper;
-        /**
-        <summary>The rotor stepper.</summary>
-        */
-        public RotorStepper Stepper {get => this._Stepper; set => this._Stepper = value;}
         private Reflector _Reflector;
         /**
         <summary>The reflector this enigma has.</summary>
