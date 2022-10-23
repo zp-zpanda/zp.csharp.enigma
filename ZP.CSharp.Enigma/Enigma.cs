@@ -38,6 +38,7 @@ namespace ZP.CSharp.Enigma
         */
         public char RunOn(char c)
         {
+            this.Step();
             var input = c;
             this.Rotors.ToList().ForEach(rotor => input = rotor.FromEntryWheel(input));
             input = this.Reflector.Reflect(input);
