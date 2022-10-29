@@ -24,11 +24,11 @@ namespace ZP.CSharp.Enigma
         <summary>The position of this rotor.</summary>
         */
         public int Position {get => this._Position; set => this._Position = value;}
-        private int _Notch = 0;
+        private int[] _Notch = new int[]{0};
         /**
-        <summary>The turning notch of this rotor.</summary>
+        <summary>The turning notches of this rotor.</summary>
         */
-        public int Notch {get => this._Notch; set => this._Notch = value;}
+        public int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
         <summary>Creates a rotor with zero rotor pairs.</summary>
         */
@@ -40,7 +40,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public Rotor(int pos, int notch, params RotorPair[] pairs)
+        public Rotor(int pos, int[] notch, params RotorPair[] pairs)
         {
             this.Pairs = pairs;
             if (!this.IsValid())
@@ -49,7 +49,7 @@ namespace ZP.CSharp.Enigma
             }
             this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
-            this.Notch = notch % this.Pairs.Length;
+            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
@@ -57,7 +57,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public Rotor(int pos, int notch, params string[] maps)
+        public Rotor(int pos, int[] notch, params string[] maps)
         {
             if (!maps.All(map => map.Count() == 2))
             {
@@ -72,7 +72,7 @@ namespace ZP.CSharp.Enigma
             }
             this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
-            this.Notch = notch % this.Pairs.Length;
+            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
@@ -81,7 +81,7 @@ namespace ZP.CSharp.Enigma
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public Rotor(int pos, int notch, string e, string r)
+        public Rotor(int pos, int[] notch, string e, string r)
         {
             if (e.Length != r.Length)
             {
@@ -99,7 +99,7 @@ namespace ZP.CSharp.Enigma
             }
             this.Domain = this.ComputeDomain();
             this.Position = pos % this.Pairs.Length;
-            this.Notch = notch % this.Pairs.Length;
+            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
@@ -178,7 +178,7 @@ namespace ZP.CSharp.Enigma
         /**
         <summary>Returns whether this rotor allows the next to step or not.</summary>
         */
-        public bool AllowNextToStep() => this.Position == this.Notch;
+        public bool AllowNextToStep() => this.Notch.Contains(this.Position);
         /**
         <summary>Steps the rotor.</summary>
         */
