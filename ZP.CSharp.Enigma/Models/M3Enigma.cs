@@ -24,7 +24,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static Rotor III {get => new Rotor(0, new[]{21}, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
         /**
-        <summary> M3 rotor III.</summary>
+        <summary> M3 rotor IV.</summary>
         */
         public static Rotor IV {get => new Rotor(0, new[]{9}, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
         /**
