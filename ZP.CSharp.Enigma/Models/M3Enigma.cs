@@ -14,19 +14,19 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> M3 rotor I.</summary>
         */
-        public static Rotor I {get => new Rotor(0, 16, Letters, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static Rotor I {get => new Rotor(0, new[]{16}, Letters, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
         /**
         <summary> M3 rotor II.</summary>
         */
-        public static Rotor II {get => new Rotor(0, 4, Letters, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static Rotor II {get => new Rotor(0, new[]{4}, Letters, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
         /**
         <summary> M3 rotor III.</summary>
         */
-        public static Rotor III {get => new Rotor(0, 21, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
+        public static Rotor III {get => new Rotor(0, new[]{21}, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
         /**
         <summary> M3 rotor III.</summary>
         */
-        public static Rotor IV {get => new Rotor(0, 21, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
+        public static Rotor IV {get => new Rotor(0, new[]{9}, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
         /**
         <summary> M3 rotor V.</summary>
         */
