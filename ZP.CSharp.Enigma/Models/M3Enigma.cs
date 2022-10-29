@@ -55,6 +55,13 @@ namespace ZP.CSharp.Enigma.Models
                 {"V", V},
             }[rotor];
         }
+        private static Reflector GetReflector(string reflector)
+        {
+            return new Dictionary<string, Reflector>(){
+                {"B", B},
+                {"C", C},
+            }[reflector];
+        }
         /**
         <inheritdoc cref="Enigma.Step()" />
         */
