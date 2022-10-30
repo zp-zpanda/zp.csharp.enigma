@@ -30,7 +30,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> M3 rotor V.</summary>
         */
-        public static Rotor V {get => new Rotor(0, 21, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
+        public static Rotor V {get => new Rotor(0, new[]{25}, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
         /**
         <summary> M3 reflector B.</summary>
         */
