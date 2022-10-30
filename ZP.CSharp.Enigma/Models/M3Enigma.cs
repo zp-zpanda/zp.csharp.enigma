@@ -48,6 +48,10 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static Reflector B {get => new Reflector("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
+        <summary> M3 reflector C.</summary>
+        */
+        public static Reflector C {get => new Reflector("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
         public M3Enigma((string III, string II, string I) rotors, (int III, int II, int I) pos)
