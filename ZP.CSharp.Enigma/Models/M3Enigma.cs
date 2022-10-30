@@ -69,6 +69,9 @@ namespace ZP.CSharp.Enigma.Models
                 {"III", III},
                 {"IV", IV},
                 {"V", V},
+                {"VI", VI},
+                {"VII", VII},
+                {"VIII", VIII}
             }[rotor];
         }
         private static Reflector GetReflector(string reflector)
