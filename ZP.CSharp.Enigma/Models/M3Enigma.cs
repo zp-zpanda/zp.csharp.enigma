@@ -32,6 +32,18 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static Rotor V {get => new Rotor(0, new[]{25}, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
         /**
+        <summary> M3 rotor VI.</summary>
+        */
+        public static Rotor VI {get => new Rotor(0, new[]{25, 12}, Letters, "JPGVOUMFYQBENHZRDKASXLICTW");}
+        /**
+        <summary> M3 rotor VII.</summary>
+        */
+        public static Rotor VII {get => new Rotor(0, new[]{25, 12}, Letters, "NZJHGRCXMYSWBOUFAIVLPEKQDT");}
+        /**
+        <summary> M3 rotor VIII.</summary>
+        */
+        public static Rotor VIII {get => new Rotor(0, new[]{25, 12}, Letters, "FKQHTLXOCBJSPDZRAMEWNIUYGV");}
+        /**
         <summary> M3 reflector B.</summary>
         */
         public static Reflector B {get => new Reflector("YARBUCHDQESFLGPIXJNKOMZTWV");}
