@@ -54,8 +54,8 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
-        public M3Enigma((string III, string II, string I) rotors, (int III, int II, int I) pos)
-            : base(B, GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III))
+        public M3Enigma(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+            : base(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III))
         {
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
