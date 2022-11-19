@@ -6,7 +6,7 @@ using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
 {
     /**
-    <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
+    <summary>Enigma I implementation.</summary>
     */
     public class EnigmaI : Enigma
     {
@@ -14,23 +14,23 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> I rotor I.</summary>
         */
-        public static Rotor I {get => new Rotor(0, new[]{16}, Letters, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static Rotor I {get => new AlphabeticalRotor(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
         /**
         <summary> I rotor II.</summary>
         */
-        public static Rotor II {get => new Rotor(0, new[]{4}, Letters, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static Rotor II {get => new AlphabeticalRotor(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
         /**
         <summary> I rotor III.</summary>
         */
-        public static Rotor III {get => new Rotor(0, new[]{21}, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
+        public static Rotor III {get => new AlphabeticalRotor(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
         /**
         <summary> I rotor IV.</summary>
         */
-        public static Rotor IV {get => new Rotor(0, new[]{9}, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
+        public static Rotor IV {get => new AlphabeticalRotor(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
         /**
         <summary> I rotor V.</summary>
         */
-        public static Rotor V {get => new Rotor(0, new[]{25}, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
+        public static Rotor V {get => new AlphabeticalRotor(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");}
         /**
         <summary> I reflector A.</summary>
         */
