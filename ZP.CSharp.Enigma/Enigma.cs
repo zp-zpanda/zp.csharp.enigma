@@ -45,15 +45,7 @@ namespace ZP.CSharp.Enigma
         <param name="s">The string to run on.</param>
         <returns>The encoded/decoded string.</returns>
         */
-        public string RunOn(string s)
-        {
-            var result = "";
-            for (int i = 0; i < s.Length; i++)
-            {
-                result += this.RunOn(s[i]);
-            }
-            return result;
-        }
+        public string RunOn(string s) => new(s.Select(c => this.RunOn(c)).ToArray());
         /**
         <summary>Steps the enigma.</summary>
         */

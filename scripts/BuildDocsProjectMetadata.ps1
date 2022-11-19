@@ -1,0 +1,1 @@
+docfx metadata ./ZP.CSharp.Enigma.Docs/docfx.json --force

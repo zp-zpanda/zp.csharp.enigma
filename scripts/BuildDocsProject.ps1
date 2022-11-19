@@ -1,0 +1,1 @@
+docfx build ./ZP.CSharp.Enigma.Docs/docfx.json -o docs
