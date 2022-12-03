@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -6,30 +7,30 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The enigma.</summary>
     */
-    public class Enigma
+    public class Enigma : IEnigma<Enigma, Rotor, Reflector>
     {
-        private Rotor[] _Rotors;
+        private Rotor[] _Rotors = new Rotor[0];
         /**
-        <summary>The rotors this enigma has.</summary>
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TReflector}.Rotors" />
         */
-        public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
+        public required Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private Reflector _Reflector;
         /**
-        <summary>The reflector this enigma has.</summary>
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TReflector}.Reflector" />
         */
-        public Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
-        /**
-        <summary>Creates a rotor with the rotors and the reflector provided.</summary>
-        */
-        public Enigma(Reflector reflector, params Rotor[] rotors)
+        public required Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
+        [SetsRequiredMembers]
+        protected Enigma(Reflector reflector, params Rotor[] rotors)
         {
             this.Rotors = rotors;
             this.Reflector = reflector;
         }
         /**
-        <summary>Runs the enigma on a character.</summary>
-        <param name="c">The character to run on.</param>
-        <returns>The encoded/decoded character.</returns>
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TReflector}.FromRotorAndReflector(TReflector, TRotor[])" />
+        */
+        public static Enigma FromRotorAndReflector(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
+        /**
+        <inheritdoc cref="IEnigma.RunOn(char)" />
         */
         public virtual char RunOn(char c)
         {
@@ -41,13 +42,11 @@ namespace ZP.CSharp.Enigma
             return input;
         }
         /**
-        <summary>Runs the enigma on a string.</summary>
-        <param name="s">The string to run on.</param>
-        <returns>The encoded/decoded string.</returns>
+        <inheritdoc cref="IEnigma.RunOn(string)" />
         */
         public string RunOn(string s) => new(s.Select(c => this.RunOn(c)).ToArray());
         /**
-        <summary>Steps the enigma.</summary>
+        <inheritdoc cref="IEnigma.Step()" />
         */
         public virtual void Step() {}
     }
