@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -6,27 +7,30 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The rotor pair.</summary>
     */
-    public class RotorPair : IEquatable<RotorPair>
+    public class RotorPair : IRotorPair<RotorPair>, IEquatable<RotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
-        <summary>The mapping.</summary>
+        <inheritdoc cref="IRotorPair.Map" />
         */
-        public (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
+        public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <summary>Creates a rotor pair with two characters.</summary>
-        <param name="eSide">The character on the entry wheel side.</param>
-        <param name="rSide">The character on the reflector side.</param>
+        <inheritdoc cref="RotorPair.WithTwoCharacters(char, char)" />
         */
-        public RotorPair(char eSide, char rSide)
+        [SetsRequiredMembers]
+        protected RotorPair(char eSide, char rSide)
         {
             this.Map = (eSide, rSide);
         }
         /**
-        <summary>Creates a rotor pair with a two-character-long map.</summary>
-        <param name="map">The mapping.</param>
+        <inheritdoc cref="IRotorPair{TRotorPair}.WithTwoCharacters(char, char)" />
         */
-        public RotorPair(string map)
+        public static RotorPair WithTwoCharacters(char eSide, char rSide) => new RotorPair(eSide, rSide);
+        /**
+        <inheritdoc cref="RotorPair.WithMap(string)" />
+        */
+        [SetsRequiredMembers]
+        protected RotorPair(string map)
         {
             if (map.Length != 2)
             {
@@ -34,6 +38,10 @@ namespace ZP.CSharp.Enigma
             }
             this.Map = (map[0], map[1]);
         }
+        /**
+        <inheritdoc cref="IRotorPair{TRotorPair}.WithMap(string)" />
+        */
+        public static RotorPair WithMap(string map) => new RotorPair(map);
         /**
         <summary>Produces the hash code for the rotor pair.</summary>
         */
