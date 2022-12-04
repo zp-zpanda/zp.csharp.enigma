@@ -8,16 +8,10 @@ namespace ZP.CSharp.Enigma.Tests
     public class RotorTests
     {
         [Fact]
-        public void RotorDefaultsToZeroRotorPairs()
-        {
-            var rotor = new Rotor();
-            Assert.Empty(rotor.Pairs);
-        }
-        [Fact]
         public void RotorPairsCanBeAddedToRotor()
         {
-            var pair1 = new RotorPair('a', 'z');
-            var pair2 = new RotorPair('z', 'a');
+            var pair1 = RotorPair.WithTwoCharacters('a', 'z');
+            var pair2 = RotorPair.WithTwoCharacters('z', 'a');
             var rotor = new Rotor(0, new[]{0}, pair1, pair2);
             Assert.Contains(pair1, rotor.Pairs);
             Assert.Contains(pair2, rotor.Pairs);
@@ -30,7 +24,7 @@ namespace ZP.CSharp.Enigma.Tests
             var rotor = new Rotor(0, new[]{0}, e, r);
             var i = 0;
             Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, new RotorPair(eChars[i], rChars[i]));
+                Assert.Equal(pair, RotorPair.WithTwoCharacters(eChars[i], rChars[i]));
                 i++;
             });
         }
@@ -42,7 +36,7 @@ namespace ZP.CSharp.Enigma.Tests
             var rotor = new Rotor(0, new[]{0}, maps);
             var i = 0;
             Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, new RotorPair(eChars[i], rChars[i]));
+                Assert.Equal(pair, RotorPair.WithTwoCharacters(eChars[i], rChars[i]));
                 i++;
             });
         }

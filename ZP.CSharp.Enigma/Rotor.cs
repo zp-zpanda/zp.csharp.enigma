@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 using ZP.CSharp.Enigma;
@@ -7,39 +8,32 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The rotor.</summary>
     */
-    public class Rotor
+    public class Rotor : IRotor<Rotor, RotorPair>
     {
         private RotorPair[] _Pairs = new RotorPair[0];
         /**
-        <summary>The rotor pairs this rotor has.</summary>
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */
-        public RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         private string _Domain = "";
         /**
-        <summary>The domain of this rotor.</summary>
+        <inheritdoc cref="IRotor.Domain" />
         */
-        public string Domain {get => this._Domain; set => this._Domain = value;}
+        public required string Domain {get => this._Domain; set => this._Domain = value;}
         private int _Position = 0;
         /**
-        <summary>The position of this rotor.</summary>
+        <inheritdoc cref="IRotor.Position" />
         */
-        public int Position {get => this._Position; set => this._Position = value;}
+        public required int Position {get => this._Position; set => this._Position = value;}
         private int[] _Notch = new int[]{0};
         /**
-        <summary>The turning notches of this rotor.</summary>
+        <inheritdoc cref="IRotor.Notch" />
         */
-        public int[] Notch {get => this._Notch; set => this._Notch = value;}
+        public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <summary>Creates a rotor with zero rotor pairs.</summary>
+        <inheritdoc cref="Rotor.WithPositionNotchAndRotorPairs(int, int[], RotorPair[])" />
         */
-        public Rotor()
-        {}
-        /**
-        <summary>Creates a rotor with the rotor pairs provided.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="pairs">The rotor pairs.</param>
-        */
+        [SetsRequiredMembers]
         public Rotor(int pos, int[] notch, params RotorPair[] pairs)
         {
             this.Pairs = pairs;
@@ -52,11 +46,13 @@ namespace ZP.CSharp.Enigma
             this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
-        <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="maps">The rotor pair mappings.</param>
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndRotorPairs(int, int[], TRotorPair[])" />
         */
+        public static Rotor WithPositionNotchAndRotorPairs(int pos, int[] notch, params RotorPair[] pairs) => new Rotor(pos, notch, pairs);
+        /**
+        <inheritdoc cref="Rotor.WithPositionNotchAndTwoCharacterMaps(int, int[], string[])" />
+        */
+        [SetsRequiredMembers]
         public Rotor(int pos, int[] notch, params string[] maps)
         {
             if (!maps.All(map => map.Count() == 2))
@@ -64,7 +60,7 @@ namespace ZP.CSharp.Enigma
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{EntryWheelSide}{ReflectorSide}\"");
             }
             var pairs = new List<RotorPair>();
-            maps.ToList().ForEach(map => pairs.Add(new RotorPair(map)));
+            maps.ToList().ForEach(map => pairs.Add(RotorPair.WithMap(map)));
             this.Pairs = pairs.ToArray();
             if (!this.IsValid())
             {
@@ -75,12 +71,13 @@ namespace ZP.CSharp.Enigma
             this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
-        <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="e">The entry wheel-side mapping.</param>
-        <param name="r">The reflector-side mapping.</param>
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndTwoCharacterMaps(int, int[], string[])" />
         */
+        public static Rotor WithPositionNotchAndTwoCharacterMaps(int pos, int[] notch, params string[] maps) => new Rotor(pos, notch, maps);
+        /**
+        <inheritdoc cref="Rotor.WithPositionNotchAndTwoMaps(int, int[], string, string)" />
+        */
+        [SetsRequiredMembers]
         public Rotor(int pos, int[] notch, string e, string r)
         {
             if (e.Length != r.Length)
@@ -90,7 +87,7 @@ namespace ZP.CSharp.Enigma
             var pairs = new List<RotorPair>();
             for (int i = 0; i < e.Length; i++)
             {
-                pairs.Add(new RotorPair(e[i], r[i]));
+                pairs.Add(RotorPair.WithTwoCharacters(e[i], r[i]));
             }
             this.Pairs = pairs.ToArray();
             if (!this.IsValid())
@@ -102,8 +99,11 @@ namespace ZP.CSharp.Enigma
             this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
         }
         /**
-        <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
-        <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndTwoMaps(int, int[], string, string)" />
+        */
+        public static Rotor WithPositionNotchAndTwoMaps(int pos, int[] notch, string e, string r) => new Rotor(pos, notch, e, r);
+        /**
+        <inheritdoc cref="IRotor.IsValid()" />
         */
         public virtual bool IsValid()
         {
@@ -115,10 +115,7 @@ namespace ZP.CSharp.Enigma
             return (e && r && same);
         }
         /**
-        <summary>Matches a character from the entry wheel.</summary>
-        <param name="c">The character to map.</param>
-        <returns>The mapped character.</returns>
-        <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
+        <inheritdoc cref="IRotor.FromEntryWheel(char)" />
         */
         public char FromEntryWheel(char c)
         {
@@ -132,10 +129,7 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Matches a character from the reflector.</summary>
-        <param name="c">The character to map.</param>
-        <returns>The mapped character.</returns>
-        <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
+        <inheritdoc cref="IRotor.FromReflector(char)" />
         */
         public char FromReflector(char c)
         {
@@ -149,14 +143,11 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Computes the domain of this rotor.</summary>
-        <returns>The domain.</returns>
+        <inheritdoc cref="IRotor.ComputeDomain()" />
         */
         public virtual string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
         /**
-        <summary>Transposes a character coming to the rotor.</summary>
-        <param name="c">The character to transpose.</param>
-        <returns>The transposed character.</returns>
+        <inheritdoc cref="IRotor.TransposeIn(char)" />
         */
         public char TransposeIn(char c)
         {
@@ -165,9 +156,7 @@ namespace ZP.CSharp.Enigma
             return this.Domain[(index + this.Position) % length];
         }
         /**
-        <summary>Transposes a character going away from the rotor.</summary>
-        <param name="c">The character to transpose.</param>
-        <returns>The transposed character.</returns>
+        <inheritdoc cref="IRotor.TransposeOut(char)" />
         */
         public char TransposeOut(char c)
         {
@@ -176,11 +165,11 @@ namespace ZP.CSharp.Enigma
             return this.Domain[(index - this.Position + length) % length];
         }
         /**
-        <summary>Returns whether this rotor allows the next to step or not.</summary>
+        <inheritdoc cref="IRotor.AllowNextToStep()" />
         */
         public bool AllowNextToStep() => this.Notch.Contains(this.Position);
         /**
-        <summary>Steps the rotor.</summary>
+        <inheritdoc cref="IRotor.Step()" />
         */
         public void Step() => this.Position = ((this.Position + 1) % this.Pairs.Length);
     }

@@ -6,7 +6,20 @@ namespace ZP.CSharp.Enigma.Tests
 {
     public class EnigmaTests
     {
-        public Enigma TestEnigma = new Enigma(new Reflector(new ReflectorPair("ab"), new ReflectorPair("cd")), new Rotor(0, 0, new RotorPair("ac"), new RotorPair("ba"), new RotorPair("cd"), new RotorPair("db")));
+        public Enigma TestEnigma = Enigma.FromRotorAndReflector(
+            new Reflector(
+                new ReflectorPair("ab"),
+                new ReflectorPair("cd")
+            ),
+            new Rotor(
+                0,
+                new[]{0},
+                RotorPair.WithMap("ac"),
+                RotorPair.WithMap("ba"),
+                RotorPair.WithMap("cd"),
+                RotorPair.WithMap("db")
+            )
+        );
         [Theory]
         [InlineData('a')]
         [InlineData('b')]
