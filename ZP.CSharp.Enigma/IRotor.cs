@@ -71,12 +71,12 @@ namespace ZP.CSharp.Enigma
     */
     public interface IRotor<TRotor, TRotorPair> : IRotor
         where TRotor : IRotor<TRotor, TRotorPair>, IRotor
-        where TRotorPair : RotorPair
+        where TRotorPair : IRotorPair<TRotorPair>
     {
         /**
         <summary>The rotor pairs this rotor has.</summary>
         */
-        public RotorPair[] Pairs {get; set;}
+        public TRotorPair[] Pairs {get; set;}
         /**
         <summary>Creates a rotor with the rotor pairs provided.</summary>
         <param name="pos">The position.</param>
@@ -90,7 +90,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public static abstract TRotor WithPositionNotchAndTwoCharacterMaps(int pos, int[] notch, params string[] maps);
+        public static abstract TRotor WithPositionNotchAndMaps(int pos, int[] notch, params string[] maps);
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
         <param name="pos">The position.</param>
