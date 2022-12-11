@@ -12,7 +12,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData('我', '你')]
         public void ReflectorPairCanBeSetWithTwoChars(char e, char r)
         {
-            var pair = new ReflectorPair(e, r);
+            var pair = ReflectorPair.WithTwoCharacters(e, r);
             var map = new[]{pair.Map.One, pair.Map.Two};
             Assert.IsType<(char, char)>(pair.Map);
             Assert.Contains(e, map);
@@ -25,7 +25,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData('你')]
         public void ReflectorPairCannotHaveSameCharOnBothSides(char c)
         {
-            Assert.Throws<ArgumentException>(() => {var pair = new ReflectorPair(c, c);});
+            Assert.Throws<ArgumentException>(() => {var pair = ReflectorPair.WithTwoCharacters(c, c);});
         }
     }
 }

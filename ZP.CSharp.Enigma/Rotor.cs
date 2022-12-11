@@ -34,7 +34,7 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.WithPositionNotchAndRotorPairs(int, int[], RotorPair[])" />
         */
         [SetsRequiredMembers]
-        public Rotor(int pos, int[] notch, params RotorPair[] pairs)
+        protected Rotor(int pos, int[] notch, params RotorPair[] pairs)
         {
             this.Pairs = pairs;
             if (!this.IsValid())
@@ -53,7 +53,7 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.WithPositionNotchAndMaps(int, int[], string[])" />
         */
         [SetsRequiredMembers]
-        public Rotor(int pos, int[] notch, params string[] maps)
+        protected Rotor(int pos, int[] notch, params string[] maps)
         {
             if (!maps.All(map => map.Count() == 2))
             {
@@ -78,7 +78,7 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.WithPositionNotchAndTwoMaps(int, int[], string, string)" />
         */
         [SetsRequiredMembers]
-        public Rotor(int pos, int[] notch, string e, string r)
+        protected Rotor(int pos, int[] notch, string e, string r)
         {
             if (e.Length != r.Length)
             {
