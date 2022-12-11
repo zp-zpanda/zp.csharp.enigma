@@ -7,7 +7,7 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The reflector.</summary>
     */
-    public class Reflector
+    public class Reflector : IReflector<Reflector, ReflectorPair>
     {
         private ReflectorPair[] _Pairs = new ReflectorPair[0];
         /**
@@ -15,13 +15,7 @@ namespace ZP.CSharp.Enigma
         */
         public ReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <summary>Creates a reflector with zero reflector pairs.</summary>
-        */
-        public Reflector()
-        {}
-        /**
-        <summary>Creates a reflector with the reflector pairs provided.</summary>
-        <param name="pairs">The reflector pairs.</param>
+        <inheritdoc cref="Reflector.WithReflectorPairs(ReflectorPair[])" />
         */
         public Reflector(params ReflectorPair[] pairs)
         {
@@ -32,8 +26,11 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
-        <param name="maps">The reflector pair mappings.</param>
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.WithReflectorPairs(TReflectorPair[])" />
+        */
+        public static Reflector WithReflectorPairs(params ReflectorPair[] pairs) => new Reflector(pairs);
+        /**
+        <inheritdoc cref="Reflector.WithMaps(string[])" />
         */
         public Reflector(params string[] maps)
         {
@@ -50,8 +47,11 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
-        <param name="map">The mapping.</param>
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.WithMaps(string[])" />
+        */
+        public static Reflector WithMaps(params string[] maps) => new Reflector(maps);
+        /**
+        <inheritdoc cref="Reflector.WithMap(string)" />
         */
         public Reflector(string map)
         {
@@ -70,6 +70,10 @@ namespace ZP.CSharp.Enigma
                 throw new ArgumentException("Reflector pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
         }
+        /**
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.WithMap(string)" />
+        */
+        public static Reflector WithMap(string map) => new Reflector(map);
         /**
         <summary>Checks if the reflector is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c>true</c> if valid, else <c>false</c>.</returns>
