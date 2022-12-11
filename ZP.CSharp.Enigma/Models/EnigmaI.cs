@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Implementations;
@@ -34,18 +35,19 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> I reflector A.</summary>
         */
-        public static Reflector A {get => new Reflector("AEBJCMDZFLGYHXIVKWNROQPUST");}
+        public static Reflector A {get => Reflector.WithMap("AEBJCMDZFLGYHXIVKWNROQPUST");}
         /**
         <summary> I reflector B.</summary>
         */
-        public static Reflector B {get => new Reflector("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static Reflector B {get => Reflector.WithMap("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
         <summary> I reflector C.</summary>
         */
-        public static Reflector C {get => new Reflector("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static Reflector C {get => Reflector.WithMap("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
+        [SetsRequiredMembers]
         public EnigmaI(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             : base(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III))
         {

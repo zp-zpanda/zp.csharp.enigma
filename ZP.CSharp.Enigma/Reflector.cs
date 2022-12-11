@@ -17,7 +17,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="Reflector.WithReflectorPairs(ReflectorPair[])" />
         */
-        public Reflector(params ReflectorPair[] pairs)
+        protected Reflector(params ReflectorPair[] pairs)
         {
             this.Pairs = pairs;
             if (!this.IsValid())
@@ -32,14 +32,14 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="Reflector.WithMaps(string[])" />
         */
-        public Reflector(params string[] maps)
+        protected Reflector(params string[] maps)
         {
             if (!maps.All(map => map.Length == 2))
             {
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{One}{Two}\"");
             }
             var pairs = new List<ReflectorPair>();
-            maps.ToList().ForEach(map => pairs.Add(new ReflectorPair(map)));
+            maps.ToList().ForEach(map => pairs.Add(ReflectorPair.WithMap(map)));
             this.Pairs = pairs.ToArray();
             if (!this.IsValid())
             {
@@ -53,7 +53,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="Reflector.WithMap(string)" />
         */
-        public Reflector(string map)
+        protected Reflector(string map)
         {
             if (map.Length % 2 != 0)
             {
@@ -62,7 +62,7 @@ namespace ZP.CSharp.Enigma
             var pairs = new List<ReflectorPair>();
             for (int i = 0; i < (map.Length / 2); i++)
             {
-                pairs.Add(new ReflectorPair(map[i * 2], map[i * 2 + 1]));
+                pairs.Add(ReflectorPair.WithTwoCharacters(map[i * 2], map[i * 2 + 1]));
             }
             this.Pairs = pairs.ToArray();
             if (!this.IsValid())
