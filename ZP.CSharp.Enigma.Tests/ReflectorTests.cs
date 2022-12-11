@@ -40,7 +40,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(false, new[]{"ab", "bc"})]
         public void ReflectorCanBeValidated(bool isValid, string[] maps)
         {
-            var action = () => {var rotor = new Reflector(maps);};
+            var action = () => {var reflector = new Reflector(maps);};
             if (isValid)
             {
                 action();

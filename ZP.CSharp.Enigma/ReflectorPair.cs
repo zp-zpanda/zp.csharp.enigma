@@ -6,7 +6,7 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The reflector pair.</summary>
     */
-    public class ReflectorPair : IEquatable<ReflectorPair>
+    public class ReflectorPair : IReflectorPair<ReflectorPair>, IEquatable<ReflectorPair>
     {
         private (char One, char Two) _Map;
         /**
@@ -14,9 +14,7 @@ namespace ZP.CSharp.Enigma
         */
         public (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
-        <summary>Creates a reflector pair with two characters.</summary>
-        <param name="one">The first character.</param>
-        <param name="two">The second character.</param>
+        <inheritdoc cref="ReflectorPair.WithTwoCharacters(char, char)" />
         */
         public ReflectorPair(char one, char two)
         {
@@ -28,8 +26,11 @@ namespace ZP.CSharp.Enigma
             this.Map = (map.First(), map.Last());
         }
         /**
-        <summary>Creates a rotor pair with a two-character-long map.</summary>
-        <param name="map">The mapping.</param>
+        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithTwoCharacters(char, char)" />
+        */
+        public static ReflectorPair WithTwoCharacters(char one, char two) => new ReflectorPair(one, two);
+        /**
+        <inheritdocs cref="ReflectorPair.WithMap(string)" />
         */
         public ReflectorPair(string map)
         {
@@ -44,6 +45,10 @@ namespace ZP.CSharp.Enigma
             var mapArr = map.ToCharArray().OrderBy(c => c);
             this.Map = (mapArr.First(), mapArr.Last());
         }
+        /**
+        <inheritdocs cref="IReflectorPair{TReflectorPair}.WithMap(string)" />
+        */
+        public static ReflectorPair WithMap(string map) => new ReflectorPair(map);
         /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */
