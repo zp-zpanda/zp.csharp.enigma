@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 using ZP.CSharp.Enigma;
@@ -13,10 +14,11 @@ namespace ZP.CSharp.Enigma
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */
-        public ReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required ReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
         <inheritdoc cref="Reflector.WithReflectorPairs(ReflectorPair[])" />
         */
+        [SetsRequiredMembers]
         protected Reflector(params ReflectorPair[] pairs)
         {
             this.Pairs = pairs;
@@ -32,6 +34,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="Reflector.WithMaps(string[])" />
         */
+        [SetsRequiredMembers]
         protected Reflector(params string[] maps)
         {
             if (!maps.All(map => map.Length == 2))
@@ -53,6 +56,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="Reflector.WithMap(string)" />
         */
+        [SetsRequiredMembers]
         protected Reflector(string map)
         {
             if (map.Length % 2 != 0)

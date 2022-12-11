@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -12,10 +13,11 @@ namespace ZP.CSharp.Enigma
         /**
         <summary>The mapping.</summary>
         */
-        public (char One, char Two) Map {get => this._Map; set => this._Map = value;}
+        public required (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
         <inheritdoc cref="ReflectorPair.WithTwoCharacters(char, char)" />
         */
+        [SetsRequiredMembers]
         protected ReflectorPair(char one, char two)
         {
             if (one == two)
@@ -32,6 +34,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */
+        [SetsRequiredMembers]
         protected ReflectorPair(string map)
         {
             if (map.Length != 2)
