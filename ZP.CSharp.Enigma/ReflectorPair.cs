@@ -30,7 +30,7 @@ namespace ZP.CSharp.Enigma
         */
         public static ReflectorPair WithTwoCharacters(char one, char two) => new ReflectorPair(one, two);
         /**
-        <inheritdocs cref="ReflectorPair.WithMap(string)" />
+        <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */
         public ReflectorPair(string map)
         {
@@ -46,7 +46,7 @@ namespace ZP.CSharp.Enigma
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
-        <inheritdocs cref="IReflectorPair{TReflectorPair}.WithMap(string)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithMap(string)" />
         */
         public static ReflectorPair WithMap(string map) => new ReflectorPair(map);
         /**
