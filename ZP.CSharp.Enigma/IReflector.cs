@@ -7,25 +7,8 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The interface for the reflector.</summary>
     */
-    public interface IReflector
-    {
-        /**
-        <summary>Checks if the reflector is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
-        <returns><c>true</c> if valid, else <c>false</c>.</returns>
-        */
-        public bool IsValid();
-        /**
-        <summary>Reflects a character.</summary>
-        <param name="c">The character to reflect.</param>
-        <returns>The reflected character.</returns>
-        */
-        public char Reflect(char c);
-    }
-    /**
-    <summary>The generic interface for the reflector.</summary>
-    */
-    public interface IReflector<TReflector, TReflectorPair> : IReflector
-        where TReflector : IReflector<TReflector, TReflectorPair>, IReflector
+    public interface IReflector<TReflector, TReflectorPair> 
+        where TReflector : IReflector<TReflector, TReflectorPair>
         where TReflectorPair : IReflectorPair<TReflectorPair>
     {
         /**
@@ -47,5 +30,37 @@ namespace ZP.CSharp.Enigma
         <param name="map">The mapping.</param>
         */
         public static abstract TReflector WithMap(string map);
+        /**
+        <summary>Checks if the reflector is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
+        <returns><c>true</c> if valid, else <c>false</c>.</returns>
+        */
+        public bool IsValid()
+        {
+            var chars = new HashSet<char>();
+            var isValid = true;
+            this.Pairs.ToList().ForEach(pair => {
+                if (!(chars.Add(pair.Map.One) && chars.Add(pair.Map.Two)))
+                {
+                    isValid = false;
+                }});
+            return isValid;
+        }
+        /**
+        <summary>Reflects a character.</summary>
+        <param name="c">The character to reflect.</param>
+        <returns>The reflected character.</returns>
+        */
+        public char Reflect(char c)
+        {
+            try
+            {
+                var found = this.Pairs.Where(pair => new[]{pair.Map.One, pair.Map.Two}.Contains(c)).Single();
+                return new[]{found.Map.One, found.Map.Two}.Except(new[]{c}).Single();
+            }
+            catch
+            {
+                throw new CharacterNotFoundException();
+            }
+        }
     }
 }

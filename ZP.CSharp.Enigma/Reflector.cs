@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 using ZP.CSharp.Enigma;
+using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
@@ -78,37 +79,5 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.WithMap(string)" />
         */
         public static Reflector WithMap(string map) => new Reflector(map);
-        /**
-        <summary>Checks if the reflector is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
-        <returns><c>true</c> if valid, else <c>false</c>.</returns>
-        */
-        public bool IsValid()
-        {
-            var chars = new HashSet<char>();
-            var isValid = true;
-            this.Pairs.ToList().ForEach(pair => {
-                if (!(chars.Add(pair.Map.One) && chars.Add(pair.Map.Two)))
-                {
-                    isValid = false;
-                }});
-            return isValid;
-        }
-        /**
-        <summary>Reflects a character.</summary>
-        <param name="c">The character to reflect.</param>
-        <returns>The reflected character.</returns>
-        */
-        public virtual char Reflect(char c)
-        {
-            try
-            {
-                var found = this.Pairs.Where(pair => new[]{pair.Map.One, pair.Map.Two}.Contains(c)).Single();
-                return new[]{found.Map.One, found.Map.Two}.Except(new[]{c}).Single();
-            }
-            catch
-            {
-                throw new CharacterNotFoundException();
-            }
-        }
     }
 }
