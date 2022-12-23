@@ -22,12 +22,6 @@ namespace ZP.CSharp.Enigma
         */
         public TReflector Reflector {get; set;}
         /**
-        <summary>Creates a rotor with the rotors and the reflector provided.</summary>
-        <param name="reflector">The reflector.</param>
-        <param name="rotors">The rotors.</param>
-        */
-        public static abstract TEnigma FromRotorAndReflector(TReflector reflector, params TRotor[] rotors);
-        /**
         <summary>Runs the enigma on a character.</summary>
         <param name="c">The character to run on.</param>
         <returns>The encoded/decoded character.</returns>
