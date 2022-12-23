@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
@@ -32,6 +32,6 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */
-        public virtual void Step() {}
+        public void Step() {}
     }
 }

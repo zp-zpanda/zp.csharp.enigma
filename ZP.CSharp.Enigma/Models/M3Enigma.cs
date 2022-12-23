@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using ZP.CSharp.Enigma;
+using ZP.CSharp.Enigma.Helpers;
 using ZP.CSharp.Enigma.Implementations;
 using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
@@ -9,9 +10,19 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : Enigma
+    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, RotorPair, Reflector, ReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private Rotor[] _Rotors = new Rotor[0];
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
+        */
+        public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
+        private Reflector _Reflector;
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
+        */
+        public Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
         <summary> M3 rotor I.</summary>
         */
@@ -57,12 +68,14 @@ namespace ZP.CSharp.Enigma.Models
         */
         [SetsRequiredMembers]
         public M3Enigma(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
-            : base(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III))
         {
+            this.Setup(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
+        public static M3Enigma New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+            => new M3Enigma(reflector, rotors, pos);
         private static Rotor GetRotor(string rotor)
         {
             return new Dictionary<string, Rotor>(){
