@@ -8,6 +8,20 @@ namespace ZP.CSharp.Enigma.Helpers
     */
     public static class EnigmaHelpers
     {
+        public static TEnigma Setup<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair>(
+            this IEnigma<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair> e,
+            TReflector reflector,
+            params TRotor[] rotors)
+            where TEnigma : IEnigma<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair>
+            where TRotor : IRotor<TRotor, TRotorPair>
+            where TRotorPair : IRotorPair<TRotorPair>
+            where TReflector : IReflector<TReflector, TReflectorPair>
+            where TReflectorPair : IReflectorPair<TReflectorPair>
+        {
+            e.Rotors = rotors;
+            e.Reflector = reflector;
+            return (TEnigma) e;
+        }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.RunOn(char)" />
         */
