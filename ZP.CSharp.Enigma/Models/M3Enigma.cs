@@ -13,11 +13,11 @@ namespace ZP.CSharp.Enigma.Models
     public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, RotorPair, Reflector, ReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private Rotor[] _Rotors = new Rotor[0];
+        private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */
-        public Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
+        public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private Reflector _Reflector;
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
@@ -26,35 +26,35 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> M3 rotor I.</summary>
         */
-        public static Rotor I {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{16}, Letters, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
         /**
         <summary> M3 rotor II.</summary>
         */
-        public static Rotor II {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{4}, Letters, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
         /**
         <summary> M3 rotor III.</summary>
         */
-        public static Rotor III {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{21}, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
+        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
         /**
         <summary> M3 rotor IV.</summary>
         */
-        public static Rotor IV {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{9}, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
+        public static AlphabeticalRotor IV {get => AlphabeticalRotor.New(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
         /**
         <summary> M3 rotor V.</summary>
         */
-        public static Rotor V {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25}, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
+        public static AlphabeticalRotor V {get => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");}
         /**
         <summary> M3 rotor VI.</summary>
         */
-        public static Rotor VI {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "JPGVOUMFYQBENHZRDKASXLICTW");}
+        public static AlphabeticalRotor VI {get => AlphabeticalRotor.New(0, new[]{25, 12}, "JPGVOUMFYQBENHZRDKASXLICTW");}
         /**
         <summary> M3 rotor VII.</summary>
         */
-        public static Rotor VII {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "NZJHGRCXMYSWBOUFAIVLPEKQDT");}
+        public static AlphabeticalRotor VII {get => AlphabeticalRotor.New(0, new[]{25, 12}, "NZJHGRCXMYSWBOUFAIVLPEKQDT");}
         /**
         <summary> M3 rotor VIII.</summary>
         */
-        public static Rotor VIII {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "FKQHTLXOCBJSPDZRAMEWNIUYGV");}
+        public static AlphabeticalRotor VIII {get => AlphabeticalRotor.New(0, new[]{25, 12}, "FKQHTLXOCBJSPDZRAMEWNIUYGV");}
         /**
         <summary> M3 reflector B.</summary>
         */
@@ -76,9 +76,9 @@ namespace ZP.CSharp.Enigma.Models
         }
         public static M3Enigma New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new M3Enigma(reflector, rotors, pos);
-        private static Rotor GetRotor(string rotor)
+        private static AlphabeticalRotor GetRotor(string rotor)
         {
-            return new Dictionary<string, Rotor>(){
+            return new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
                 {"II", II},
                 {"III", III},
