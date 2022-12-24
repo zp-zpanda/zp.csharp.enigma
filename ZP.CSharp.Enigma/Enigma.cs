@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
+using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
@@ -19,6 +20,9 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
         */
         public required Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
+        /**
+        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
+        */
         [SetsRequiredMembers]
         protected Enigma(Reflector reflector, params Rotor[] rotors)
         {
