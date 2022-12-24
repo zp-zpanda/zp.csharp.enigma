@@ -89,6 +89,6 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */
-        public override void Step() => new DoubleSteppingRotorStepper().Step(this.Rotors);
+        public void Step() => this.Rotors.StepWithDoubleSteppingMechanism();
     }
 }
