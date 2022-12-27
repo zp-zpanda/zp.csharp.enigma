@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,8 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.New(int, int[], RotorPair[])" />
         */
         [SetsRequiredMembers]
-        protected Rotor(int pos, int[] notch, params RotorPair[] pairs) => this.Setup(pos, notch, pairs);
+        protected Rotor(int pos, int[] notch, params RotorPair[] pairs)
+            => this.Setup(pos, notch, pairs);
         /**
         <summary>Creates a rotor with the rotor pairs provided.</summary>
         <param name="pos">The position.</param>
@@ -43,11 +45,12 @@ namespace ZP.CSharp.Enigma
         <param name="pairs">The rotor pairs.</param>
         */
         public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new Rotor(pos, notch, pairs);
-        /**
+        /*
         <inheritdoc cref="Rotor.New(int, int[], string[])" />
         */
         [SetsRequiredMembers]
-        protected Rotor(int pos, int[] notch, params string[] maps) => this.Setup(pos, notch, maps);
+        protected Rotor(int pos, int[] notch, params string[] maps) 
+            => this.Setup(pos, notch, this.GetPairsFrom(maps));
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
         <param name="pos">The position.</param>
@@ -56,16 +59,17 @@ namespace ZP.CSharp.Enigma
         */
         public static Rotor New(int pos, int[] notch, params string[] maps) => new Rotor(pos, notch, maps);
         /**
+        <inheritdoc cref="Rotor.New(int, int[], string, string)" />
+        */
+        [SetsRequiredMembers]
+        protected Rotor(int pos, int[] notch, string e, string r)
+            => this.Setup(pos, notch, this.GetPairsFrom(e, r));
+        /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
         <param name="pos">The position.</param>
         <param name="notch">The turning notch.</param>
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
-        */
-        [SetsRequiredMembers]
-        protected Rotor(int pos, int[] notch, string e, string r) => this.Setup(pos, notch, e, r);
-        /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.New(int, int[], string, string)" />
         */
         public static Rotor New(int pos, int[] notch, string e, string r) => new Rotor(pos, notch, e, r);
         /**
