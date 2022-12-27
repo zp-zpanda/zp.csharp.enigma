@@ -27,10 +27,8 @@ namespace ZP.CSharp.Enigma.Helpers
             r.Position = pos % r.Pairs.Length;
             r.Notch = notch.Select(n => n % r.Pairs.Length).ToArray();
         }
-        public static void Setup<TRotor, TRotorPair>(
-            this IRotor<TRotor, TRotorPair> r,
-            int pos,
-            int[] notch,
+        public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
+            this IRotor<TRotor, TRotorPair> rotor,
             params string[] maps)
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
@@ -39,44 +37,25 @@ namespace ZP.CSharp.Enigma.Helpers
             {
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{EntryWheelSide}{ReflectorSide}\"");
             }
-            var pairs = new List<TRotorPair>();
-            maps.ToList().ForEach(map => pairs.Add(TRotorPair.New(map)));
-            r.Pairs = pairs.ToArray();
-            if (!r.IsValid())
-            {
-                throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
-            }
-            r.Domain = r.ComputeDomain();
-            r.Position = pos % r.Pairs.Length;
-            r.Notch = notch.Select(n => n % r.Pairs.Length).ToArray();
+            return maps.Select(map => TRotorPair.New(map.First(), map.Last())).ToArray();
         }
-        public static void Setup<TRotor, TRotorPair>(
+        public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair> rotor,
-            int pos,
-            int[] notch,
             string e,
             string r)
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
         {
-            
-            if (e.Length != r.Length)
+            var length = 0;
+            try
+            {
+                length = new string[]{e, r}.Select(s => s.Length).Distinct().Single();
+            }
+            catch
             {
                 throw new ArgumentException("Mappings are not of same length. Expected mappings: \"{EntryWheelSide}\", \"{ReflectorSide}\"");
             }
-            var pairs = new List<TRotorPair>();
-            for (int i = 0; i < e.Length; i++)
-            {
-                pairs.Add(TRotorPair.New(e[i], r[i]));
-            }
-            rotor.Pairs = pairs.ToArray();
-            if (!rotor.IsValid())
-            {
-                throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
-            }
-            rotor.Domain = rotor.ComputeDomain();
-            rotor.Position = pos % rotor.Pairs.Length;
-            rotor.Notch = notch.Select(n => n % rotor.Pairs.Length).ToArray();
+            return Enumerable.Range(0, length).Select(i => TRotorPair.New(e[i], r[i])).ToArray();
         }
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.IsValid()" />
