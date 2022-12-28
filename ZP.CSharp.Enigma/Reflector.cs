@@ -11,7 +11,7 @@ namespace ZP.CSharp.Enigma
     */
     public class Reflector : IReflector<Reflector, ReflectorPair>
     {
-        private ReflectorPair[] _Pairs = new ReflectorPair[0];
+        private ReflectorPair[] _Pairs = Array.Empty<ReflectorPair>();
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */

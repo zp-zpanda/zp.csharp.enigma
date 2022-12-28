@@ -14,7 +14,7 @@ namespace ZP.CSharp.Enigma.Implementations
     {
         public const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
-        private AlphabeticalRotorPair[] _Pairs = new AlphabeticalRotorPair[0];
+        private AlphabeticalRotorPair[] _Pairs = Array.Empty<AlphabeticalRotorPair>();
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */

@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma
     */
     public class Enigma : IEnigma<Enigma, Rotor, RotorPair, Reflector, ReflectorPair>
     {
-        private Rotor[] _Rotors = new Rotor[0];
+        private Rotor[] _Rotors = Array.Empty<Rotor>();
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */

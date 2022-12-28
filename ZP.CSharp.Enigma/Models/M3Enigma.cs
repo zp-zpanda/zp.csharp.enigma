@@ -13,7 +13,7 @@ namespace ZP.CSharp.Enigma.Models
     public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
+        private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */

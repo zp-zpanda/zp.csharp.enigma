@@ -11,7 +11,7 @@ namespace ZP.CSharp.Enigma.Implementations
     */
     public class AlphabeticalReflector : IReflector<AlphabeticalReflector, AlphabeticalReflectorPair>
     {
-        private AlphabeticalReflectorPair[] _Pairs = new AlphabeticalReflectorPair[0];
+        private AlphabeticalReflectorPair[] _Pairs = Array.Empty<AlphabeticalReflectorPair>();
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */

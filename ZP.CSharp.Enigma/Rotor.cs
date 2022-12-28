@@ -12,7 +12,7 @@ namespace ZP.CSharp.Enigma
     */
     public class Rotor : IRotor<Rotor, RotorPair>
     {
-        private RotorPair[] _Pairs = new RotorPair[0];
+        private RotorPair[] _Pairs = Array.Empty<RotorPair>();
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */
