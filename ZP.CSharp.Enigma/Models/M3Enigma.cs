@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, RotorPair, Reflector, ReflectorPair>
+    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, Reflector, ReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];

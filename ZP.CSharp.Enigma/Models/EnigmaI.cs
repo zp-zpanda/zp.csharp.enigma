@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma I implementation.</summary>
     */
-    public class EnigmaI : IEnigma<EnigmaI, AlphabeticalRotor, RotorPair, Reflector, ReflectorPair>
+    public class EnigmaI : IEnigma<EnigmaI, AlphabeticalRotor, AlphabeticalRotorPair, Reflector, ReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
