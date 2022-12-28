@@ -46,15 +46,15 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> I reflector A.</summary>
         */
-        public static Reflector A {get => Reflector.WithMap("AEBJCMDZFLGYHXIVKWNROQPUST");}
+        public static Reflector A {get => Reflector.New("AEBJCMDZFLGYHXIVKWNROQPUST");}
         /**
         <summary> I reflector B.</summary>
         */
-        public static Reflector B {get => Reflector.WithMap("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static Reflector B {get => Reflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
         <summary> I reflector C.</summary>
         */
-        public static Reflector C {get => Reflector.WithMap("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static Reflector C {get => Reflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */

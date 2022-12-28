@@ -11,9 +11,9 @@ namespace ZP.CSharp.Enigma.Tests
         [Fact]
         public void RotorPairsCanBeAddedToRotor()
         {
-            var pair1 = RotorPair.WithTwoCharacters('a', 'z');
-            var pair2 = RotorPair.WithTwoCharacters('z', 'a');
-            var rotor = Rotor.WithPositionNotchAndRotorPairs(0, new[]{0}, pair1, pair2);
+            var pair1 = RotorPair.New('a', 'z');
+            var pair2 = RotorPair.New('z', 'a');
+            var rotor = Rotor.New(0, new[]{0}, pair1, pair2);
             Assert.Contains(pair1, rotor.Pairs);
             Assert.Contains(pair2, rotor.Pairs);
         }
@@ -22,10 +22,10 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("你我他大熊貓", "大熊貓你我他", new char[]{'你', '我', '他', '大', '熊', '貓'}, new char[]{'大', '熊', '貓', '你', '我', '他'})]
         public void RotorPairsCanBeMassConstructedFromTwoMappings(string e, string r, char[] eChars, char[] rChars)
         {
-            var rotor = Rotor.WithPositionNotchAndTwoMaps(0, new[]{0}, e, r);
+            var rotor = Rotor.New(0, new[]{0}, e, r);
             var i = 0;
             Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, RotorPair.WithTwoCharacters(eChars[i], rChars[i]));
+                Assert.Equal(pair, RotorPair.New(eChars[i], rChars[i]));
                 i++;
             });
         }
@@ -34,10 +34,10 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(new char[]{'你', '我', '他', '大', '熊', '貓'}, new char[]{'大', '熊', '貓', '你', '我', '他'}, "你大", "我熊", "他貓", "大你", "熊我", "貓他")]
         public void RotorPairsCanBeMassConstructedFromTwoCharLongMappings(char[] eChars, char[] rChars, params string[] maps)
         {
-            var rotor = Rotor.WithPositionNotchAndMaps(0, new[]{0}, maps);
+            var rotor = Rotor.New(0, new[]{0}, maps);
             var i = 0;
             Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, RotorPair.WithTwoCharacters(eChars[i], rChars[i]));
+                Assert.Equal(pair, RotorPair.New(eChars[i], rChars[i]));
                 i++;
             });
         }
@@ -56,7 +56,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(false, false, new[]{"aacd", "abcc"})]
         public void RotorCanBeValidated(bool twoStrings, bool isValid, string[] maps)
         {
-            var action = () => {var rotor = twoStrings ? Rotor.WithPositionNotchAndMaps(0, new[]{0}, maps) : Rotor.WithPositionNotchAndTwoMaps(0, new[]{0}, maps[0], maps[1]);};
+            var action = () => {var rotor = twoStrings ? Rotor.New(0, new[]{0}, maps) : Rotor.New(0, new[]{0}, maps[0], maps[1]);};
             if (isValid)
             {
                 action();
@@ -74,7 +74,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("大熊貓可愛", "可愛熊貓大", '人', null)]
         public void RotorCanPassCharacterFromEntryWheel(string e, string r, char input, char? expected)
         {
-            var action = () => Assert.Equal(expected, Rotor.WithPositionNotchAndTwoMaps(0, new[]{0}, e, r).FromEntryWheel(input));
+            var action = () => Assert.Equal(expected, Rotor.New(0, new[]{0}, e, r).FromEntryWheel(input));
             if (expected is not null)
             {
                 action();
@@ -92,7 +92,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("可愛熊貓大", "大熊貓可愛", '人', null)]
         public void RotorCanPassCharacterFromReflector(string e, string r, char input, char? expected)
         {
-            var action = () => Assert.Equal(expected, Rotor.WithPositionNotchAndTwoMaps(0, new[]{0}, e, r).FromReflector(input));
+            var action = () => Assert.Equal(expected, Rotor.New(0, new[]{0}, e, r).FromReflector(input));
             if (expected is not null)
             {
                 action();
@@ -107,7 +107,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("abcde", "edcba", 5, 'a', new[]{'e', 'c', 'a', 'd', 'b'})]
         public void RotorCanRotate(string e, string r, int total, char eChar, char[] rArr)
         {
-            var rotor = Rotor.WithPositionNotchAndTwoMaps(0, new[]{0}, e, r);
+            var rotor = Rotor.New(0, new[]{0}, e, r);
             for (int i = 0; i < total; i++)
             {
                 Assert.Equal(rArr[i], rotor.FromEntryWheel(eChar));
@@ -120,7 +120,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData("abcde", "edcba", 4, 'a', 'b')]
         public void RotorCanRotateCharacterBasingOnPosition(string e, string r, int pos, char eChar, char rChar)
         {
-            var rotor = Rotor.WithPositionNotchAndTwoMaps(pos, new[]{0}, e, r);
+            var rotor = Rotor.New(pos, new[]{0}, e, r);
             Assert.Equal(rChar, rotor.FromEntryWheel(eChar));
             Assert.Equal(eChar, rotor.FromReflector(rChar));
         }
@@ -131,7 +131,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void RotorCanAllowNextToStep(int total, int notch)
         {
             var map = new string(Enumerable.Range('a', total).Select(i => (char) i).ToArray());
-            var rotor = Rotor.WithPositionNotchAndTwoMaps(0, new[]{notch}, map, map);
+            var rotor = Rotor.New(0, new[]{notch}, map, map);
             for (int i = 0; i < total; i++)
             {
                 Assert.Equal(i == notch, rotor.AllowNextToStep());

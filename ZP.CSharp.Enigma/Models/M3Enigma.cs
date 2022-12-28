@@ -58,11 +58,11 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> M3 reflector B.</summary>
         */
-        public static Reflector B {get => Reflector.WithMap("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static Reflector B {get => Reflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
         <summary> M3 reflector C.</summary>
         */
-        public static Reflector C {get => Reflector.WithMap("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static Reflector C {get => Reflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
