@@ -9,23 +9,23 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The reflector.</summary>
     */
-    public class AlphabeticalReflector : IReflector<AlphabeticalReflector, ReflectorPair>
+    public class AlphabeticalReflector : IReflector<AlphabeticalReflector, AlphabeticalReflectorPair>
     {
-        private ReflectorPair[] _Pairs = new ReflectorPair[0];
+        private AlphabeticalReflectorPair[] _Pairs = new AlphabeticalReflectorPair[0];
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */
-        public required ReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required AlphabeticalReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
         <inheritdoc cref="AlphabeticalReflector.New(ReflectorPair[])" />
         */
         [SetsRequiredMembers]
-        protected AlphabeticalReflector(params ReflectorPair[] pairs)
+        protected AlphabeticalReflector(params AlphabeticalReflectorPair[] pairs)
             => this.Setup(pairs);
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
         */
-        public static AlphabeticalReflector New(params ReflectorPair[] pairs) => new AlphabeticalReflector(pairs);
+        public static AlphabeticalReflector New(params AlphabeticalReflectorPair[] pairs) => new AlphabeticalReflector(pairs);
         /**
         <inheritdoc cref="Reflector.New(string[])" />
         */

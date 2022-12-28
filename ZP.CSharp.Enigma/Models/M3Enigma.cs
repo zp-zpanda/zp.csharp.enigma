@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, Reflector, ReflectorPair>
+    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
@@ -18,11 +18,11 @@ namespace ZP.CSharp.Enigma.Models
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */
         public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
-        private Reflector _Reflector;
+        private AlphabeticalReflector _Reflector;
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
         */
-        public Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
+        public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
         <summary> M3 rotor I.</summary>
         */
@@ -58,11 +58,11 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary> M3 reflector B.</summary>
         */
-        public static Reflector B {get => Reflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static AlphabeticalReflector B {get => AlphabeticalReflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
         <summary> M3 reflector C.</summary>
         */
-        public static Reflector C {get => Reflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static AlphabeticalReflector C {get => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
@@ -89,9 +89,9 @@ namespace ZP.CSharp.Enigma.Models
                 {"VIII", VIII}
             }[rotor];
         }
-        private static Reflector GetReflector(string reflector)
+        private static AlphabeticalReflector GetReflector(string reflector)
         {
-            return new Dictionary<string, Reflector>(){
+            return new Dictionary<string, AlphabeticalReflector>(){
                 {"B", B},
                 {"C", C},
             }[reflector];
