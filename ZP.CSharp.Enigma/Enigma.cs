@@ -30,7 +30,7 @@ namespace ZP.CSharp.Enigma
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         */
-        public static Enigma New(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
+        public static Enigma New(Reflector reflector, params Rotor[] rotors) => new(reflector, rotors);
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */

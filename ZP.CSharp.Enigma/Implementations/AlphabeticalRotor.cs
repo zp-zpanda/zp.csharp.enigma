@@ -38,7 +38,7 @@ namespace ZP.CSharp.Enigma.Implementations
         public AlphabeticalRotor(int pos, int[] notch, string r)
             => this.Setup(pos, notch, this.GetPairsFrom(Letters, r));
         public static AlphabeticalRotor New(int pos, int[] notch, string r)
-            => new AlphabeticalRotor(pos, notch, r);
+            => new(pos, notch, r);
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.ComputeDomain()" />
         */

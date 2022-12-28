@@ -25,7 +25,7 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
         */
-        public static Reflector New(params ReflectorPair[] pairs) => new Reflector(pairs);
+        public static Reflector New(params ReflectorPair[] pairs) => new(pairs);
         /**
         <inheritdoc cref="Reflector.New(string[])" />
         */
@@ -36,7 +36,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
         <param name="maps">The reflector pair mappings.</param>
         */
-        public static Reflector New(params string[] maps) => new Reflector(maps);
+        public static Reflector New(params string[] maps) => new(maps);
         /**
         <inheritdoc cref="Reflector.New(string)" />
         */
@@ -47,6 +47,6 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
         <param name="map">The mapping.</param>
         */
-        public static Reflector New(string map) => new Reflector(map);
+        public static Reflector New(string map) => new(map);
     }
 }

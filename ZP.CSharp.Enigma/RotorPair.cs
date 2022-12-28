@@ -27,7 +27,7 @@ namespace ZP.CSharp.Enigma
         <param name="eSide">The character on the entry wheel side.</param>
         <param name="rSide">The character on the reflector side.</param>
         */
-        public static RotorPair New(char eSide, char rSide) => new RotorPair(eSide, rSide);
+        public static RotorPair New(char eSide, char rSide) => new(eSide, rSide);
         /**
         <summary>Creates a rotor pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
@@ -45,7 +45,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a rotor pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
-        public static RotorPair New(string map) => new RotorPair(map);
+        public static RotorPair New(string map) => new(map);
         /**
         <summary>Produces the hash code for the rotor pair.</summary>
         */
