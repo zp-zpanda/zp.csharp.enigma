@@ -19,17 +19,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a reflector with the reflector pairs provided.</summary>
         <param name="pairs">The reflector pairs.</param>
         */
-        public static abstract TReflector WithReflectorPairs(params TReflectorPair[] pairs);
-        /**
-        <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
-        <param name="maps">The reflector pair mappings.</param>
-        */
-        public static abstract TReflector WithMaps(params string[] maps);
-        /**
-        <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
-        <param name="map">The mapping.</param>
-        */
-        public static abstract TReflector WithMap(string map);
+        public static abstract TReflector New(params TReflectorPair[] pairs);
         /**
         <summary>Checks if the reflector is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c>true</c> if valid, else <c>false</c>.</returns>

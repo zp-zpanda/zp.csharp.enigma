@@ -34,13 +34,13 @@ namespace ZP.CSharp.Enigma.Models.Tests
         [MemberData(nameof(EnigmaWillNotReturnInputAsOutputData))]
         public void EnigmaWillNotReturnInputAsOutput(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos, char c)
         {
-            Assert.NotEqual(c, new M3Enigma(reflector, rotors, pos).RunOn(c));
+            Assert.NotEqual(c, M3Enigma.New(reflector, rotors, pos).RunOn(c));
         }
         [Theory]
         [MemberData(nameof(EnigmaWillReturnCipheredOutputData))]
         public void EnigmaWillReturnCipheredOutput(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos, string plain, string cipher)
         {
-            var result = new M3Enigma(reflector, rotors, pos).RunOn(cipher);
+            var result = M3Enigma.New(reflector, rotors, pos).RunOn(cipher);
             Assert.Equal(plain, result);
         }
     }

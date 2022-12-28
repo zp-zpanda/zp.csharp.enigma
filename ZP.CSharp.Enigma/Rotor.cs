@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,77 +33,45 @@ namespace ZP.CSharp.Enigma
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="Rotor.WithPositionNotchAndRotorPairs(int, int[], RotorPair[])" />
+        <inheritdoc cref="Rotor.New(int, int[], RotorPair[])" />
         */
         [SetsRequiredMembers]
         protected Rotor(int pos, int[] notch, params RotorPair[] pairs)
-        {
-            this.Pairs = pairs;
-            if (!this.IsValid())
-            {
-                throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
-            }
-            this.Domain = this.ComputeDomain();
-            this.Position = pos % this.Pairs.Length;
-            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
-        }
+            => this.Setup(pos, notch, pairs);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndRotorPairs(int, int[], TRotorPair[])" />
+        <summary>Creates a rotor with the rotor pairs provided.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="pairs">The rotor pairs.</param>
         */
-        public static Rotor WithPositionNotchAndRotorPairs(int pos, int[] notch, params RotorPair[] pairs) => new Rotor(pos, notch, pairs);
-        /**
-        <inheritdoc cref="Rotor.WithPositionNotchAndMaps(int, int[], string[])" />
+        public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new Rotor(pos, notch, pairs);
+        /*
+        <inheritdoc cref="Rotor.New(int, int[], string[])" />
         */
         [SetsRequiredMembers]
-        protected Rotor(int pos, int[] notch, params string[] maps)
-        {
-            if (!maps.All(map => map.Count() == 2))
-            {
-                throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{EntryWheelSide}{ReflectorSide}\"");
-            }
-            var pairs = new List<RotorPair>();
-            maps.ToList().ForEach(map => pairs.Add(RotorPair.WithMap(map)));
-            this.Pairs = pairs.ToArray();
-            if (!this.IsValid())
-            {
-                throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
-            }
-            this.Domain = this.ComputeDomain();
-            this.Position = pos % this.Pairs.Length;
-            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
-        }
+        protected Rotor(int pos, int[] notch, params string[] maps) 
+            => this.Setup(pos, notch, this.GetPairsFrom(maps));
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndMaps(int, int[], string[])" />
+        <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="maps">The rotor pair mappings.</param>
         */
-        public static Rotor WithPositionNotchAndMaps(int pos, int[] notch, params string[] maps) => new Rotor(pos, notch, maps);
+        public static Rotor New(int pos, int[] notch, params string[] maps) => new Rotor(pos, notch, maps);
         /**
-        <inheritdoc cref="Rotor.WithPositionNotchAndTwoMaps(int, int[], string, string)" />
+        <inheritdoc cref="Rotor.New(int, int[], string, string)" />
         */
         [SetsRequiredMembers]
         protected Rotor(int pos, int[] notch, string e, string r)
-        {
-            if (e.Length != r.Length)
-            {
-                throw new ArgumentException("Mappings are not of same length. Expected mappings: \"{EntryWheelSide}\", \"{ReflectorSide}\"");
-            }
-            var pairs = new List<RotorPair>();
-            for (int i = 0; i < e.Length; i++)
-            {
-                pairs.Add(RotorPair.WithTwoCharacters(e[i], r[i]));
-            }
-            this.Pairs = pairs.ToArray();
-            if (!this.IsValid())
-            {
-                throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
-            }
-            this.Domain = this.ComputeDomain();
-            this.Position = pos % this.Pairs.Length;
-            this.Notch = notch.Select(n => n % this.Pairs.Length).ToArray();
-        }
+            => this.Setup(pos, notch, this.GetPairsFrom(e, r));
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.WithPositionNotchAndTwoMaps(int, int[], string, string)" />
+        <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="e">The entry wheel-side mapping.</param>
+        <param name="r">The reflector-side mapping.</param>
         */
-        public static Rotor WithPositionNotchAndTwoMaps(int pos, int[] notch, string e, string r) => new Rotor(pos, notch, e, r);
+        public static Rotor New(int pos, int[] notch, string e, string r) => new Rotor(pos, notch, e, r);
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
         */

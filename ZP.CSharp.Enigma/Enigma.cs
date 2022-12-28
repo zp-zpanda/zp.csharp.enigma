@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
+using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
@@ -19,19 +20,20 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
         */
         public required Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
-        [SetsRequiredMembers]
-        protected Enigma(Reflector reflector, params Rotor[] rotors)
-        {
-            this.Rotors = rotors;
-            this.Reflector = reflector;
-        }
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.FromRotorAndReflector(TReflector, TRotor[])" />
+        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
         */
-        public static Enigma FromRotorAndReflector(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
+        [SetsRequiredMembers]
+        protected Enigma(Reflector reflector, params Rotor[] rotors) => this.Setup(reflector, rotors);
+        /**
+        <summary>Creates a rotor with the rotors and the reflector provided.</summary>
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        */
+        public static Enigma New(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */
-        public virtual void Step() {}
+        public void Step() {}
     }
 }

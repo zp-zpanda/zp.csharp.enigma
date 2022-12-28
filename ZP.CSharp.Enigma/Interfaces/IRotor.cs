@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
@@ -11,7 +10,6 @@ namespace ZP.CSharp.Enigma
         where TRotor : IRotor<TRotor, TRotorPair>
         where TRotorPair : IRotorPair<TRotorPair>
     {
-        
         /**
         <summary>The domain of this rotor.</summary>
         */
@@ -28,28 +26,6 @@ namespace ZP.CSharp.Enigma
         <summary>The rotor pairs this rotor has.</summary>
         */
         public TRotorPair[] Pairs {get; set;}
-        /**
-        <summary>Creates a rotor with the rotor pairs provided.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="pairs">The rotor pairs.</param>
-        */
-        public static abstract TRotor WithPositionNotchAndRotorPairs(int pos, int[] notch, params TRotorPair[] pairs);
-        /**
-        <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="maps">The rotor pair mappings.</param>
-        */
-        public static abstract TRotor WithPositionNotchAndMaps(int pos, int[] notch, params string[] maps);
-        /**
-        <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="e">The entry wheel-side mapping.</param>
-        <param name="r">The reflector-side mapping.</param>
-        */
-        public static abstract TRotor WithPositionNotchAndTwoMaps(int pos, int[] notch, string e, string r);
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>

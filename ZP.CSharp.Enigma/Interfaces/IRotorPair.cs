@@ -24,11 +24,11 @@ namespace ZP.CSharp.Enigma
         <param name="eSide">The character on the entry wheel side.</param>
         <param name="rSide">The character on the reflector side.</param>
         */
-        public static abstract TRotorPair WithTwoCharacters(char eSide, char rSide);
+        public static abstract TRotorPair New(char eSide, char rSide);
         /**
         <summary>Creates a rotor pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
-        public static abstract TRotorPair WithMap(string map);
+        public static abstract TRotorPair New(string map);
     }
 }

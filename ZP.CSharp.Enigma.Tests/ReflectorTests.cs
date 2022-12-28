@@ -12,7 +12,7 @@ namespace ZP.CSharp.Enigma.Tests
         {
             var pair1 = ReflectorPair.WithTwoCharacters('a', 'z');
             var pair2 = ReflectorPair.WithTwoCharacters('b', 'y');
-            var reflector = Reflector.WithReflectorPairs(pair1, pair2);
+            var reflector = Reflector.New(pair1, pair2);
             Assert.Contains(pair1, reflector.Pairs);
             Assert.Contains(pair2, reflector.Pairs);
         }
@@ -21,7 +21,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(new char[]{'你', '我', '他'}, new char[]{'大', '熊', '貓'}, "你大", "我熊", "他貓")]
         public void ReflectorPairsCanBeMassConstructedFromTwoCharLongMappings(char[] oneChars, char[] twoChars, params string[] maps)
         {
-            var reflector = Reflector.WithMaps(maps);
+            var reflector = Reflector.New(maps);
             var i = 0;
             Assert.All(reflector.Pairs, pair => {
                 Assert.Equal(ReflectorPair.WithTwoCharacters(oneChars[i], twoChars[i]), pair);
@@ -35,7 +35,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(false, new[]{"ab", "bc"})]
         public void ReflectorCanBeValidated(bool isValid, string[] maps)
         {
-            var action = () => {var reflector = Reflector.WithMaps(maps);};
+            var action = () => {var reflector = Reflector.New(maps);};
             if (isValid)
             {
                 action();
@@ -53,7 +53,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(new[]{"大的", "熊貓", "可愛"}, '人', null)]
         public void ReflectorCanReflectCharacter(string[] maps, char input, char? expected)
         {
-            var action = () => Assert.Equal(expected, Reflector.WithMaps(maps).Reflect(input));
+            var action = () => Assert.Equal(expected, Reflector.New(maps).Reflect(input));
             if (expected is not null)
             {
                 action();

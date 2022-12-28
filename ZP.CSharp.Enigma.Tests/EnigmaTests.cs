@@ -7,18 +7,18 @@ namespace ZP.CSharp.Enigma.Tests
 {
     public class EnigmaTests
     {
-        public Enigma TestEnigma = Enigma.FromRotorAndReflector(
-            Reflector.WithReflectorPairs(
+        public Enigma TestEnigma = Enigma.New(
+            Reflector.New(
                 ReflectorPair.WithMap("ab"),
                 ReflectorPair.WithMap("cd")
             ),
-            Rotor.WithPositionNotchAndRotorPairs(
+            Rotor.New(
                 0,
                 new[]{0},
-                RotorPair.WithMap("ac"),
-                RotorPair.WithMap("ba"),
-                RotorPair.WithMap("cd"),
-                RotorPair.WithMap("db")
+                RotorPair.New("ac"),
+                RotorPair.New("ba"),
+                RotorPair.New("cd"),
+                RotorPair.New("db")
             )
         );
         [Theory]

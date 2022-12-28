@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using ZP.CSharp.Enigma;
+using ZP.CSharp.Enigma.Helpers;
 using ZP.CSharp.Enigma.Implementations;
 using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
@@ -9,63 +10,75 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : Enigma
+    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
+        */
+        public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
+        private AlphabeticalReflector _Reflector;
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
+        */
+        public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
         <summary> M3 rotor I.</summary>
         */
-        public static Rotor I {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{16}, Letters, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
         /**
         <summary> M3 rotor II.</summary>
         */
-        public static Rotor II {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{4}, Letters, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
         /**
         <summary> M3 rotor III.</summary>
         */
-        public static Rotor III {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{21}, Letters, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
+        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
         /**
         <summary> M3 rotor IV.</summary>
         */
-        public static Rotor IV {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{9}, Letters, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
+        public static AlphabeticalRotor IV {get => AlphabeticalRotor.New(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
         /**
         <summary> M3 rotor V.</summary>
         */
-        public static Rotor V {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25}, Letters, "VZBRGITYUPSDNHLXAWMJQOFECK");}
+        public static AlphabeticalRotor V {get => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");}
         /**
         <summary> M3 rotor VI.</summary>
         */
-        public static Rotor VI {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "JPGVOUMFYQBENHZRDKASXLICTW");}
+        public static AlphabeticalRotor VI {get => AlphabeticalRotor.New(0, new[]{25, 12}, "JPGVOUMFYQBENHZRDKASXLICTW");}
         /**
         <summary> M3 rotor VII.</summary>
         */
-        public static Rotor VII {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "NZJHGRCXMYSWBOUFAIVLPEKQDT");}
+        public static AlphabeticalRotor VII {get => AlphabeticalRotor.New(0, new[]{25, 12}, "NZJHGRCXMYSWBOUFAIVLPEKQDT");}
         /**
         <summary> M3 rotor VIII.</summary>
         */
-        public static Rotor VIII {get => Rotor.WithPositionNotchAndTwoMaps(0, new[]{25, 12}, Letters, "FKQHTLXOCBJSPDZRAMEWNIUYGV");}
+        public static AlphabeticalRotor VIII {get => AlphabeticalRotor.New(0, new[]{25, 12}, "FKQHTLXOCBJSPDZRAMEWNIUYGV");}
         /**
         <summary> M3 reflector B.</summary>
         */
-        public static Reflector B {get => Reflector.WithMap("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static AlphabeticalReflector B {get => AlphabeticalReflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
         /**
         <summary> M3 reflector C.</summary>
         */
-        public static Reflector C {get => Reflector.WithMap("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static AlphabeticalReflector C {get => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         public M3Enigma(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
-            : base(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III))
         {
+            this.Setup(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
-        private static Rotor GetRotor(string rotor)
+        public static M3Enigma New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+            => new M3Enigma(reflector, rotors, pos);
+        private static AlphabeticalRotor GetRotor(string rotor)
         {
-            return new Dictionary<string, Rotor>(){
+            return new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
                 {"II", II},
                 {"III", III},
@@ -76,9 +89,9 @@ namespace ZP.CSharp.Enigma.Models
                 {"VIII", VIII}
             }[rotor];
         }
-        private static Reflector GetReflector(string reflector)
+        private static AlphabeticalReflector GetReflector(string reflector)
         {
-            return new Dictionary<string, Reflector>(){
+            return new Dictionary<string, AlphabeticalReflector>(){
                 {"B", B},
                 {"C", C},
             }[reflector];
@@ -86,6 +99,6 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <inheritdoc cref="Enigma.Step()" />
         */
-        public override void Step() => new DoubleSteppingRotorStepper().Step(this.Rotors);
+        public void Step() => this.Rotors.StepWithDoubleSteppingMechanism();
     }
 }
