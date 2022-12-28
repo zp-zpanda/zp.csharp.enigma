@@ -2,12 +2,9 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using ZP.CSharp.Enigma;
-namespace ZP.CSharp.Enigma
+namespace ZP.CSharp.Enigma.Implementations
 {
-    /**
-    <summary>The rotor pair.</summary>
-    */
-    public class RotorPair : IRotorPair<RotorPair>, IEquatable<RotorPair>
+    public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair>, IEquatable<AlphabeticalRotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
@@ -15,10 +12,10 @@ namespace ZP.CSharp.Enigma
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="RotorPair.New(char, char)" />
+        <inheritdoc cref="AlphabeticalRotorPair.New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected RotorPair(char eSide, char rSide)
+        protected AlphabeticalRotorPair(char eSide, char rSide)
         {
             this.Map = (eSide, rSide);
         }
@@ -27,13 +24,13 @@ namespace ZP.CSharp.Enigma
         <param name="eSide">The character on the entry wheel side.</param>
         <param name="rSide">The character on the reflector side.</param>
         */
-        public static RotorPair New(char eSide, char rSide) => new RotorPair(eSide, rSide);
+        public static AlphabeticalRotorPair New(char eSide, char rSide) => new AlphabeticalRotorPair(eSide, rSide);
         /**
         <summary>Creates a rotor pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
         [SetsRequiredMembers]
-        protected RotorPair(string map)
+        protected AlphabeticalRotorPair(string map)
         {
             if (map.Length != 2)
             {
@@ -45,7 +42,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a rotor pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
-        public static RotorPair New(string map) => new RotorPair(map);
+        public static AlphabeticalRotorPair New(string map) => new AlphabeticalRotorPair(map);
         /**
         <summary>Produces the hash code for the rotor pair.</summary>
         */
@@ -58,7 +55,7 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(RotorPair? pair)
+        public bool Equals(AlphabeticalRotorPair? pair)
         {
             if (pair is null)
             {
@@ -67,31 +64,31 @@ namespace ZP.CSharp.Enigma
             return pair.Map == this.Map;
         }
         /**
-        <inheritdoc cref="Equals(RotorPair?)" />
+        <inheritdoc cref="Equals(AlphabeticalRotorPair?)" />
         <param name="obj">The object to compare to.</param>
-        <seealso cref="Equals(RotorPair?)" />
+        <seealso cref="Equals(AlphabeticalRotorPair?)" />
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as RotorPair);
+        public override bool Equals(object? obj) => this.Equals(obj as AlphabeticalRotorPair);
         /**
-        <inheritdoc cref="Equals(RotorPair?)" />
+        <inheritdoc cref="Equals(AlphabeticalRotorPair?)" />
         <param name="pair1">Rotor pair 1.</param>
         <param name="pair2">Rotor pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(RotorPair?)" />
+        <seealso cref="Equals(AlphabeticalRotorPair?)" />
         <seealso cref="operator !=" />
         */
-        public static bool operator ==(RotorPair pair1, RotorPair pair2) => pair1.Equals(pair2);
+        public static bool operator ==(AlphabeticalRotorPair pair1, AlphabeticalRotorPair pair2) => pair1.Equals(pair2);
         /**
-        <inheritdoc cref="Equals(RotorPair?)" />
+        <inheritdoc cref="Equals(AlphabeticalRotorPair?)" />
         <summary>Checks rotor pair inequality.</summary>
         <param name="pair1">Rotor pair 1.</param>
         <param name="pair2">Rotor pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(RotorPair?)" />
+        <seealso cref="Equals(AlphabeticalRotorPair?)" />
         <seealso cref="operator ==" />
         */
-        public static bool operator !=(RotorPair pair1, RotorPair pair2) => !pair1.Equals(pair2);
+        public static bool operator !=(AlphabeticalRotorPair pair1, AlphabeticalRotorPair pair2) => !pair1.Equals(pair2);
     }
 }
