@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma;
@@ -24,15 +24,13 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
-        protected Enigma(Reflector reflector, params Rotor[] rotors)
-        {
-            this.Rotors = rotors;
-            this.Reflector = reflector;
-        }
+        protected Enigma(Reflector reflector, params Rotor[] rotors) => this.Setup(reflector, rotors);
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.FromRotorAndReflector(TReflector, TRotor[])" />
+        <summary>Creates a rotor with the rotors and the reflector provided.</summary>
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
         */
-        public static Enigma FromRotorAndReflector(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
+        public static Enigma New(Reflector reflector, params Rotor[] rotors) => new Enigma(reflector, rotors);
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */
