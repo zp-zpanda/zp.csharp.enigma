@@ -12,7 +12,6 @@ namespace ZP.CSharp.Enigma.Models
     */
     public class EnigmaI : IEnigma<EnigmaI, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
-        private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
