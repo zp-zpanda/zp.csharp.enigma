@@ -30,7 +30,7 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflectorPair{TReflectorPair}.WithTwoCharacters(char, char)" />
         */
-        public static AlphabeticalReflectorPair WithTwoCharacters(char one, char two) => new AlphabeticalReflectorPair(one, two);
+        public static AlphabeticalReflectorPair WithTwoCharacters(char one, char two) => new(one, two);
         /**
         <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */
@@ -51,7 +51,7 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflectorPair{TReflectorPair}.WithMap(string)" />
         */
-        public static AlphabeticalReflectorPair WithMap(string map) => new AlphabeticalReflectorPair(map);
+        public static AlphabeticalReflectorPair WithMap(string map) => new(map);
         /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */

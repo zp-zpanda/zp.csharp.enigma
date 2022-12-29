@@ -77,7 +77,7 @@ namespace ZP.CSharp.Enigma
         <summary>Computes the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public virtual string ComputeDomain() => new string(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public virtual string ComputeDomain() => new(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>

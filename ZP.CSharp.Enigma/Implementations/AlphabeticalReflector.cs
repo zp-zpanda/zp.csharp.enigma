@@ -11,7 +11,7 @@ namespace ZP.CSharp.Enigma.Implementations
     */
     public class AlphabeticalReflector : IReflector<AlphabeticalReflector, AlphabeticalReflectorPair>
     {
-        private AlphabeticalReflectorPair[] _Pairs = new AlphabeticalReflectorPair[0];
+        private AlphabeticalReflectorPair[] _Pairs = Array.Empty<AlphabeticalReflectorPair>();
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */
@@ -25,7 +25,7 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
         */
-        public static AlphabeticalReflector New(params AlphabeticalReflectorPair[] pairs) => new AlphabeticalReflector(pairs);
+        public static AlphabeticalReflector New(params AlphabeticalReflectorPair[] pairs) => new(pairs);
         /**
         <inheritdoc cref="Reflector.New(string[])" />
         */
@@ -35,7 +35,7 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string[])" />
         */
-        public static AlphabeticalReflector New(params string[] maps) => new AlphabeticalReflector(maps);
+        public static AlphabeticalReflector New(params string[] maps) => new(maps);
         /**
         <inheritdoc cref="AlphabeticalReflector.New(string)" />
         */
@@ -45,6 +45,6 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string)" />
         */
-        public static AlphabeticalReflector New(string map) => new AlphabeticalReflector(map);
+        public static AlphabeticalReflector New(string map) => new(map);
     }
 }

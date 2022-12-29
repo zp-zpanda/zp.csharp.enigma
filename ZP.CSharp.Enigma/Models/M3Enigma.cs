@@ -12,8 +12,7 @@ namespace ZP.CSharp.Enigma.Models
     */
     public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
-        private static string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        private AlphabeticalRotor[] _Rotors = new AlphabeticalRotor[0];
+        private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */
@@ -75,7 +74,7 @@ namespace ZP.CSharp.Enigma.Models
             this.Rotors[2].Position = pos.III;
         }
         public static M3Enigma New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
-            => new M3Enigma(reflector, rotors, pos);
+            => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
         {
             return new Dictionary<string, AlphabeticalRotor>(){

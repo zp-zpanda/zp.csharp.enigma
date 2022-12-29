@@ -4,5 +4,6 @@ namespace ZP.CSharp.Enigma
 {
     public class Plugboard
     {
+        public string Domain;
     }
 }

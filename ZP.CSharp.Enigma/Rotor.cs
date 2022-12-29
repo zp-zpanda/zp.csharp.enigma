@@ -12,7 +12,7 @@ namespace ZP.CSharp.Enigma
     */
     public class Rotor : IRotor<Rotor, RotorPair>
     {
-        private RotorPair[] _Pairs = new RotorPair[0];
+        private RotorPair[] _Pairs = Array.Empty<RotorPair>();
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */
@@ -44,7 +44,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new Rotor(pos, notch, pairs);
+        public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new(pos, notch, pairs);
         /*
         <inheritdoc cref="Rotor.New(int, int[], string[])" />
         */
@@ -57,7 +57,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public static Rotor New(int pos, int[] notch, params string[] maps) => new Rotor(pos, notch, maps);
+        public static Rotor New(int pos, int[] notch, params string[] maps) => new(pos, notch, maps);
         /**
         <inheritdoc cref="Rotor.New(int, int[], string, string)" />
         */
@@ -71,7 +71,7 @@ namespace ZP.CSharp.Enigma
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static Rotor New(int pos, int[] notch, string e, string r) => new Rotor(pos, notch, e, r);
+        public static Rotor New(int pos, int[] notch, string e, string r) => new(pos, notch, e, r);
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
         */

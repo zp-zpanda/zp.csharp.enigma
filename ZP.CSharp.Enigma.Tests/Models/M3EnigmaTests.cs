@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Models.Tests
     {
         public static TheoryData<string, (string, string, string), (int, int, int), char> EnigmaWillNotReturnInputAsOutputData
         {
-            get => new TheoryData<string, (string, string, string), (int, int, int), char>()
+            get => new()
             {
                 {"B", ("III", "II", "I"), (0, 0, 0), 'a'},
                 {"B", ("V", "III", "I"), (0, 0, 0), 'e'},
@@ -20,7 +20,7 @@ namespace ZP.CSharp.Enigma.Models.Tests
         }
         public static TheoryData<string, (string, string, string), (int, int, int), string, string> EnigmaWillReturnCipheredOutputData
         {
-            get => new TheoryData<string, (string, string, string), (int, int, int), string, string>()
+            get => new()
             {
                 {"B", ("III", "II", "I"), (0, 0, 0), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "FUVEPUMWARVQKEFGHGDIJFMFXI"},
                 {"B", ("III", "II", "I"), (0, 3, 15), "ABC", "DNZ"},
