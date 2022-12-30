@@ -17,7 +17,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required AlphabeticalReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="AlphabeticalReflector.New(ReflectorPair[])" />
+        <inheritdoc cref="AlphabeticalReflector.New(AlphabeticalReflectorPair[])" />
         */
         [SetsRequiredMembers]
         protected AlphabeticalReflector(params AlphabeticalReflectorPair[] pairs)
@@ -33,7 +33,8 @@ namespace ZP.CSharp.Enigma.Implementations
         protected AlphabeticalReflector(params string[] maps)
             => this.Setup(this.GetPairsFrom(maps));
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string[])" />
+        <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
+        <param name="maps">The reflector pair mappings.</param>
         */
         public static AlphabeticalReflector New(params string[] maps) => new(maps);
         /**
@@ -43,7 +44,8 @@ namespace ZP.CSharp.Enigma.Implementations
         protected AlphabeticalReflector(string map)
             => this.Setup(this.GetPairsFrom(map));
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string)" />
+        <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
+        <param name="map">The mapping.</param>
         */
         public static AlphabeticalReflector New(string map) => new(map);
     }

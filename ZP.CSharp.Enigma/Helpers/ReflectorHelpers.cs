@@ -9,20 +9,30 @@ namespace ZP.CSharp.Enigma.Helpers
     */
     public static class ReflectorHelpers
     {
+        /**
+        <summary>Sets up the reflector.</summary>
+        <param name="reflector">The reflector to set up.</param>
+        <param name="pairs">The reflector pairs.</param>
+        */
         public static void Setup<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
+            this IReflector<TReflector, TReflectorPair> reflector,
             TReflectorPair[] pairs)
             where TReflector : IReflector<TReflector, TReflectorPair>
             where TReflectorPair : IReflectorPair<TReflectorPair>
         {
-            r.Pairs = pairs;
-            if (!r.IsValid())
+            reflector.Pairs = pairs;
+            if (!reflector.IsValid())
             {
                 throw new ArgumentException("Reflector pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
         }
+        /**
+        <summary>Gets pairs from multiple string maps.</summary>
+        <param name="reflector">The reflector to get pairs for.</param>
+        <param name="maps">The maps.</param>
+        */
         public static TReflectorPair[] GetPairsFrom<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
+            this IReflector<TReflector, TReflectorPair> reflector,
             params string[] maps)
             where TReflector : IReflector<TReflector, TReflectorPair>
             where TReflectorPair : IReflectorPair<TReflectorPair>
@@ -33,8 +43,13 @@ namespace ZP.CSharp.Enigma.Helpers
             }
             return maps.Select(map => TReflectorPair.WithMap(map)).ToArray();
         }
+        /**
+        <summary>Gets pairs from a mapping.</summary>
+        <param name="reflector">The reflector to get pairs for.</param>
+        <param name="map">The mapping.</param>
+        */
         public static TReflectorPair[] GetPairsFrom<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
+            this IReflector<TReflector, TReflectorPair> reflector,
             string map)
             where TReflector : IReflector<TReflector, TReflectorPair>
             where TReflectorPair : IReflectorPair<TReflectorPair>

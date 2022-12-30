@@ -65,6 +65,12 @@ namespace ZP.CSharp.Enigma.Models
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
+        /**
+        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        <param name="pos">The rotors' initial positions.</param>
+        */
         public static EnigmaI New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)

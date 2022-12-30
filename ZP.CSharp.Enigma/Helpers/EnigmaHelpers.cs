@@ -8,8 +8,14 @@ namespace ZP.CSharp.Enigma.Helpers
     */
     public static class EnigmaHelpers
     {
+        /**
+        <summary>Sets up the enigma.</summary>
+        <param name="enigma">The enigma to set up.</param>
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        */
         public static TEnigma Setup<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IEnigma<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair> e,
+            this IEnigma<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair> enigma,
             TReflector reflector,
             params TRotor[] rotors)
             where TEnigma : IEnigma<TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair>
@@ -18,9 +24,9 @@ namespace ZP.CSharp.Enigma.Helpers
             where TReflector : IReflector<TReflector, TReflectorPair>
             where TReflectorPair : IReflectorPair<TReflectorPair>
         {
-            e.Rotors = rotors;
-            e.Reflector = reflector;
-            return (TEnigma) e;
+            enigma.Rotors = rotors;
+            enigma.Reflector = reflector;
+            return (TEnigma) enigma;
         }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.RunOn(char)" />

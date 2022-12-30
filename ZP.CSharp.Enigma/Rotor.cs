@@ -45,7 +45,7 @@ namespace ZP.CSharp.Enigma
         <param name="pairs">The rotor pairs.</param>
         */
         public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new(pos, notch, pairs);
-        /*
+        /**
         <inheritdoc cref="Rotor.New(int, int[], string[])" />
         */
         [SetsRequiredMembers]

@@ -12,6 +12,9 @@ namespace ZP.CSharp.Enigma.Implementations
     */
     public class AlphabeticalRotor : IRotor<AlphabeticalRotor, AlphabeticalRotorPair>
     {
+        /**
+        <summary>The letters.</summary>
+        */
         public const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
         private AlphabeticalRotorPair[] _Pairs = Array.Empty<AlphabeticalRotorPair>();
@@ -34,9 +37,18 @@ namespace ZP.CSharp.Enigma.Implementations
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Notch" />
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
+        /**
+        <inheritdoc cref="AlphabeticalRotor.New(int, int[], string)" />
+        */
         [SetsRequiredMembers]
         public AlphabeticalRotor(int pos, int[] notch, string r)
             => this.Setup(pos, notch, this.GetPairsFrom(Letters, r));
+        /**
+        <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="r">The reflector-side mapping.</param>
+        */
         public static AlphabeticalRotor New(int pos, int[] notch, string r)
             => new(pos, notch, r);
         /**

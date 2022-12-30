@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma.Implementations
 {
+    /**
+    <summary>The alphabetical rotor pair.</summary>
+    */
     public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair>, IEquatable<AlphabeticalRotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;

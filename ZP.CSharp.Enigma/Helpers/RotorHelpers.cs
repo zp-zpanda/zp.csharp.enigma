@@ -10,23 +10,35 @@ namespace ZP.CSharp.Enigma.Helpers
     */
     public static class RotorHelpers
     {
+        /**
+        <summary>Sets up the reflector.</summary>
+        <param name="rotor">The reflector to set up.</param>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notches.</param>
+        <param name="pairs">The reflector pairs.</param>
+        */
         public static void Setup<TRotor, TRotorPair>(
-            this IRotor<TRotor, TRotorPair> r,
+            this IRotor<TRotor, TRotorPair> rotor,
             int pos,
             int[] notch,
             params TRotorPair[] pairs)
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
         {
-            r.Pairs = pairs;
-            if (!r.IsValid())
+            rotor.Pairs = pairs;
+            if (!rotor.IsValid())
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
-            r.Domain = r.ComputeDomain();
-            r.Position = pos % r.Pairs.Length;
-            r.Notch = notch.Select(n => n % r.Pairs.Length).ToArray();
+            rotor.Domain = rotor.ComputeDomain();
+            rotor.Position = pos % rotor.Pairs.Length;
+            rotor.Notch = notch.Select(n => n % rotor.Pairs.Length).ToArray();
         }
+        /**
+        <summary>Gets pairs from multiple string maps.</summary>
+        <param name="rotor">The rotor to get pairs for.</param>
+        <param name="maps">The maps.</param>
+        */
         public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair> rotor,
             params string[] maps)
@@ -39,6 +51,12 @@ namespace ZP.CSharp.Enigma.Helpers
             }
             return maps.Select(map => TRotorPair.New(map.First(), map.Last())).ToArray();
         }
+        /**
+        <summary>Gets pairs from two mappings.</summary>
+        <param name="rotor">The rotor to get pairs for.</param>
+        <param name="e">The entrywheel-side mapping.</param>
+        <param name="r">The reflector-side mapping.</param>
+        */
         public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair> rotor,
             string e,
@@ -109,6 +127,10 @@ namespace ZP.CSharp.Enigma.Helpers
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
             => r.TransposeOut(c);
+        /**
+        <summary>Steps the rotor with the double stepping mechanism.</summary>
+        <param name="rotors">The rotors to step.</param>
+        */
         public static void StepWithDoubleSteppingMechanism<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair>[] rotors)
             where TRotor : IRotor<TRotor, TRotorPair>
