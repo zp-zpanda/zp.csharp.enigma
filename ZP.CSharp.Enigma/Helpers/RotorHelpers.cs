@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma.Helpers

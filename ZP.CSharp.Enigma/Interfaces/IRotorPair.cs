@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
