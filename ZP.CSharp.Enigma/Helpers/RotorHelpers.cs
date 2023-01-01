@@ -34,47 +34,6 @@ namespace ZP.CSharp.Enigma.Helpers
             rotor.Notch = notch.Select(n => n % rotor.Pairs.Length).ToArray();
         }
         /**
-        <summary>Gets pairs from multiple string maps.</summary>
-        <param name="rotor">The rotor to get pairs for.</param>
-        <param name="maps">The maps.</param>
-        */
-        public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
-            this IRotor<TRotor, TRotorPair> rotor,
-            params string[] maps)
-            where TRotor : IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-        {
-            if (!maps.All(map => map.Count() == 2))
-            {
-                throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{EntryWheelSide}{ReflectorSide}\"");
-            }
-            return maps.Select(map => TRotorPair.New(map.First(), map.Last())).ToArray();
-        }
-        /**
-        <summary>Gets pairs from two mappings.</summary>
-        <param name="rotor">The rotor to get pairs for.</param>
-        <param name="e">The entrywheel-side mapping.</param>
-        <param name="r">The reflector-side mapping.</param>
-        */
-        public static TRotorPair[] GetPairsFrom<TRotor, TRotorPair>(
-            this IRotor<TRotor, TRotorPair> rotor,
-            string e,
-            string r)
-            where TRotor : IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-        {
-            var length = 0;
-            try
-            {
-                length = new string[]{e, r}.Select(s => s.Length).Distinct().Single();
-            }
-            catch
-            {
-                throw new ArgumentException("Mappings are not of same length. Expected mappings: \"{EntryWheelSide}\", \"{ReflectorSide}\"");
-            }
-            return Enumerable.Range(0, length).Select(i => TRotorPair.New(e[i], r[i])).ToArray();
-        }
-        /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.IsValid()" />
         */
         public static bool IsValid<TRotor, TRotorPair>(
