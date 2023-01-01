@@ -20,8 +20,14 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Reflector.New(ReflectorPair[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Reflector(params ReflectorPair[] pairs)
-            => this.Setup(pairs);
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(pairs);
+            pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
+            this.Setup(pairs);
+        }
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
         */
@@ -30,8 +36,14 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Reflector.New(string[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Reflector(params string[] maps)
-            => this.Setup(this.GetPairsFrom(maps));
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(maps);
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            this.Setup(this.GetPairsFrom(maps));
+        }
         /**
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
         <param name="maps">The reflector pair mappings.</param>
@@ -41,8 +53,13 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Reflector.New(string)" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Reflector(string map)
-            => this.Setup(this.GetPairsFrom(map));
+        #pragma warning restore CS8618
+        {
+            ArgumentException.ThrowIfNullOrEmpty(map);
+            this.Setup(this.GetPairsFrom(map));
+        }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
         <param name="map">The mapping.</param>

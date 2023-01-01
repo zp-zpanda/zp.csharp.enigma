@@ -41,8 +41,14 @@ namespace ZP.CSharp.Enigma.Implementations
         <inheritdoc cref="AlphabeticalRotor.New(int, int[], string)" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         public AlphabeticalRotor(int pos, int[] notch, string r)
-            => this.Setup(pos, notch, this.GetPairsFrom(Letters, r));
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            this.Setup(pos, notch, this.GetPairsFrom(Letters, r));
+        }
         /**
         <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
         <param name="pos">The position.</param>

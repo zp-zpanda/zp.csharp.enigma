@@ -24,7 +24,14 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
-        protected Enigma(Reflector reflector, params Rotor[] rotors) => this.Setup(reflector, rotors);
+        #pragma warning disable CS8618
+        protected Enigma(Reflector reflector, params Rotor[] rotors)
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(reflector);
+            ArgumentNullException.ThrowIfNull(rotors);
+            this.Setup(reflector, rotors);
+        }
         /**
         <summary>Creates a rotor with the rotors and the reflector provided.</summary>
         <param name="reflector">The reflector.</param>

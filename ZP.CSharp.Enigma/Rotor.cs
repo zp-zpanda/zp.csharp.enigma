@@ -36,8 +36,15 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.New(int, int[], RotorPair[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Rotor(int pos, int[] notch, params RotorPair[] pairs)
-            => this.Setup(pos, notch, pairs);
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentNullException.ThrowIfNull(pairs);
+            pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
+            this.Setup(pos, notch, pairs);
+        }
         /**
         <summary>Creates a rotor with the rotor pairs provided.</summary>
         <param name="pos">The position.</param>
@@ -49,8 +56,15 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.New(int, int[], string[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Rotor(int pos, int[] notch, params string[] maps) 
-            => this.Setup(pos, notch, this.GetPairsFrom(maps));
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentNullException.ThrowIfNull(maps);
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            this.Setup(pos, notch, this.GetPairsFrom(maps));
+        }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
         <param name="pos">The position.</param>
@@ -62,8 +76,15 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="Rotor.New(int, int[], string, string)" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Rotor(int pos, int[] notch, string e, string r)
-            => this.Setup(pos, notch, this.GetPairsFrom(e, r));
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentException.ThrowIfNullOrEmpty(e);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            this.Setup(pos, notch, this.GetPairsFrom(e, r));
+        }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
         <param name="pos">The position.</param>
