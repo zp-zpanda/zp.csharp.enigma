@@ -61,7 +61,7 @@ namespace ZP.CSharp.Enigma
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(pos, notch, this.GetPairsFrom(maps));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair>(maps));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
@@ -81,7 +81,7 @@ namespace ZP.CSharp.Enigma
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentException.ThrowIfNullOrEmpty(e);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, this.GetPairsFrom(e, r));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair>(e, r));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>

@@ -41,7 +41,7 @@ namespace ZP.CSharp.Enigma
         {
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(this.GetPairsFrom(maps));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair>(maps));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
@@ -57,7 +57,7 @@ namespace ZP.CSharp.Enigma
         #pragma warning restore CS8618
         {
             ArgumentException.ThrowIfNullOrEmpty(map);
-            this.Setup(this.GetPairsFrom(map));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair>(map));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>

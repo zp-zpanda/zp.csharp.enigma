@@ -46,7 +46,7 @@ namespace ZP.CSharp.Enigma.Implementations
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, this.GetPairsFrom(Letters, r));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair>(Letters, r));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
