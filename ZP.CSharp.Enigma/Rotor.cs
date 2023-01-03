@@ -15,11 +15,6 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */
         public required RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
-        private string _Domain = "";
-        /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain" />
-        */
-        public required string Domain {get => this._Domain; set => this._Domain = value;}
         private int _Position = 0;
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Position" />

@@ -29,7 +29,6 @@ namespace ZP.CSharp.Enigma.Helpers
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
-            rotor.Domain = rotor.ComputeDomain();
             rotor.Position = pos % rotor.Pairs.Length;
             rotor.Notch = notch.Select(n => n % rotor.Pairs.Length).ToArray();
         }
@@ -60,13 +59,21 @@ namespace ZP.CSharp.Enigma.Helpers
             where TRotorPair : IRotorPair<TRotorPair>
             => r.FromReflector(c);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.ComputeDomain()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
         */
-        public static string ComputeDomain<TRotor, TRotorPair>(
+        public static string Domain<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair> r)
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
-            => r.ComputeDomain();
+            => r.Domain();
+        /**
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
+        */
+        public static string Domain<TRotor, TRotorPair>(
+            this IFixedDomainRotor<TRotor, TRotorPair> r)
+            where TRotor : IFixedDomainRotor<TRotor, TRotorPair>, IRotor<TRotor, TRotorPair>
+            where TRotorPair : IRotorPair<TRotorPair>
+            => TRotor.FixedDomain();
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.TransposeIn(char)" />
         */

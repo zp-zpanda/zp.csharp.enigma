@@ -9,7 +9,7 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The alphabetical rotor.</summary>
     */
-    public class AlphabeticalRotor : IRotor<AlphabeticalRotor, AlphabeticalRotorPair>
+    public class AlphabeticalRotor : IFixedDomainRotor<AlphabeticalRotor, AlphabeticalRotorPair>
     {
         /**
         <summary>The letters.</summary>
@@ -21,11 +21,6 @@ namespace ZP.CSharp.Enigma.Implementations
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
         */
         public required AlphabeticalRotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
-        private string _Domain = "";
-        /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain" />
-        */
-        public required string Domain {get => this._Domain; set => this._Domain = value;}
         private int _Position = 0;
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Position" />
@@ -57,9 +52,9 @@ namespace ZP.CSharp.Enigma.Implementations
         public static AlphabeticalRotor New(int pos, int[] notch, string r)
             => new(pos, notch, r);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.ComputeDomain()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
         */
-        public string ComputeDomain() => Letters;
+        public static string FixedDomain() => Letters;
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
         */
