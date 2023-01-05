@@ -9,44 +9,22 @@ namespace ZP.CSharp.Enigma.Helpers
     */
     public static class ReflectorHelpers
     {
+        /**
+        <summary>Sets up the reflector.</summary>
+        <param name="reflector">The reflector to set up.</param>
+        <param name="pairs">The reflector pairs.</param>
+        */
         public static void Setup<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
+            this IReflector<TReflector, TReflectorPair> reflector,
             TReflectorPair[] pairs)
             where TReflector : IReflector<TReflector, TReflectorPair>
             where TReflectorPair : IReflectorPair<TReflectorPair>
         {
-            r.Pairs = pairs;
-            if (!r.IsValid())
+            reflector.Pairs = pairs;
+            if (!reflector.IsValid())
             {
                 throw new ArgumentException("Reflector pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
-        }
-        public static TReflectorPair[] GetPairsFrom<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
-            params string[] maps)
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
-        {
-            if (!maps.All(map => map.Length == 2))
-            {
-                throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{One}{Two}\"");
-            }
-            return maps.Select(map => TReflectorPair.WithMap(map)).ToArray();
-        }
-        public static TReflectorPair[] GetPairsFrom<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
-            string map)
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
-        {
-            if (map.Length % 2 != 0)
-            {
-                throw new ArgumentException("Mapping has unpaired characters. Expected mapping: \"{Pair1.One}{Pair1.Two}{Pair2.One}{Pair2.Two}...\"");
-            }
-            return Enumerable.Range(0, map.Length / 2)
-                .Select(i => new string(map.Take((i * 2)..((i + 1) * 2)).ToArray()))
-                .Select(map => TReflectorPair.WithTwoCharacters(map.First(), map.Last()))
-                .ToArray();
         }
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.IsValid()" />

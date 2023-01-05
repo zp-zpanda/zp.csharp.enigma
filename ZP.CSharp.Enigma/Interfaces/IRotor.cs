@@ -11,10 +11,6 @@ namespace ZP.CSharp.Enigma
         where TRotorPair : IRotorPair<TRotorPair>
     {
         /**
-        <summary>The domain of this rotor.</summary>
-        */
-        public string Domain {get; set;}
-        /**
         <summary>The position of this rotor.</summary>
         */
         public int Position {get; set;}
@@ -74,10 +70,10 @@ namespace ZP.CSharp.Enigma
             }
         }
         /**
-        <summary>Computes the domain of this rotor.</summary>
+        <summary>Get the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public virtual string ComputeDomain() => new(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public virtual string Domain() => new(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>
@@ -85,9 +81,9 @@ namespace ZP.CSharp.Enigma
         */
         public char TransposeIn(char c)
         {
-            var index = this.Domain.IndexOf(c);
-            var length = this.Domain.Length;
-            return this.Domain[(index + this.Position) % length];
+            var index = this.Domain().IndexOf(c);
+            var length = this.Domain().Length;
+            return this.Domain()[(index + this.Position) % length];
         }
         /**
         <summary>Transposes a character going away from the rotor.</summary>
@@ -96,9 +92,9 @@ namespace ZP.CSharp.Enigma
         */
         public char TransposeOut(char c)
         {
-            var index = this.Domain.IndexOf(c);
-            var length = this.Domain.Length;
-            return this.Domain[(index - this.Position + length) % length];
+            var index = this.Domain().IndexOf(c);
+            var length = this.Domain().Length;
+            return this.Domain()[(index - this.Position + length) % length];
         }
         /**
         <summary>Returns whether this rotor allows the next to step or not.</summary>

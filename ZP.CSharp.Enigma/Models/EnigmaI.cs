@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
+using System.Linq;
 using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 using ZP.CSharp.Enigma.Implementations;
@@ -58,13 +59,28 @@ namespace ZP.CSharp.Enigma.Models
         <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         public EnigmaI(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+        #pragma warning restore CS8618
         {
+            ArgumentException.ThrowIfNullOrEmpty(reflector);
+            rotors.GetType()
+                .GetFields()
+                .Select(field => field.GetValue(rotors))
+                .Cast<string>()
+                .ToList()
+                .ForEach(rotor => ArgumentException.ThrowIfNullOrEmpty(rotor));
             this.Setup(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
+        /**
+        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        <param name="pos">The rotors' initial positions.</param>
+        */
         public static EnigmaI New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)

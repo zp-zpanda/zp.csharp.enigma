@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Collections.Generic;
 using System.Linq;
 using ZP.CSharp.Enigma.Implementations;
 using ZP.CSharp.Enigma.Helpers;
@@ -17,11 +16,17 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required AlphabeticalReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="AlphabeticalReflector.New(ReflectorPair[])" />
+        <inheritdoc cref="AlphabeticalReflector.New(AlphabeticalReflectorPair[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected AlphabeticalReflector(params AlphabeticalReflectorPair[] pairs)
-            => this.Setup(pairs);
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(pairs);
+            pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
+            this.Setup(pairs);
+        }
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
         */
@@ -30,20 +35,33 @@ namespace ZP.CSharp.Enigma.Implementations
         <inheritdoc cref="Reflector.New(string[])" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected AlphabeticalReflector(params string[] maps)
-            => this.Setup(this.GetPairsFrom(maps));
+        #pragma warning restore CS8618
+        {
+            ArgumentNullException.ThrowIfNull(maps);
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair>(maps));
+        }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string[])" />
+        <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
+        <param name="maps">The reflector pair mappings.</param>
         */
         public static AlphabeticalReflector New(params string[] maps) => new(maps);
         /**
         <inheritdoc cref="AlphabeticalReflector.New(string)" />
         */
         [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected AlphabeticalReflector(string map)
-            => this.Setup(this.GetPairsFrom(map));
+        #pragma warning restore CS8618
+        {
+            ArgumentException.ThrowIfNullOrEmpty(map);
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair>(map));
+        }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(string)" />
+        <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
+        <param name="map">The mapping.</param>
         */
         public static AlphabeticalReflector New(string map) => new(map);
     }
