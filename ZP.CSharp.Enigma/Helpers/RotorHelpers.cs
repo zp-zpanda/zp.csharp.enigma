@@ -100,22 +100,12 @@ namespace ZP.CSharp.Enigma.Helpers
             this IRotor<TRotor, TRotorPair>[] rotors)
             where TRotor : IRotor<TRotor, TRotorPair>
             where TRotorPair : IRotorPair<TRotorPair>
-        {
-            var length = rotors.Length;
-            var canStep = Enumerable.Repeat(false, length).ToArray();
-            canStep[0] = true;
-            for (var i = 1; i < length; i++)
-            {
-                canStep[i] = rotors[i - 1].AllowNextToStep() || rotors[i].AllowNextToStep();
-            }
-            rotors[0].Step();
-            for (var i = 1; i < length; i++)
-            {
-                if (canStep[i])
-                {
-                    rotors[i].Step();
-                }
-            }
-        }
+            => rotors
+                .SkipLast(1)
+                .Prepend(null)
+                .Zip(rotors, (previous, current) => (Previous: previous, Current: current))
+                .Select(rotors => (CanStep: rotors.Previous == null || rotors.Previous.AllowNextToStep() || rotors.Current.AllowNextToStep(), Rotor: rotors.Current))
+                .ToList()
+                .ForEach(data => {if (data.CanStep) data.Rotor.Step();});
     }
 }

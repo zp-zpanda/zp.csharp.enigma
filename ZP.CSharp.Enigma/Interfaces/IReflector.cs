@@ -44,8 +44,8 @@ namespace ZP.CSharp.Enigma
         {
             try
             {
-                var found = this.Pairs.Where(pair => new[]{pair.Map.One, pair.Map.Two}.Contains(c)).Single();
-                return new[]{found.Map.One, found.Map.Two}.Except(new[]{c}).Single();
+                var found = this.Pairs.Where(pair => Enumerable.Empty<char>().Append(pair.Map.One).Append(pair.Map.Two).Contains(c)).Single();
+                return Enumerable.Empty<char>().Append(found.Map.One).Append(found.Map.Two).Except(Enumerable.Empty<char>().Append(c)).Single();
             }
             catch
             {
