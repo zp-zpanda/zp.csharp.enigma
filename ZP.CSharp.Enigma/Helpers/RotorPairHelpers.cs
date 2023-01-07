@@ -33,16 +33,14 @@ namespace ZP.CSharp.Enigma.Helpers
             string r)
             where TRotorPair : IRotorPair<TRotorPair>
         {
-            var length = 0;
-            try
-            {
-                length = new string[]{e, r}.Select(s => s.Length).Distinct().Single();
-            }
-            catch
+            if (e.Length != r.Length)
             {
                 throw new ArgumentException("Mappings are not of same length. Expected mappings: \"{EntryWheelSide}\", \"{ReflectorSide}\"");
             }
-            return Enumerable.Range(0, length).Select(i => TRotorPair.New(e[i], r[i])).ToArray();
+            return e
+                .Zip(r, (e, r) => (E: e, R: r))
+                .Select(data => TRotorPair.New(data.E, data.R))
+                .ToArray();
         }
     }
 }

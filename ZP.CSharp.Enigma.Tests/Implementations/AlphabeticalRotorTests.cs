@@ -102,8 +102,7 @@ namespace ZP.CSharp.Enigma.Implementations.Tests
         [InlineData(3)]
         public void RotorCanAllowNextToStep(int notch)
         {
-            var map = new string(Enumerable.Range('A', AlphabeticalRotor.Letters.Length).Select(i => (char) i).ToArray());
-            var rotor = AlphabeticalRotor.New(0, new[]{notch}, map);
+            var rotor = AlphabeticalRotor.New(0, new[]{notch}, AlphabeticalRotor.Letters);
             for (int i = 0; i < AlphabeticalRotor.Letters.Length; i++)
             {
                 Assert.Equal(i == notch, rotor.AllowNextToStep());

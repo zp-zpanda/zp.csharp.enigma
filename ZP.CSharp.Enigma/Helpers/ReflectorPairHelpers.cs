@@ -35,8 +35,10 @@ namespace ZP.CSharp.Enigma.Helpers
             {
                 throw new ArgumentException("Mapping has unpaired characters. Expected mapping: \"{Pair1.One}{Pair1.Two}{Pair2.One}{Pair2.Two}...\"");
             }
-            return Enumerable.Range(0, map.Length / 2)
-                .Select(i => new string(map.Take((i * 2)..((i + 1) * 2)).ToArray()))
+            return map
+                .Select((c, index) => (Index: Math.DivRem(index, 2, out int _), Char: c))
+                .GroupBy(data => data.Index)
+                .Select(group => group.Select(data => data.Char))
                 .Select(map => TReflectorPair.WithTwoCharacters(map.First(), map.Last()))
                 .ToArray();
         }
