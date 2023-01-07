@@ -41,7 +41,7 @@ namespace ZP.CSharp.Enigma.Implementations
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{One}{Two}\"");
             }
-            if (map[0] == map[1])
+            if (map.First() == map.Last())
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }

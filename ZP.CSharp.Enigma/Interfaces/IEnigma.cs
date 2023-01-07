@@ -29,11 +29,12 @@ namespace ZP.CSharp.Enigma
         public char RunOn(char c)
         {
             this.Step();
-            var input = c;
-            this.Rotors.ToList().ForEach(rotor => input = rotor.FromEntryWheel(input));
-            input = this.Reflector.Reflect(input);
-            this.Rotors.Reverse().ToList().ForEach(rotor => input = rotor.FromReflector(input));
-            return input;
+            return Enumerable.Empty<char>()
+            .Append(c)
+            .Select(c => this.Rotors.Aggregate(c, (c, rotor) => rotor.FromEntryWheel(c)))
+            .Select(c => this.Reflector.Reflect(c))
+            .Select(c => this.Rotors.Reverse().Aggregate(c, (c, rotor) => rotor.FromReflector(c)))
+            .Single();
         }
         /**
         <summary>Runs the enigma on a string.</summary>
