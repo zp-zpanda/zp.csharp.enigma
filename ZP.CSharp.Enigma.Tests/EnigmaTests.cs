@@ -9,8 +9,8 @@ namespace ZP.CSharp.Enigma.Tests
     {
         public Enigma TestEnigma = Enigma.New(
             Reflector.New(
-                ReflectorPair.WithMap("ab"),
-                ReflectorPair.WithMap("cd")
+                ReflectorPair.New("ab"),
+                ReflectorPair.New("cd")
             ),
             Rotor.New(
                 0,
