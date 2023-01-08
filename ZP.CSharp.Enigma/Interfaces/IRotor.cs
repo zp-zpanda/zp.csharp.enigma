@@ -30,10 +30,10 @@ namespace ZP.CSharp.Enigma
         {
             var eArr = this.Pairs.Select(pair => pair.Map.EntryWheelSide).OrderBy(e => e);
             var rArr = this.Pairs.Select(pair => pair.Map.ReflectorSide).OrderBy(r => r);
-            var e = !eArr.GroupBy(e => e).Select(group => group.Count()).Any(count => count > 1);
-            var r = !rArr.GroupBy(r => r).Select(group => group.Count()).Any(count => count > 1);
+            var e = eArr.GroupBy(e => e).Select(group => group.Count()).All(count => count == 1);
+            var r = rArr.GroupBy(r => r).Select(group => group.Count()).All(count => count == 1);
             var same = eArr.SequenceEqual(rArr);
-            return (e && r && same);
+            return e && r && same;
         }
         /**
         <summary>Matches a character from the entry wheel.</summary>
