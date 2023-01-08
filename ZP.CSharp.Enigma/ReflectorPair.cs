@@ -28,9 +28,9 @@ namespace ZP.CSharp.Enigma
             this.Map = (map.First(), map.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithTwoCharacters(char, char)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair}.New(char, char)" />
         */
-        public static ReflectorPair WithTwoCharacters(char one, char two) => new(one, two);
+        public static ReflectorPair New(char one, char two) => new(one, two);
         /**
         <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */

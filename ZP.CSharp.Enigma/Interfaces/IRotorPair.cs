@@ -24,10 +24,5 @@ namespace ZP.CSharp.Enigma
         <param name="rSide">The character on the reflector side.</param>
         */
         public static abstract TRotorPair New(char eSide, char rSide);
-        /**
-        <summary>Creates a rotor pair with a two-character-long map.</summary>
-        <param name="map">The mapping.</param>
-        */
-        public static abstract TRotorPair New(string map);
     }
 }

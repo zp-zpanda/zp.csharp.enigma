@@ -21,7 +21,7 @@ namespace ZP.CSharp.Enigma.Helpers
             {
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{One}{Two}\"");
             }
-            return maps.Select(map => TReflectorPair.WithMap(map)).ToArray();
+            return maps.Select(map => TReflectorPair.New(map.First(), map.Last())).ToArray();
         }
         /**
         <summary>Gets pairs from a mapping.</summary>
@@ -39,7 +39,7 @@ namespace ZP.CSharp.Enigma.Helpers
                 .Select((c, index) => (Index: Math.DivRem(index, 2, out int _), Char: c))
                 .GroupBy(data => data.Index)
                 .Select(group => group.Select(data => data.Char))
-                .Select(map => TReflectorPair.WithTwoCharacters(map.First(), map.Last()))
+                .Select(map => TReflectorPair.New(map.First(), map.Last()))
                 .ToArray();
         }
     }
