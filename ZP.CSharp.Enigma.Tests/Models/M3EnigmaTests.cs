@@ -12,10 +12,10 @@ namespace ZP.CSharp.Enigma.Models.Tests
         {
             get => new()
             {
-                {"B", ("III", "II", "I"), (0, 0, 0), 'a'},
-                {"B", ("V", "III", "I"), (0, 0, 0), 'e'},
-                {"B", ("IV", "V", "III"), (0, 0, 0), 'n'},
-                {"C", ("VI", "VII", "VIII"), (0, 0, 0), 'b'}
+                {"B", ("III", "II", "I"), (0, 0, 0), 'A'},
+                {"B", ("V", "III", "I"), (0, 0, 0), 'E'},
+                {"B", ("IV", "V", "III"), (0, 0, 0), 'N'},
+                {"C", ("VI", "VII", "VIII"), (0, 0, 0), 'B'}
             };
         }
         public static TheoryData<string, (string, string, string), (int, int, int), string, string> EnigmaWillReturnCipheredOutputData
