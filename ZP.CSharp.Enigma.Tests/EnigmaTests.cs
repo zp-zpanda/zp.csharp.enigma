@@ -8,6 +8,12 @@ namespace ZP.CSharp.Enigma.Tests
     public class EnigmaTests
     {
         public Enigma TestEnigma = Enigma.New(
+            Entrywheel.New(
+                EntrywheelPair.New("aa"),
+                EntrywheelPair.New("bb"),
+                EntrywheelPair.New("cc"),
+                EntrywheelPair.New("dd")
+            ),
             Reflector.New(
                 ReflectorPair.New("ab"),
                 ReflectorPair.New("cd")

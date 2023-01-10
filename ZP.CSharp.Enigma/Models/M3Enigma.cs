@@ -11,16 +11,21 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
+        private AlphabeticalEntrywheel _Entrywheel;
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Entrywheel" />
+        */
+        public required AlphabeticalEntrywheel Entrywheel {get => this._Entrywheel; set => this._Entrywheel = value;}
         private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
         */
         public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private AlphabeticalReflector _Reflector;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
         */
         public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
@@ -64,7 +69,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalReflector C {get => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
         /**
-        <inheritdoc cref="Enigma.Enigma(Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -78,13 +83,13 @@ namespace ZP.CSharp.Enigma.Models
                 .Cast<string>()
                 .ToList()
                 .ForEach(rotor => ArgumentException.ThrowIfNullOrEmpty(rotor));
-            this.Setup(GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
+            this.Setup(AlphabeticalEntrywheel.Abc, GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
         /**
-        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma.New(Entrywheel, Reflector, Rotor[])" />
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
