@@ -11,10 +11,6 @@ namespace ZP.CSharp.Enigma.Implementations
     */
     public class AlphabeticalRotor : IFixedDomainRotor<AlphabeticalRotor, AlphabeticalRotorPair>
     {
-        /**
-        <summary>The letters.</summary>
-        */
-        public const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
         private AlphabeticalRotorPair[] _Pairs = Array.Empty<AlphabeticalRotorPair>();
         /**
@@ -41,7 +37,7 @@ namespace ZP.CSharp.Enigma.Implementations
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair>(Letters, r));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair>(FixedDomain(), r));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
@@ -54,7 +50,7 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
         */
-        public static string FixedDomain() => Letters;
+        public static string FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
         */

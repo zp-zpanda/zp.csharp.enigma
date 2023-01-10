@@ -23,11 +23,6 @@ namespace ZP.CSharp.Enigma
         <param name="one">The first character.</param>
         <param name="two">The second character.</param>
         */
-        public static abstract TReflectorPair WithTwoCharacters(char one, char two);
-        /**
-        <summary>Creates a rotor pair with a two-character-long map.</summary>
-        <param name="map">The mapping.</param>
-        */
-        public static abstract TReflectorPair WithMap(string map);
+        public static abstract TReflectorPair New(char one, char two);
     }
 }

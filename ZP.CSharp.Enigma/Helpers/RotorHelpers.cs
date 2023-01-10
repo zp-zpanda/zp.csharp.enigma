@@ -10,11 +10,11 @@ namespace ZP.CSharp.Enigma.Helpers
     public static class RotorHelpers
     {
         /**
-        <summary>Sets up the reflector.</summary>
-        <param name="rotor">The reflector to set up.</param>
+        <summary>Sets up the rotor.</summary>
+        <param name="rotor">The rotor to set up.</param>
         <param name="pos">The position.</param>
         <param name="notch">The turning notches.</param>
-        <param name="pairs">The reflector pairs.</param>
+        <param name="pairs">The rotor pairs.</param>
         */
         public static void Setup<TRotor, TRotorPair>(
             this IRotor<TRotor, TRotorPair> rotor,

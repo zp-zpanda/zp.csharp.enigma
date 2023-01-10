@@ -24,13 +24,13 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
-            var map = new[]{one, two}.OrderBy(c => c);
+            var map = Enumerable.Empty<char>().Append(one).Append(two).OrderBy(c => c);
             this.Map = (map.First(), map.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithTwoCharacters(char, char)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair}.New(char, char)" />
         */
-        public static ReflectorPair WithTwoCharacters(char one, char two) => new(one, two);
+        public static ReflectorPair New(char one, char two) => new(one, two);
         /**
         <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */
@@ -41,7 +41,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{One}{Two}\"");
             }
-            if (map[0] == map[1])
+            if (map.First() == map.Last())
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }

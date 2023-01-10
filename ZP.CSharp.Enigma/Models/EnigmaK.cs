@@ -9,9 +9,9 @@ using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
 {
     /**
-    <summary>Enigma I implementation.</summary>
+    <summary>Enigma K implementation.</summary>
     */
-    public class EnigmaI : IEnigma<EnigmaI, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaK : IEnigma<EnigmaK, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
@@ -29,82 +29,50 @@ namespace ZP.CSharp.Enigma.Models
         */
         public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
-        <summary> I rotor I.</summary>
+        <summary> K rotor I.</summary>
         */
-        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{24}, "LPGSZMHAEOQKVXRFYBUTNICJDW");}
         /**
-        <summary> I rotor II.</summary>
+        <summary> K rotor II.</summary>
         */
-        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "SLVGBTFXJQOHEWIRZYAMKPCNDU");}
         /**
-        <summary> I rotor III.</summary>
+        <summary> K rotor III.</summary>
         */
-        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
-        /**
-        <summary> I rotor IV.</summary>
-        */
-        public static AlphabeticalRotor IV {get => AlphabeticalRotor.New(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
-        /**
-        <summary> I rotor V.</summary>
-        */
-        public static AlphabeticalRotor V {get => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");}
-        /**
-        <summary> I reflector A.</summary>
-        */
-        public static AlphabeticalReflector A {get => AlphabeticalReflector.New("AEBJCMDZFLGYHXIVKWNROQPUST");}
-        /**
-        <summary> I reflector B.</summary>
-        */
-        public static AlphabeticalReflector B {get => AlphabeticalReflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
-        /**
-        <summary> I reflector C.</summary>
-        */
-        public static AlphabeticalReflector C {get => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{13}, "CJGDPSHKTURAWZXFMYNQOBVLIE");}
         /**
         <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        public EnigmaI(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+        public EnigmaK((string III, string II, string I) rotors, (int III, int II, int I) pos)
         #pragma warning restore CS8618
         {
-            ArgumentException.ThrowIfNullOrEmpty(reflector);
             rotors.GetType()
                 .GetFields()
                 .Select(field => field.GetValue(rotors))
                 .Cast<string>()
                 .ToList()
                 .ForEach(rotor => ArgumentException.ThrowIfNullOrEmpty(rotor));
-            this.Setup(AlphabeticalEntrywheel.Abc, GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
+            this.Setup(AlphabeticalEntrywheel.Qwertz, AlphabeticalReflector.New("AIBMCEDTFGHRJYKSLQNZOXPWUV"), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
             this.Rotors[0].Position = pos.I;
             this.Rotors[1].Position = pos.II;
             this.Rotors[2].Position = pos.III;
         }
         /**
         <inheritdoc cref="Enigma.New(Entrywheel, Reflector, Rotor[])" />
-        <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
         */
-        public static EnigmaI New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
-            => new(reflector, rotors, pos);
+        public static EnigmaK New((string III, string II, string I) rotors, (int III, int II, int I) pos)
+            => new(rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
         {
             return new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
                 {"II", II},
-                {"III", III},
-                {"IV", IV},
-                {"V", V}
+                {"III", III}
             }[rotor];
-        }
-        private static AlphabeticalReflector GetReflector(string reflector)
-        {
-            return new Dictionary<string, AlphabeticalReflector>(){
-                {"A", A},
-                {"B", B},
-                {"C", C},
-            }[reflector];
         }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />

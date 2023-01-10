@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
@@ -38,7 +39,7 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{EntryWheelSide}{ReflectorSide}\"");
             }
-            this.Map = (map[0], map[1]);
+            this.Map = (map.First(), map.Last());
         }
         /**
         <summary>Creates a rotor pair with a two-character-long map.</summary>

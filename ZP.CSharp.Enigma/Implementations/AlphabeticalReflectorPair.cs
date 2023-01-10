@@ -15,7 +15,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="ReflectorPair.WithTwoCharacters(char, char)" />
+        <inheritdoc cref="ReflectorPair.New(char, char)" />
         */
         [SetsRequiredMembers]
         protected AlphabeticalReflectorPair(char one, char two)
@@ -28,9 +28,9 @@ namespace ZP.CSharp.Enigma.Implementations
             this.Map = (map.First(), map.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithTwoCharacters(char, char)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair}.New(char, char)" />
         */
-        public static AlphabeticalReflectorPair WithTwoCharacters(char one, char two) => new(one, two);
+        public static AlphabeticalReflectorPair New(char one, char two) => new(one, two);
         /**
         <inheritdoc cref="ReflectorPair.WithMap(string)" />
         */
@@ -41,17 +41,13 @@ namespace ZP.CSharp.Enigma.Implementations
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{One}{Two}\"");
             }
-            if (map[0] == map[1])
+            if (map.First() == map.Last())
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
             var mapArr = map.ToCharArray().OrderBy(c => c);
             this.Map = (mapArr.First(), mapArr.Last());
         }
-        /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.WithMap(string)" />
-        */
-        public static AlphabeticalReflectorPair WithMap(string map) => new(map);
         /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */

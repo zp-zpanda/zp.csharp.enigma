@@ -10,8 +10,8 @@ namespace ZP.CSharp.Enigma.Tests
         [Fact]
         public void ReflectorPairsCanBeAddedToReflector()
         {
-            var pair1 = ReflectorPair.WithTwoCharacters('a', 'z');
-            var pair2 = ReflectorPair.WithTwoCharacters('b', 'y');
+            var pair1 = ReflectorPair.New('a', 'z');
+            var pair2 = ReflectorPair.New('b', 'y');
             var reflector = Reflector.New(pair1, pair2);
             Assert.Contains(pair1, reflector.Pairs);
             Assert.Contains(pair2, reflector.Pairs);
@@ -24,7 +24,7 @@ namespace ZP.CSharp.Enigma.Tests
             var reflector = Reflector.New(maps);
             var i = 0;
             Assert.All(reflector.Pairs, pair => {
-                Assert.Equal(ReflectorPair.WithTwoCharacters(oneChars[i], twoChars[i]), pair);
+                Assert.Equal(ReflectorPair.New(oneChars[i], twoChars[i]), pair);
                 i++;
             });
         }
