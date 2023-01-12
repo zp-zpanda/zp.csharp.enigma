@@ -6,7 +6,7 @@ using ZP.CSharp.Enigma.Models;
 using ZP.CSharp.Enigma.Models.Tests;
 namespace ZP.CSharp.Enigma.Models.Tests
 {
-    public class M3EnigmaTests
+    public class EnigmaM3Tests
     {
         public static TheoryData<string, (string, string, string), (int, int, int), char> EnigmaWillNotReturnInputAsOutputData
         {
@@ -34,13 +34,13 @@ namespace ZP.CSharp.Enigma.Models.Tests
         [MemberData(nameof(EnigmaWillNotReturnInputAsOutputData))]
         public void EnigmaWillNotReturnInputAsOutput(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos, char c)
         {
-            Assert.NotEqual(c, M3Enigma.New(reflector, rotors, pos).RunOn(c));
+            Assert.NotEqual(c, EnigmaM3.New(reflector, rotors, pos).RunOn(c));
         }
         [Theory]
         [MemberData(nameof(EnigmaWillReturnCipheredOutputData))]
         public void EnigmaWillReturnCipheredOutput(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos, string plain, string cipher)
         {
-            var result = M3Enigma.New(reflector, rotors, pos).RunOn(cipher);
+            var result = EnigmaM3.New(reflector, rotors, pos).RunOn(cipher);
             Assert.Equal(plain, result);
         }
     }
