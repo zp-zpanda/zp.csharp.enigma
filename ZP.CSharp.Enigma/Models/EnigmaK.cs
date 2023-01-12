@@ -29,15 +29,15 @@ namespace ZP.CSharp.Enigma.Models
         */
         public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
-        <summary> K rotor I.</summary>
+        <summary>K rotor I.</summary>
         */
         public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{24}, "LPGSZMHAEOQKVXRFYBUTNICJDW");}
         /**
-        <summary> K rotor II.</summary>
+        <summary>K rotor II.</summary>
         */
         public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "SLVGBTFXJQOHEWIRZYAMKPCNDU");}
         /**
-        <summary> K rotor III.</summary>
+        <summary>K rotor III.</summary>
         */
         public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{13}, "CJGDPSHKTURAWZXFMYNQOBVLIE");}
         /**
