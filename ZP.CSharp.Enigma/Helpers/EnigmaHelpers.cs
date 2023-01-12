@@ -11,6 +11,7 @@ namespace ZP.CSharp.Enigma.Helpers
         /**
         <summary>Sets up the enigma.</summary>
         <param name="enigma">The enigma to set up.</param>
+        <param name="entrywheel">The entrywheel.</param>
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         */

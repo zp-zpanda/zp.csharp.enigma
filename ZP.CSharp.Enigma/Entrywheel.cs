@@ -16,7 +16,7 @@ namespace ZP.CSharp.Enigma
         */
         public required EntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="Entrywheel.New(int, int[], EntrywheelPair[])" />
+        <inheritdoc cref="Entrywheel.New(EntrywheelPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -33,7 +33,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Entrywheel New(params EntrywheelPair[] pairs) => new(pairs);
         /**
-        <inheritdoc cref="Entrywheel.New(int, int[], string[])" />
+        <inheritdoc cref="Entrywheel.New(string[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -50,7 +50,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Entrywheel New(params string[] maps) => new(maps);
         /**
-        <inheritdoc cref="Entrywheel.New(int, int[], string, string)" />
+        <inheritdoc cref="Entrywheel.New(string, string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
