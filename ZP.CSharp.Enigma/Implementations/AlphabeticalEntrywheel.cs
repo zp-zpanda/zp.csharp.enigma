@@ -41,6 +41,9 @@ namespace ZP.CSharp.Enigma.Implementations
             ArgumentException.ThrowIfNullOrEmpty(p);
             this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(p, FixedDomain()));
         }
+        /**
+        <inheritdoc cref="Entrywheel.New(string, string)" />
+        */
         public static AlphabeticalEntrywheel New(string p) => new(p);
         /**
         <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Domain()" />

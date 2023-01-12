@@ -32,7 +32,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public static AlphabeticalReflectorPair New(char one, char two) => new(one, two);
         /**
-        <inheritdoc cref="ReflectorPair.WithMap(string)" />
+        <inheritdoc cref="ReflectorPair.New(string)" />
         */
         [SetsRequiredMembers]
         protected AlphabeticalReflectorPair(string map)

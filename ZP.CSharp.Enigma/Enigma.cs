@@ -25,7 +25,7 @@ namespace ZP.CSharp.Enigma
         */
         public required Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
-        <inheritdoc cref="Enigma.New(Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma.New(Entrywheel, Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -38,6 +38,7 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Creates a rotor with the rotors and the reflector provided.</summary>
+        <param name="entrywheel">The entrywheel.</param>
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         */
