@@ -9,9 +9,9 @@ using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
 {
     /**
-    <summary>M3 enigma implementation, used by the Kriegsmarine.</summary>
+    <summary>Enigma M3 implementation, used by the Kriegsmarine.</summary>
     */
-    public class M3Enigma : IEnigma<M3Enigma, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaM3 : IEnigma<EnigmaM3, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
@@ -73,7 +73,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        public M3Enigma(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+        public EnigmaM3(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
         #pragma warning restore CS8618
         {
             ArgumentException.ThrowIfNullOrEmpty(reflector);
@@ -94,7 +94,7 @@ namespace ZP.CSharp.Enigma.Models
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
         */
-        public static M3Enigma New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
+        public static EnigmaM3 New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
         {
