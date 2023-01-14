@@ -23,11 +23,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EntrywheelPairsCanBeMassConstructedFromTwoMappings(string p, string r, char[] pChars, char[] rChars)
         {
             var entrywheel = Entrywheel.New(p, r);
-            var i = 0;
-            Assert.All(entrywheel.Pairs, pair => {
-                Assert.Equal(pair, EntrywheelPair.New(pChars[i], rChars[i]));
-                i++;
-            });
+            Assert.All(entrywheel.Pairs, (pair, index) => Assert.Equal(pair, EntrywheelPair.New(pChars[index], rChars[index])));
         }
         [Theory]
         [InlineData(new char[]{'a', 'b', 'c', 'd'}, new char[]{'c', 'd', 'a', 'b'}, "ac", "bd", "ca", "db")]
@@ -35,11 +31,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EntrywheelPairsCanBeMassConstructedFromTwoCharLongMappings(char[] pChars, char[] rChars, params string[] maps)
         {
             var entrywheel = Entrywheel.New(maps);
-            var i = 0;
-            Assert.All(entrywheel.Pairs, pair => {
-                Assert.Equal(pair, EntrywheelPair.New(pChars[i], rChars[i]));
-                i++;
-            });
+            Assert.All(entrywheel.Pairs, (pair, index) => Assert.Equal(pair, EntrywheelPair.New(pChars[index], rChars[index])));
         }
         [Theory]
         [InlineData(true, true, new[]{"aa", "bb", "cc"})]
@@ -57,11 +49,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EntrywheelCanBeValidated(bool twoStrings, bool isValid, string[] maps)
         {
             var action = () => {var entrywheel = twoStrings ? Entrywheel.New(maps) : Entrywheel.New(maps[0], maps[1]);};
-            if (isValid)
-            {
-                action();
-            }
-            else
+            if (!isValid)
             {
                 var ex = Record.Exception(action);
                 Assert.IsType<ArgumentException>(ex);
@@ -75,11 +63,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EntrywheelCanPassCharacterFromPlugboard(string p, string r, char input, char? expected)
         {
             var action = () => Assert.Equal(expected, Entrywheel.New(p, r).FromPlugboard(input));
-            if (expected is not null)
-            {
-                action();
-            }
-            else
+            if (expected is null)
             {
                 var ex = Record.Exception(action);
                 Assert.IsType<CharacterNotFoundException>(ex);
@@ -93,11 +77,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EntrywheelCanPassCharacterFromReflector(string p, string r, char input, char? expected)
         {
             var action = () => Assert.Equal(expected, Entrywheel.New(p, r).FromReflector(input));
-            if (expected is not null)
-            {
-                action();
-            }
-            else
+            if (expected is null)
             {
                 var ex = Record.Exception(action);
                 Assert.IsType<CharacterNotFoundException>(ex);

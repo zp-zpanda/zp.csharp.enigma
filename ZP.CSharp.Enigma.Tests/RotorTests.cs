@@ -104,15 +104,15 @@ namespace ZP.CSharp.Enigma.Tests
             }
         }
         [Theory]
-        [InlineData("abcde", "edcba", 5, 'a', new[]{'e', 'c', 'a', 'd', 'b'})]
-        public void RotorCanRotate(string e, string r, int total, char eChar, char[] rArr)
+        [InlineData("abcde", "edcba", 'a', new[]{'e', 'c', 'a', 'd', 'b'})]
+        public void RotorCanRotate(string e, string r, char eChar, char[] rArr)
         {
             var rotor = Rotor.New(0, new[]{0}, e, r);
-            for (int i = 0; i < total; i++)
-            {
-                Assert.Equal(rArr[i], rotor.FromEntryWheel(eChar));
+            Assert.All(rArr, rChar => {
+                var result = rotor.FromEntryWheel(eChar);
+                Assert.Equal(rChar, result);
                 rotor.Step();
-            }
+            });
         }
         [Theory]
         [InlineData("abcde", "edcba", 0, 'a', 'e')]
@@ -132,11 +132,11 @@ namespace ZP.CSharp.Enigma.Tests
         {
             var map = new string(Enumerable.Range(0, total).Select(i => (char) i).ToArray());
             var rotor = Rotor.New(0, new[]{notch}, map, map);
-            for (int i = 0; i < total; i++)
-            {
-                Assert.Equal(i == notch, rotor.AllowNextToStep());
+            var canStepArr = Enumerable.Range(0, total).Select(pos => pos == notch);
+            Assert.All(canStepArr, canStep => {
+                Assert.Equal(canStep, rotor.AllowNextToStep());
                 rotor.Step();
-            }
+            });
         }
     }
 }
