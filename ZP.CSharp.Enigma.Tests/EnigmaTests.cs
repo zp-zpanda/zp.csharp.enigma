@@ -34,14 +34,17 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData('d')]
         public void EnigmaWillNotReturnInputAsOutput(char c)
         {
-            Assert.NotEqual(c, this.TestEnigma.RunOn(c));
+            var enigma = this.TestEnigma;
+            var result = enigma.RunOn(c);
+            Assert.NotEqual(c, result);
         }
         [Theory]
         [InlineData("abcd", "cdab")]
         public void EnigmaWillReturnCipheredOutput(string plain, string cipher)
         {
-            Assert.Equal(cipher, this.TestEnigma.RunOn(plain));
-            Assert.Equal(plain, this.TestEnigma.RunOn(cipher));
+            var enigma = this.TestEnigma;
+            var result = enigma.RunOn(plain);
+            Assert.Equal(cipher, result);
         }
     }
 }

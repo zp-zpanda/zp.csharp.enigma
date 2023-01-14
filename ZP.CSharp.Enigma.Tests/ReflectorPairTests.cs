@@ -25,7 +25,8 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData('你')]
         public void ReflectorPairCannotHaveSameCharOnBothSides(char c)
         {
-            Assert.Throws<ArgumentException>(() => {var pair = ReflectorPair.New(c, c);});
+            var action = () => {var pair = ReflectorPair.New(c, c);};
+            Assert.Throws<ArgumentException>(action);
         }
     }
 }
