@@ -31,35 +31,35 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>I rotor I.</summary>
         */
-        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");}
+        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
         /**
         <summary>I rotor II.</summary>
         */
-        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");}
+        public static AlphabeticalRotor II => AlphabeticalRotor.New(0, new[]{4}, "AJDKSIRUXBLHWTMCQGZNPYFVOE");
         /**
         <summary>I rotor III.</summary>
         */
-        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");}
+        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");
         /**
         <summary>I rotor IV.</summary>
         */
-        public static AlphabeticalRotor IV {get => AlphabeticalRotor.New(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");}
+        public static AlphabeticalRotor IV => AlphabeticalRotor.New(0, new[]{9}, "ESOVPZJAYQUIRHXLNFTGKDCMWB");
         /**
         <summary>I rotor V.</summary>
         */
-        public static AlphabeticalRotor V {get => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");}
+        public static AlphabeticalRotor V => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");
         /**
         <summary>I reflector A.</summary>
         */
-        public static AlphabeticalReflector A {get => AlphabeticalReflector.New("AEBJCMDZFLGYHXIVKWNROQPUST");}
+        public static AlphabeticalReflector A => AlphabeticalReflector.New("AEBJCMDZFLGYHXIVKWNROQPUST");
         /**
         <summary>I reflector B.</summary>
         */
-        public static AlphabeticalReflector B {get => AlphabeticalReflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");}
+        public static AlphabeticalReflector B => AlphabeticalReflector.New("YARBUCHDQESFLGPIXJNKOMZTWV");
         /**
         <summary>I reflector C.</summary>
         */
-        public static AlphabeticalReflector C {get => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");}
+        public static AlphabeticalReflector C => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");
         /**
         <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
         */
@@ -89,23 +89,19 @@ namespace ZP.CSharp.Enigma.Models
         public static EnigmaI New(string reflector, (string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
-        {
-            return new Dictionary<string, AlphabeticalRotor>(){
+            => new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
                 {"II", II},
                 {"III", III},
                 {"IV", IV},
                 {"V", V}
             }[rotor];
-        }
         private static AlphabeticalReflector GetReflector(string reflector)
-        {
-            return new Dictionary<string, AlphabeticalReflector>(){
+            => new Dictionary<string, AlphabeticalReflector>(){
                 {"A", A},
                 {"B", B},
-                {"C", C},
+                {"C", C}
             }[reflector];
-        }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */

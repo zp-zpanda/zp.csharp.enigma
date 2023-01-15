@@ -18,15 +18,13 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="EntrywheelPair.New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected EntrywheelPair(char pSide, char rSide)
-        {
-            this.Map = (pSide, rSide);
-        }
+        protected EntrywheelPair(char pSide, char rSide) => this.Map = (pSide, rSide);
+
         /**
-        <summary>Creates a entrywheel pair with two characters.</summary>
-        <param name="pSide">The character on the plugboard side.</param>
-        <param name="rSide">The character on the reflector side.</param>
-        */
+<summary>Creates a entrywheel pair with two characters.</summary>
+<param name="pSide">The character on the plugboard side.</param>
+<param name="rSide">The character on the reflector side.</param>
+*/
         public static EntrywheelPair New(char pSide, char rSide) => new(pSide, rSide);
         /**
         <summary>Creates a entrywheel pair with a two-character-long map.</summary>
@@ -58,14 +56,7 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(EntrywheelPair? pair)
-        {
-            if (pair is null)
-            {
-                return false;
-            }
-            return pair.Map == this.Map;
-        }
+        public bool Equals(EntrywheelPair? pair) => pair is not null && pair.Map == this.Map;
         /**
         <inheritdoc cref="Equals(EntrywheelPair?)" />
         <param name="obj">The object to compare to.</param>

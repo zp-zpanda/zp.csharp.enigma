@@ -15,16 +15,12 @@ namespace ZP.CSharp.Enigma.Implementations
         <summary>The ABC entrywheel.</summary>
         */
         public static AlphabeticalEntrywheel Abc
-        {
-            get => New(FixedDomain());
-        }
+            => New(FixedDomain());
         /**
         <summary>The QWERTZ entrywheel.</summary>
         */
         public static AlphabeticalEntrywheel Qwertz
-        {
-            get => New("QWERTZUIOASDFGHJKPYXCVBNML");
-        }
+            => New("QWERTZUIOASDFGHJKPYXCVBNML");
         private EntrywheelPair[] _Pairs = Array.Empty<EntrywheelPair>();
         /**
         <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Pairs" />

@@ -31,15 +31,15 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>K rotor I.</summary>
         */
-        public static AlphabeticalRotor I {get => AlphabeticalRotor.New(0, new[]{24}, "LPGSZMHAEOQKVXRFYBUTNICJDW");}
+        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{4}, "LPGSZMHAEOQKVXRFYBUTNICJDW");
         /**
         <summary>K rotor II.</summary>
         */
-        public static AlphabeticalRotor II {get => AlphabeticalRotor.New(0, new[]{4}, "SLVGBTFXJQOHEWIRZYAMKPCNDU");}
+        public static AlphabeticalRotor II => AlphabeticalRotor.New(0, new[]{4}, "SLVGBTFXJQOHEWIRZYAMKPCNDU");
         /**
         <summary>K rotor III.</summary>
         */
-        public static AlphabeticalRotor III {get => AlphabeticalRotor.New(0, new[]{13}, "CJGDPSHKTURAWZXFMYNQOBVLIE");}
+        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{3}, "CJGDPSHKTURAWZXFMYNQOBVLIE");
         /**
         <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
         */
@@ -67,13 +67,11 @@ namespace ZP.CSharp.Enigma.Models
         public static EnigmaK New((string III, string II, string I) rotors, (int III, int II, int I) pos)
             => new(rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
-        {
-            return new Dictionary<string, AlphabeticalRotor>(){
+            => new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
                 {"II", II},
                 {"III", III}
             }[rotor];
-        }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
         */

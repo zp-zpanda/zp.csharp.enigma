@@ -18,10 +18,7 @@ namespace ZP.CSharp.Enigma
         <inheritdoc cref="RotorPair.New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected RotorPair(char eSide, char rSide)
-        {
-            this.Map = (eSide, rSide);
-        }
+        protected RotorPair(char eSide, char rSide) => this.Map = (eSide, rSide);
         /**
         <summary>Creates a rotor pair with two characters.</summary>
         <param name="eSide">The character on the entry wheel side.</param>
@@ -58,14 +55,7 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(RotorPair? pair)
-        {
-            if (pair is null)
-            {
-                return false;
-            }
-            return pair.Map == this.Map;
-        }
+        public bool Equals(RotorPair? pair) => pair is not null && pair.Map == this.Map;
         /**
         <inheritdoc cref="Equals(RotorPair?)" />
         <param name="obj">The object to compare to.</param>
