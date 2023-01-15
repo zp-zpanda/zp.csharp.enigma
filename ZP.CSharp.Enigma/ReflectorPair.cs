@@ -64,14 +64,7 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(ReflectorPair? pair)
-        {
-            if (pair is null)
-            {
-                return false;
-            }
-            return pair.Map == this.Map;
-        }
+        public bool Equals(ReflectorPair? pair) => pair is not null && pair.Map == this.Map;
         /**
         <inheritdoc cref="Equals(ReflectorPair?)" />
         <param name="obj">The object to compare to.</param>
