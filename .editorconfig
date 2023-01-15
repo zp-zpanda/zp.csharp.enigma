@@ -1,0 +1,14 @@
+[*.{cs,vb}]
+csharp_style_expression_bodied_constructors = true
+dotnet_diagnostic.IDE0021.severity = error
+csharp_style_expression_bodied_methods = true
+dotnet_diagnostic.IDE0022.severity = error
+csharp_style_expression_bodied_operators = true
+dotnet_diagnostic.IDE0023.severity = error
+dotnet_diagnostic.IDE0024.severity = error
+csharp_style_expression_bodied_properties = true
+dotnet_diagnostic.IDE0025.severity = error
+csharp_style_expression_bodied_indexers = true
+dotnet_diagnostic.IDE0026.severity = error
+csharp_style_expression_bodied_accessors = true
+dotnet_diagnostic.IDE0027.severity = error
