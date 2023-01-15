@@ -2,6 +2,13 @@
 # Basic settings
 indent_style = space
 indent_size = 4
+# this and Me preferences
+dotnet_style_qualification_for_field = true
+dotnet_style_qualification_for_property = true
+dotnet_style_qualification_for_method = true
+dotnet_style_qualification_for_event = true
+dotnet_diagnostic.IDE0003.severity = none
+dotnet_diagnostic.IDE0009.severity = error
 # Expression-bodied members
 csharp_style_expression_bodied_constructors = true
 dotnet_diagnostic.IDE0021.severity = error
@@ -17,11 +24,6 @@ dotnet_diagnostic.IDE0026.severity = error
 csharp_style_expression_bodied_accessors = true
 dotnet_diagnostic.IDE0027.severity = error
 
-dotnet_style_qualification_for_field = true
-dotnet_style_qualification_for_property = true
-dotnet_style_qualification_for_method = true
-dotnet_style_qualification_for_event = true
-dotnet_diagnostic.IDE0009.severity = error
 csharp_style_prefer_method_group_conversion = false
 dotnet_diagnostic.IDE0200.severity = none
 
