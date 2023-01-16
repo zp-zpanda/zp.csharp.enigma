@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Implementations;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**

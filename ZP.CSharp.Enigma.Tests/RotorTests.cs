@@ -1,9 +1,7 @@
 using System;
 using Xunit;
 using System.Linq;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class RotorTests

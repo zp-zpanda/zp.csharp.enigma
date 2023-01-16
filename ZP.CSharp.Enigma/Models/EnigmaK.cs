@@ -2,10 +2,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 using ZP.CSharp.Enigma.Implementations;
-using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
 {
     /**

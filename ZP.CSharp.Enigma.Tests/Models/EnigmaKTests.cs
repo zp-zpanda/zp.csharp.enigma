@@ -1,9 +1,5 @@
-using System;
 using Xunit;
-using System.Linq;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Models;
-using ZP.CSharp.Enigma.Models.Tests;
 namespace ZP.CSharp.Enigma.Models.Tests
 {
     public class EnigmaKTests

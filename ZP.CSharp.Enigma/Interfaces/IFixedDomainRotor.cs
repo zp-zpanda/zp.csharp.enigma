@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
     /**

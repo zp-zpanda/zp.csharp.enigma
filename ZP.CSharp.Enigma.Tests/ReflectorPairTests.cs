@@ -1,7 +1,5 @@
 using System;
 using Xunit;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class ReflectorPairTests

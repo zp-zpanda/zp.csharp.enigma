@@ -1,8 +1,6 @@
 using System;
 using Xunit;
-using System.Linq;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Implementations.Tests;
 namespace ZP.CSharp.Enigma.Implementations.Tests
 {
     public class AlphabeticalRotorTests
