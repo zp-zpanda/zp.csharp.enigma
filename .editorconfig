@@ -9,6 +9,7 @@ dotnet_diagnostic.IDE0004.severity = error
 dotnet_diagnostic.IDE0005.severity = error
 dotnet_diagnostic.IDE0035.severity = error
 dotnet_diagnostic.CS0162.severity = error
+dotnet_diagnostic.IDE0051.severity = error
 # this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
