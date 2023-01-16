@@ -2,6 +2,8 @@
 # Basic settings
 indent_style = space
 indent_size = 4
+# Unnecessary code rules
+dotnet_diagnostic.IDE0001.severity = error
 # this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true

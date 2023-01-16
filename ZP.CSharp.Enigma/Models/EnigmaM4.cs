@@ -82,7 +82,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalReflector C => AlphabeticalReflector.New("ARBDCOEJFNGTHKIVLMPWQZSXUY");
         /**
-        <inheritdoc cref="EnigmaM4.New(string, ValueTuple{string, string, string, string}, ValueTuple{int, int, int, int})" />
+        <inheritdoc cref="New(string, ValueTuple{string, string, string, string}, ValueTuple{int, int, int, int})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

@@ -18,17 +18,17 @@ namespace ZP.CSharp.Enigma
         */
         public const string ErrorMessage = "Character not found.";
         /**
-        <seealso cref="Exception.Exception(string)" />
+        <seealso cref="Exception(string)" />
         */
         public CharacterNotFoundException() : base(ErrorMessage)
         {}
         /**
-        <seealso cref="Exception.Exception(string, Exception)" />
+        <seealso cref="Exception(string, Exception)" />
         */
         public CharacterNotFoundException(Exception inner) : base(ErrorMessage, inner)
         {}
         /**
-        <seealso cref="Exception.Exception(SerializationInfo, StreamingContext)" />
+        <seealso cref="Exception(SerializationInfo, StreamingContext)" />
         */
         protected CharacterNotFoundException(SerializationInfo info,
             StreamingContext context) : base(info, context)

@@ -15,7 +15,7 @@ namespace ZP.CSharp.Enigma
         */
         public required (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="ReflectorPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
         protected ReflectorPair(char one, char two)
@@ -32,7 +32,7 @@ namespace ZP.CSharp.Enigma
         */
         public static ReflectorPair New(char one, char two) => new(one, two);
         /**
-        <inheritdoc cref="ReflectorPair.New(string)" />
+        <inheritdoc cref="New(string)" />
         */
         [SetsRequiredMembers]
         protected ReflectorPair(string map)

@@ -15,7 +15,7 @@ namespace ZP.CSharp.Enigma
         */
         public required (char PlugboardSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="EntrywheelPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
         protected EntrywheelPair(char pSide, char rSide) => this.Map = (pSide, rSide);

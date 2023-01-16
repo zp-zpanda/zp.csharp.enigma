@@ -15,7 +15,7 @@ namespace ZP.CSharp.Enigma
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="RotorPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
         protected RotorPair(char eSide, char rSide) => this.Map = (eSide, rSide);

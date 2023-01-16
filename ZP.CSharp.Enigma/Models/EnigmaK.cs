@@ -41,7 +41,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{3}, "CJGDPSHKTURAWZXFMYNQOBVLIE");
         /**
-        <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma(Entrywheel, Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

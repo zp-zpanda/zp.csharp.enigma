@@ -16,7 +16,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required AlphabeticalReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="AlphabeticalReflector.New(AlphabeticalReflectorPair[])" />
+        <inheritdoc cref="New(AlphabeticalReflectorPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -49,7 +49,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public static AlphabeticalReflector New(params string[] maps) => new(maps);
         /**
-        <inheritdoc cref="AlphabeticalReflector.New(string)" />
+        <inheritdoc cref="New(string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
