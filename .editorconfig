@@ -5,6 +5,7 @@ indent_size = 4
 # Unnecessary code rules
 dotnet_diagnostic.IDE0001.severity = error
 dotnet_diagnostic.IDE0002.severity = error
+dotnet_diagnostic.IDE0004.severity = error
 # this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
