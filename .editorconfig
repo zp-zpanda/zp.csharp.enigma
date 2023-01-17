@@ -15,6 +15,7 @@ dotnet_diagnostic.IDE0059.severity = error
 dotnet_code_quality_unused_parameters = non_public
 dotnet_diagnostic.IDE0060.severity = error
 dotnet_diagnostic.IDE0079.severity = error
+dotnet_diagnostic.IDE0080.severity = error
 # this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
