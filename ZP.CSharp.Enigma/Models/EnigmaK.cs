@@ -29,7 +29,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>K rotor I.</summary>
         */
-        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{4}, "LPGSZMHAEOQKVXRFYBUTNICJDW");
+        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{24}, "LPGSZMHAEOQKVXRFYBUTNICJDW");
         /**
         <summary>K rotor II.</summary>
         */
@@ -37,7 +37,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>K rotor III.</summary>
         */
-        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{3}, "CJGDPSHKTURAWZXFMYNQOBVLIE");
+        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{13}, "CJGDPSHKTURAWZXFMYNQOBVLIE");
         /**
         <inheritdoc cref="Enigma(Entrywheel, Reflector, Rotor[])" />
         */

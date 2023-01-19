@@ -29,7 +29,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>M3 rotor I.</summary>
         */
-        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{6}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
+        public static AlphabeticalRotor I => AlphabeticalRotor.New(0, new[]{16}, "EKMFLGDQVZNTOWYHXUSPAIBRCJ");
         /**
         <summary>M3 rotor II.</summary>
         */
@@ -37,7 +37,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>M3 rotor III.</summary>
         */
-        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{1}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");
+        public static AlphabeticalRotor III => AlphabeticalRotor.New(0, new[]{21}, "BDFHJLCPRTXVZNYEIWGAKMUSQO");
         /**
         <summary>M3 rotor IV.</summary>
         */
@@ -45,7 +45,7 @@ namespace ZP.CSharp.Enigma.Models
         /**
         <summary>M3 rotor V.</summary>
         */
-        public static AlphabeticalRotor V => AlphabeticalRotor.New(0, new[]{5}, "VZBRGITYUPSDNHLXAWMJQOFECK");
+        public static AlphabeticalRotor V => AlphabeticalRotor.New(0, new[]{25}, "VZBRGITYUPSDNHLXAWMJQOFECK");
         /**
         <summary>M3 rotor VI.</summary>
         */
