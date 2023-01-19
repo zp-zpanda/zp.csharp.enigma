@@ -10,6 +10,7 @@ namespace ZP.CSharp.Enigma
         where TRotor : IFixedDomainRotor<TRotor, TRotorPair>
         where TRotorPair : IRotorPair<TRotorPair>
     {
+        string IRotor<TRotor, TRotorPair>.Domain() => TRotor.FixedDomain();
         /**
         <summary>Gets the fixed domain.</summary>
         */

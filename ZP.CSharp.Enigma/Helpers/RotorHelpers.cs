@@ -67,14 +67,6 @@ namespace ZP.CSharp.Enigma.Helpers
             where TRotorPair : IRotorPair<TRotorPair>
             => r.Domain();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
-        */
-        public static string Domain<TRotor, TRotorPair>(
-            this IFixedDomainRotor<TRotor, TRotorPair> r)
-            where TRotor : IFixedDomainRotor<TRotor, TRotorPair>, IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-            => TRotor.FixedDomain();
-        /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.TransposeIn(char)" />
         */
         public static char TransposeIn<TRotor, TRotorPair>(
