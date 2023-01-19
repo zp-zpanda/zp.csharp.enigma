@@ -71,16 +71,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.Domain();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Domain()" />
-        */
-        public static TSingle[] Domain<TRotor, TRotorPair, TSingle>(
-            this IFixedDomainRotor<TRotor, TRotorPair, TSingle> r)
-            where TRotor : IFixedDomainRotor<TRotor, TRotorPair, TSingle>, IRotor<TRotor, TRotorPair, TSingle>
-            where TRotorPair : IRotorPair<TRotorPair, TSingle>
-            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
-            => TRotor.FixedDomain();
-        /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.TransposeIn(TSingle)" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair}.TransposeIn(char)" />
         */
         public static TSingle TransposeIn<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r,

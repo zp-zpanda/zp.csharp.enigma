@@ -9,6 +9,7 @@ namespace ZP.CSharp.Enigma
         where TRotorPair : IRotorPair<TRotorPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
+        TSingle[] IRotor<TRotor, TRotorPair, TSingle>.Domain() => TRotor.FixedDomain();
         /**
         <summary>Gets the fixed domain.</summary>
         */
