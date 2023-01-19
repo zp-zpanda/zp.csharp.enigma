@@ -2,6 +2,24 @@
 # Basic settings
 indent_style = space
 indent_size = 4
+# Unnecessary code rules
+dotnet_diagnostic.IDE0001.severity = error
+dotnet_diagnostic.IDE0002.severity = error
+dotnet_diagnostic.IDE0004.severity = error
+dotnet_diagnostic.IDE0005.severity = error
+dotnet_diagnostic.IDE0035.severity = error
+dotnet_diagnostic.CS0162.severity = error
+dotnet_diagnostic.IDE0051.severity = error
+dotnet_diagnostic.IDE0052.severity = error
+dotnet_diagnostic.IDE0059.severity = error
+dotnet_code_quality_unused_parameters = non_public
+dotnet_diagnostic.IDE0060.severity = error
+dotnet_diagnostic.IDE0079.severity = error
+dotnet_diagnostic.IDE0080.severity = error
+dotnet_diagnostic.IDE0081.severity = error
+dotnet_diagnostic.IDE0100.severity = error
+dotnet_diagnostic.IDE0110.severity = error
+dotnet_diagnostic.IDE0140.severity = error
 # this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true

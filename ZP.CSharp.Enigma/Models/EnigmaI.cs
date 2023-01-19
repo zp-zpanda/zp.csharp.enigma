@@ -2,10 +2,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 using ZP.CSharp.Enigma.Implementations;
-using ZP.CSharp.Enigma.Models;
 namespace ZP.CSharp.Enigma.Models
 {
     /**
@@ -61,7 +59,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalReflector C => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");
         /**
-        <inheritdoc cref="Enigma.Enigma(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma(Entrywheel, Reflector, Rotor[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Implementations;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**
@@ -28,7 +26,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="AlphabeticalRotor.New(int, int[], string)" />
+        <inheritdoc cref="New(int, int[], string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

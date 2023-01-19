@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
@@ -16,7 +15,7 @@ namespace ZP.CSharp.Enigma
         */
         public required EntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="Entrywheel.New(EntrywheelPair[])" />
+        <inheritdoc cref="New(EntrywheelPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -33,7 +32,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Entrywheel New(params EntrywheelPair[] pairs) => new(pairs);
         /**
-        <inheritdoc cref="Entrywheel.New(string[])" />
+        <inheritdoc cref="New(string[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -50,7 +49,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Entrywheel New(params string[] maps) => new(maps);
         /**
-        <inheritdoc cref="Entrywheel.New(string, string)" />
+        <inheritdoc cref="New(string, string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

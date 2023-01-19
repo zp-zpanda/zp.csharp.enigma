@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
@@ -26,7 +25,7 @@ namespace ZP.CSharp.Enigma
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="Rotor.New(int, int[], RotorPair[])" />
+        <inheritdoc cref="New(int, int[], RotorPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -46,7 +45,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Rotor New(int pos, int[] notch, params RotorPair[] pairs) => new(pos, notch, pairs);
         /**
-        <inheritdoc cref="Rotor.New(int, int[], string[])" />
+        <inheritdoc cref="New(int, int[], string[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -66,7 +65,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Rotor New(int pos, int[] notch, params string[] maps) => new(pos, notch, maps);
         /**
-        <inheritdoc cref="Rotor.New(int, int[], string, string)" />
+        <inheritdoc cref="New(int, int[], string, string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618

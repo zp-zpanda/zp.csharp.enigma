@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**
@@ -15,7 +14,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="AlphabeticalRotorPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
         protected AlphabeticalRotorPair(char eSide, char rSide) => this.Map = (eSide, rSide);
