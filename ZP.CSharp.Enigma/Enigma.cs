@@ -6,21 +6,21 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The enigma.</summary>
     */
-    public class Enigma : IEnigma<Enigma, Entrywheel, EntrywheelPair, Rotor, RotorPair, Reflector, ReflectorPair, char>
+    public class Enigma : IStringEnigma<Enigma, Entrywheel, EntrywheelPair, Rotor, RotorPair, Reflector, ReflectorPair>
     {
         private Entrywheel _Entrywheel;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Entrywheel" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Entrywheel" />
         */
         public required Entrywheel Entrywheel {get => this._Entrywheel; set => this._Entrywheel = value;}
         private Rotor[] _Rotors = Array.Empty<Rotor>();
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Rotors" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Rotors" />
         */
         public required Rotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private Reflector _Reflector;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Reflector" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Reflector" />
         */
         public required Reflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
@@ -43,7 +43,7 @@ namespace ZP.CSharp.Enigma
         */
         public static Enigma New(Entrywheel entrywheel, Reflector reflector, params Rotor[] rotors) => new(entrywheel, reflector, rotors);
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Step()" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Step()" />
         */
         public void Step() {}
     }

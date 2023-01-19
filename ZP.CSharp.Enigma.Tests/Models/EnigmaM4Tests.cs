@@ -33,7 +33,7 @@ namespace ZP.CSharp.Enigma.Models.Tests
         public void EnigmaWillReturnCipheredOutput(string reflector, (string IV, string III, string II, string I) rotors, (int IV, int III, int II, int I) pos, string plain, string cipher)
         {
             var enigma = EnigmaM4.New(reflector, rotors, pos);
-            var result = enigma.RunOn(plain.ToCharArray());
+            var result = enigma.RunOn(plain);
             Assert.Equal(cipher, result);
         }
     }
