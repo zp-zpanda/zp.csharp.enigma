@@ -40,7 +40,7 @@ namespace ZP.CSharp.Enigma.Tests
         public void EnigmaWillReturnCipheredOutput(string plain, string cipher)
         {
             var enigma = this.TestEnigma;
-            var result = enigma.RunOn(plain.ToCharArray());
+            var result = enigma.RunOn(plain);
             Assert.Equal(cipher, result);
         }
     }
