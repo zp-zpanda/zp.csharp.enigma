@@ -7,11 +7,11 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The entrywheel.</summary>
     */
-    public class Entrywheel : IEntrywheel<Entrywheel, EntrywheelPair>
+    public class Entrywheel : IEntrywheel<Entrywheel, EntrywheelPair, char>
     {
         private EntrywheelPair[] _Pairs = Array.Empty<EntrywheelPair>();
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Pairs" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Pairs" />
         */
         public required EntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
@@ -41,7 +41,7 @@ namespace ZP.CSharp.Enigma
         {
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(maps));
+            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a entrywheel with entrywheel pairs created from two-character-long mappings.</summary>
@@ -58,7 +58,7 @@ namespace ZP.CSharp.Enigma
         {
             ArgumentException.ThrowIfNullOrEmpty(p);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(p, r));
+            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair, char>(p.ToCharArray(), r.ToCharArray()));
         }
         /**
         <summary>Creates a entrywheel with entrywheel pairs created from a entrywheel-side and a reflector-side mapping.</summary>

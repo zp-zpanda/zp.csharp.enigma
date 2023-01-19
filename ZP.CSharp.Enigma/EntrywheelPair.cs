@@ -6,11 +6,11 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The entrywheel pair.</summary>
     */
-    public class EntrywheelPair : IEntrywheelPair<EntrywheelPair>, IEquatable<EntrywheelPair>
+    public class EntrywheelPair : IEntrywheelPair<EntrywheelPair, char>, IEquatable<EntrywheelPair>
     {
         private (char PlugboardSide, char ReflectorSide) _Map;
         /**
-        <inheritdoc cref="IEntrywheelPair.Map" />
+        <inheritdoc cref="IEntrywheelPair{TEntrywheelPair, TSingle}.Map" />
         */
         public required (char PlugboardSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
@@ -20,10 +20,10 @@ namespace ZP.CSharp.Enigma
         protected EntrywheelPair(char pSide, char rSide) => this.Map = (pSide, rSide);
 
         /**
-<summary>Creates a entrywheel pair with two characters.</summary>
-<param name="pSide">The character on the plugboard side.</param>
-<param name="rSide">The character on the reflector side.</param>
-*/
+        <summary>Creates a entrywheel pair with two characters.</summary>
+        <param name="pSide">The character on the plugboard side.</param>
+        <param name="rSide">The character on the reflector side.</param>
+        */
         public static EntrywheelPair New(char pSide, char rSide) => new(pSide, rSide);
         /**
         <summary>Creates a entrywheel pair with a two-character-long map.</summary>

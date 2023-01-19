@@ -6,11 +6,11 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The rotor pair.</summary>
     */
-    public class RotorPair : IRotorPair<RotorPair>, IEquatable<RotorPair>
+    public class RotorPair : IRotorPair<RotorPair, char>, IEquatable<RotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
-        <inheritdoc cref="IRotorPair.Map" />
+        <inheritdoc cref="IRotorPair{TRotorPair, TSingle}.Map" />
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**

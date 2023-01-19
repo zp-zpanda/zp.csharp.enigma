@@ -6,11 +6,11 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The alphabetical rotor pair.</summary>
     */
-    public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair>, IEquatable<AlphabeticalRotorPair>
+    public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair, char>, IEquatable<AlphabeticalRotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
-        <inheritdoc cref="IRotorPair.Map" />
+        <inheritdoc cref="IRotorPair{TRotorPair, TSingle}.Map" />
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**

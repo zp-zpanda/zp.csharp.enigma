@@ -6,7 +6,7 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The reflector pair.</summary>
     */
-    public class AlphabeticalReflectorPair : IReflectorPair<AlphabeticalReflectorPair>, IEquatable<AlphabeticalReflectorPair>
+    public class AlphabeticalReflectorPair : IReflectorPair<AlphabeticalReflectorPair, char>, IEquatable<AlphabeticalReflectorPair>
     {
         private (char One, char Two) _Map;
         /**
@@ -27,7 +27,7 @@ namespace ZP.CSharp.Enigma.Implementations
             this.Map = (map.First(), map.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.New(char, char)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle, TSingle)" />
         */
         public static AlphabeticalReflectorPair New(char one, char two) => new(one, two);
         /**

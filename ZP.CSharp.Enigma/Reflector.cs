@@ -7,7 +7,7 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The reflector.</summary>
     */
-    public class Reflector : IReflector<Reflector, ReflectorPair>
+    public class Reflector : IReflector<Reflector, ReflectorPair, char>
     {
         private ReflectorPair[] _Pairs = Array.Empty<ReflectorPair>();
         /**
@@ -27,7 +27,7 @@ namespace ZP.CSharp.Enigma
             this.Setup(pairs);
         }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.New(TReflectorPair[])" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
         */
         public static Reflector New(params ReflectorPair[] pairs) => new(pairs);
         /**
@@ -40,7 +40,7 @@ namespace ZP.CSharp.Enigma
         {
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair>(maps));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
@@ -56,7 +56,7 @@ namespace ZP.CSharp.Enigma
         #pragma warning restore CS8618
         {
             ArgumentException.ThrowIfNullOrEmpty(map);
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair>(map));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair, char>(map.ToCharArray()));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>

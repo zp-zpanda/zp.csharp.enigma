@@ -7,21 +7,21 @@ namespace ZP.CSharp.Enigma
     /**
     <summary>The rotor.</summary>
     */
-    public class Rotor : IRotor<Rotor, RotorPair>
+    public class Rotor : IRotor<Rotor, RotorPair, char>
     {
         private RotorPair[] _Pairs = Array.Empty<RotorPair>();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Pairs" />
         */
         public required RotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         private int _Position = 0;
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Position" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Position" />
         */
         public required int Position {get => this._Position; set => this._Position = value;}
         private int[] _Notch = new int[]{0};
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Notch" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Notch" />
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
@@ -55,7 +55,7 @@ namespace ZP.CSharp.Enigma
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair>(maps));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
@@ -75,7 +75,7 @@ namespace ZP.CSharp.Enigma
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentException.ThrowIfNullOrEmpty(e);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair>(e, r));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair, char>(e.ToCharArray(), r.ToCharArray()));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
@@ -86,11 +86,11 @@ namespace ZP.CSharp.Enigma
         */
         public static Rotor New(int pos, int[] notch, string e, string r) => new(pos, notch, e, r);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.AllowNextToStep()" />
         */
         public bool AllowNextToStep() => this.Notch.Contains(this.Position);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Step()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Step()" />
         */
         public void Step() => this.Position = ((this.Position + 1) % this.Pairs.Length);
     }

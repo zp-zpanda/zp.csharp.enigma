@@ -6,13 +6,13 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The alphabetical entrywheel.</summary>
     */
-    public class AlphabeticalEntrywheel : IFixedDomainEntrywheel<AlphabeticalEntrywheel, EntrywheelPair>
+    public class AlphabeticalEntrywheel : IFixedDomainEntrywheel<AlphabeticalEntrywheel, EntrywheelPair, char>
     {
         /**
         <summary>The ABC entrywheel.</summary>
         */
         public static AlphabeticalEntrywheel Abc
-            => New(FixedDomain());
+            => New(new(FixedDomain()));
         /**
         <summary>The QWERTZ entrywheel.</summary>
         */
@@ -20,7 +20,7 @@ namespace ZP.CSharp.Enigma.Implementations
             => New("QWERTZUIOASDFGHJKPYXCVBNML");
         private EntrywheelPair[] _Pairs = Array.Empty<EntrywheelPair>();
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Pairs" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Pairs" />
         */
         public required EntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
@@ -32,15 +32,15 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {
             ArgumentException.ThrowIfNullOrEmpty(p);
-            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(p, FixedDomain()));
+            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair, char>(p.ToCharArray(), FixedDomain()));
         }
         /**
         <inheritdoc cref="Entrywheel.New(string, string)" />
         */
         public static AlphabeticalEntrywheel New(string p) => new(p);
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Domain()" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Domain()" />
         */
-        public static string FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public static char[] FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
     }
 }
