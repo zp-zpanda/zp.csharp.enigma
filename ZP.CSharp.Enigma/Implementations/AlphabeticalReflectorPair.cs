@@ -67,7 +67,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as ReflectorPair);
+        public override bool Equals(object? obj) => this.Equals(obj as AlphabeticalReflectorPair);
         /**
         <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
         <param name="pair1">Reflector pair 1.</param>

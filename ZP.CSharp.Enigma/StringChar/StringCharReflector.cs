@@ -1,27 +1,25 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Numerics;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
-    <summary>The reflector.</summary>
+    <summary>The string-char reflector.</summary>
     */
-    public class Reflector<TSingle> : IReflector<Reflector<TSingle>, ReflectorPair<TSingle>, TSingle>
-        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
+    public class StringCharReflector : IReflector<StringCharReflector, StringCharReflectorPair, char>
     {
-        private ReflectorPair<TSingle>[] _Pairs = Array.Empty<ReflectorPair<TSingle>>();
+        private StringCharReflectorPair[] _Pairs = Array.Empty<StringCharReflectorPair>();
         /**
         <summary>The reflector pairs this reflector has.</summary>
         */
-        public required ReflectorPair<TSingle>[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required StringCharReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="New(ReflectorPair{TSingle}[])" />
+        <inheritdoc cref="New(StringCharReflectorPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(params ReflectorPair<TSingle>[] pairs)
+        protected StringCharReflector(params StringCharReflectorPair[] pairs)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(pairs);
@@ -31,39 +29,39 @@ namespace ZP.CSharp.Enigma
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
         */
-        public static Reflector<TSingle> New(params ReflectorPair<TSingle>[] pairs) => new(pairs);
+        public static StringCharReflector New(params StringCharReflectorPair[] pairs) => new(pairs);
         /**
-        <inheritdoc cref="New(TSingle[][])" />
+        <inheritdoc cref="New(string[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(params TSingle[][] maps)
+        protected StringCharReflector(params string[] maps)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(maps);
-            maps.ToList().ForEach(map => ArgumentNullException.ThrowIfNull(map));
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair<TSingle>, TSingle>(maps));
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<StringCharReflectorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
         <param name="maps">The reflector pair mappings.</param>
         */
-        public static Reflector<TSingle> New(params TSingle[][] maps) => new(maps);
+        public static StringCharReflector New(params string[] maps) => new(maps);
         /**
-        <inheritdoc cref="New(TSingle[])" />
+        <inheritdoc cref="New(string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(TSingle[] map)
+        protected StringCharReflector(string map)
         #pragma warning restore CS8618
         {
-            ArgumentNullException.ThrowIfNull(map);
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<ReflectorPair<TSingle>, TSingle>(map));
+            ArgumentException.ThrowIfNullOrEmpty(map);
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<StringCharReflectorPair, char>(map.ToCharArray()));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
         <param name="map">The mapping.</param>
         */
-        public static Reflector<TSingle> New(TSingle[] map) => new(map);
+        public static StringCharReflector New(string map) => new(map);
     }
 }
