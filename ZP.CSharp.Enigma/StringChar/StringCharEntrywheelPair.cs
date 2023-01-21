@@ -1,38 +1,36 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
-    <summary>The entrywheel pair.</summary>
+    <summary>The string-char entrywheel pair.</summary>
     */
-    public class EntrywheelPair<TSingle> : IEntrywheelPair<EntrywheelPair<TSingle>, TSingle>, IEquatable<EntrywheelPair<TSingle>>
-        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
+    public class StringCharEntrywheelPair : IEntrywheelPair<StringCharEntrywheelPair, char>, IEquatable<StringCharEntrywheelPair>
     {
-        private (TSingle PlugboardSide, TSingle ReflectorSide) _Map;
+        private (char PlugboardSide, char ReflectorSide) _Map;
         /**
         <inheritdoc cref="IEntrywheelPair{TEntrywheelPair, TSingle}.Map" />
         */
-        public required (TSingle PlugboardSide, TSingle ReflectorSide) Map {get => this._Map; set => this._Map = value;}
+        public required (char PlugboardSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="New(TSingle, TSingle)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected EntrywheelPair(TSingle pSide, TSingle rSide) => this.Map = (pSide, rSide);
+        protected StringCharEntrywheelPair(char pSide, char rSide) => this.Map = (pSide, rSide);
 
         /**
         <summary>Creates a entrywheel pair with two characters.</summary>
         <param name="pSide">The character on the plugboard side.</param>
         <param name="rSide">The character on the reflector side.</param>
         */
-        public static EntrywheelPair<TSingle> New(TSingle pSide, TSingle rSide) => new(pSide, rSide);
+        public static StringCharEntrywheelPair New(char pSide, char rSide) => new(pSide, rSide);
         /**
         <summary>Creates a entrywheel pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
         [SetsRequiredMembers]
-        protected EntrywheelPair(TSingle[] map)
+        protected StringCharEntrywheelPair(string map)
         {
             if (map.Length != 2)
             {
@@ -44,7 +42,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a entrywheel pair with a two-character-long map.</summary>
         <param name="map">The mapping.</param>
         */
-        public static EntrywheelPair<TSingle> New(TSingle[] map) => new(map);
+        public static StringCharEntrywheelPair New(string map) => new(map);
         /**
         <summary>Produces the hash code for the entrywheel pair.</summary>
         */
@@ -57,33 +55,33 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(EntrywheelPair<TSingle>? pair) => pair is not null && pair.Map == this.Map;
+        public bool Equals(StringCharEntrywheelPair? pair) => pair is not null && pair.Map == this.Map;
         /**
-        <inheritdoc cref="Equals(EntrywheelPair{TSingle}?)" />
+        <inheritdoc cref="Equals(StringCharEntrywheelPair?)" />
         <param name="obj">The object to compare to.</param>
-        <seealso cref="Equals(EntrywheelPair{TSingle}?)" />
+        <seealso cref="Equals(StringCharEntrywheelPair?)" />
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as EntrywheelPair<TSingle>);
+        public override bool Equals(object? obj) => this.Equals(obj as StringCharEntrywheelPair);
         /**
-        <inheritdoc cref="Equals(EntrywheelPair{TSingle}?)" />
+        <inheritdoc cref="Equals(StringCharEntrywheelPair?)" />
         <param name="pair1">Entrywheel pair 1.</param>
         <param name="pair2">Entrywheel pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(EntrywheelPair{TSingle}?)" />
+        <seealso cref="Equals(StringCharEntrywheelPair?)" />
         <seealso cref="operator !=" />
         */
-        public static bool operator ==(EntrywheelPair<TSingle> pair1, EntrywheelPair<TSingle> pair2) => pair1.Equals(pair2);
+        public static bool operator ==(StringCharEntrywheelPair pair1, StringCharEntrywheelPair pair2) => pair1.Equals(pair2);
         /**
-        <inheritdoc cref="Equals(EntrywheelPair{TSingle}?)" />
+        <inheritdoc cref="Equals(StringCharEntrywheelPair?)" />
         <summary>Checks entrywheel pair inequality.</summary>
         <param name="pair1">Entrywheel pair 1.</param>
         <param name="pair2">Entrywheel pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(EntrywheelPair{TSingle}?)" />
+        <seealso cref="Equals(StringCharEntrywheelPair?)" />
         <seealso cref="operator ==" />
         */
-        public static bool operator !=(EntrywheelPair<TSingle> pair1, EntrywheelPair<TSingle> pair2) => !pair1.Equals(pair2);
+        public static bool operator !=(StringCharEntrywheelPair pair1, StringCharEntrywheelPair pair2) => !pair1.Equals(pair2);
     }
 }

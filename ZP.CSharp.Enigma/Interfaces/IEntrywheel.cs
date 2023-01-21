@@ -1,13 +1,15 @@
 using System;
 using System.Linq;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the entrywheel.</summary>
     */
-    public interface IEntrywheel<TEntrywheel, TEntrywheelPair>
-        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-        where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+    public interface IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
+        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
+        where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
         /**
         <summary>The entrywheel pairs this entrywheel has.</summary>
@@ -32,7 +34,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromPlugboard(char c)
+        public TSingle FromPlugboard(TSingle c)
         {
             try
             {
@@ -49,7 +51,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromReflector(char c)
+        public TSingle FromReflector(TSingle c)
         {
             try
             {
@@ -64,6 +66,6 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this entrywheel.</summary>
         <returns>The domain.</returns>
         */
-        public virtual string Domain() => new(this.Pairs.Select(pair => pair.Map.PlugboardSide).ToArray());
+        public virtual TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.PlugboardSide).ToArray();
     }
 }

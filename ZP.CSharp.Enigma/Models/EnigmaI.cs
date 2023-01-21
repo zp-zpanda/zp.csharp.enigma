@@ -9,21 +9,21 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma I implementation.</summary>
     */
-    public class EnigmaI : IEnigma<EnigmaI, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaI : IStringCharEnigma<EnigmaI, AlphabeticalEntrywheel, StringCharEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Entrywheel" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Entrywheel" />
         */
         public required AlphabeticalEntrywheel Entrywheel {get => this._Entrywheel; set => this._Entrywheel = value;}
         private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Rotors" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Rotors" />
         */
         public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private AlphabeticalReflector _Reflector;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Reflector" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Reflector" />
         */
         public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
@@ -59,7 +59,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalReflector C => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");
         /**
-        <inheritdoc cref="Enigma(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="New(string, ValueTuple{string, string, string}, ValueTuple{int, int, int})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -79,7 +79,7 @@ namespace ZP.CSharp.Enigma.Models
             this.Rotors[2].Position = pos.III;
         }
         /**
-        <inheritdoc cref="Enigma.New(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma{TMessage, TSingle}.New(Entrywheel{TSingle}, Reflector{TSingle}, Rotor{TSingle}[])" />
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
@@ -101,7 +101,7 @@ namespace ZP.CSharp.Enigma.Models
                 {"C", C}
             }[reflector];
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.Step()" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Step()" />
         */
         public void Step() => this.Rotors.StepWithDoubleSteppingMechanism();
     }

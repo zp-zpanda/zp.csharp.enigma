@@ -1,18 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the enigma.</summary>
     */
-    public interface IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-        where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-        where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
-        where TRotor : IRotor<TRotor, TRotorPair>
-        where TRotorPair : IRotorPair<TRotorPair>
-        where TReflector : IReflector<TReflector, TReflectorPair>
-        where TReflectorPair : IReflectorPair<TReflectorPair>
+    public interface IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>
+        where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>
+        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
+        where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+        where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+        where TRotorPair : IRotorPair<TRotorPair, TSingle>
+        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+        where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+        where TMessage : IEnumerable<TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
         /**
         <summary>The entrywheel this enigma has.</summary>
@@ -31,10 +35,10 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to run on.</param>
         <returns>The encoded/decoded character.</returns>
         */
-        public char RunOn(char c)
+        public TSingle RunOn(TSingle c)
         {
             this.Step();
-            return Enumerable.Empty<char>()
+            return Enumerable.Empty<TSingle>()
             .Append(c)
             .Select(c => this.Entrywheel.FromPlugboard(c))
             .Select(c => this.Rotors.Aggregate(c, (c, rotor) => rotor.FromEntryWheel(c)))
@@ -45,10 +49,10 @@ namespace ZP.CSharp.Enigma
         }
         /**
         <summary>Runs the enigma on a string.</summary>
-        <param name="s">The string to run on.</param>
+        <param name="m">The string to run on.</param>
         <returns>The encoded/decoded string.</returns>
         */
-        public string RunOn(string s) => new(s.Select(c => this.RunOn(c)).ToArray());
+        public TMessage RunOn(TMessage m) => (TMessage) m.Select(c => this.RunOn(c));
         /**
         <summary>Steps the enigma.</summary>
         */

@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the reflector.</summary>
     */
-    public interface IReflector<TReflector, TReflectorPair> 
-        where TReflector : IReflector<TReflector, TReflectorPair>
-        where TReflectorPair : IReflectorPair<TReflectorPair>
+    public interface IReflector<TReflector, TReflectorPair, TSingle> 
+        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+        where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
         /**
         <summary>The reflector pairs this reflector has.</summary>
@@ -25,7 +27,7 @@ namespace ZP.CSharp.Enigma
         */
         public bool IsValid()
         {
-            var chars = new HashSet<char>();
+            var chars = new HashSet<TSingle>();
             var isValid = true;
             this.Pairs.ToList().ForEach(pair => {
                 if (!(chars.Add(pair.Map.One) && chars.Add(pair.Map.Two)))
@@ -39,12 +41,12 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to reflect.</param>
         <returns>The reflected character.</returns>
         */
-        public char Reflect(char c)
+        public TSingle Reflect(TSingle c)
         {
             try
             {
-                var found = this.Pairs.Where(pair => Enumerable.Empty<char>().Append(pair.Map.One).Append(pair.Map.Two).Contains(c)).Single();
-                return Enumerable.Empty<char>().Append(found.Map.One).Append(found.Map.Two).Except(Enumerable.Empty<char>().Append(c)).Single();
+                var found = this.Pairs.Where(pair => Enumerable.Empty<TSingle>().Append(pair.Map.One).Append(pair.Map.Two).Contains(c)).Single();
+                return Enumerable.Empty<TSingle>().Append(found.Map.One).Append(found.Map.Two).Except(Enumerable.Empty<TSingle>().Append(c)).Single();
             }
             catch
             {

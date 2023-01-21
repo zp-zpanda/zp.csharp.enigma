@@ -1,13 +1,15 @@
 using System;
 using System.Linq;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the rotor.</summary>
     */
-    public interface IRotor<TRotor, TRotorPair>
-        where TRotor : IRotor<TRotor, TRotorPair>
-        where TRotorPair : IRotorPair<TRotorPair>
+    public interface IRotor<TRotor, TRotorPair, TSingle>
+        where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+        where TRotorPair : IRotorPair<TRotorPair, TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
         /**
         <summary>The position of this rotor.</summary>
@@ -40,7 +42,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromEntryWheel(char c)
+        public TSingle FromEntryWheel(TSingle c)
         {
             try
             {
@@ -57,7 +59,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromReflector(char c)
+        public TSingle FromReflector(TSingle c)
         {
             try
             {
@@ -72,15 +74,15 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public virtual string Domain() => new(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public virtual TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray();
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>
         <returns>The transposed character.</returns>
         */
-        public char TransposeIn(char c)
+        public TSingle TransposeIn(TSingle c)
         {
-            var index = this.Domain().IndexOf(c);
+            var index = Array.IndexOf(this.Domain(), c);
             var length = this.Domain().Length;
             return this.Domain()[(index + this.Position) % length];
         }
@@ -89,9 +91,9 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to transpose.</param>
         <returns>The transposed character.</returns>
         */
-        public char TransposeOut(char c)
+        public TSingle TransposeOut(TSingle c)
         {
-            var index = this.Domain().IndexOf(c);
+            var index = Array.IndexOf(this.Domain(), c);
             var length = this.Domain().Length;
             return this.Domain()[(index - this.Position + length) % length];
         }

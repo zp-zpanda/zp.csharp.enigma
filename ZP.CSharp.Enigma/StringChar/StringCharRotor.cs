@@ -1,37 +1,36 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Numerics;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
-    <summary>The rotor.</summary>
+    <summary>The string-char rotor.</summary>
     */
-    public class Rotor<TSingle> : IRotor<Rotor<TSingle>, RotorPair<TSingle>, TSingle>
-        where TSingle :IEqualityOperators<TSingle, TSingle, bool>
+    public class StringCharRotor : IRotor<StringCharRotor, StringCharRotorPair, char>
     {
-        private RotorPair<TSingle>[] _Pairs = Array.Empty<RotorPair<TSingle>>();
+        private StringCharRotorPair[] _Pairs = Array.Empty<StringCharRotorPair>();
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Pairs" />
         */
-        public required RotorPair<TSingle>[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required StringCharRotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+
         private int _Position = 0;
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Position" />
         */
-        public required int Position {get => this._Position; set => this._Position = value;}
+        public required virtual int Position {get => this._Position; set => this._Position = value;}
         private int[] _Notch = new int[]{0};
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Notch" />
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="New(int, int[], RotorPair{TSingle}[])" />
+        <inheritdoc cref="New(int, int[], StringCharRotorPair[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Rotor(int pos, int[] notch, params RotorPair<TSingle>[] pairs)
+        protected StringCharRotor(int pos, int[] notch, params StringCharRotorPair[] pairs)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(notch);
@@ -45,19 +44,19 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, params RotorPair<TSingle>[] pairs) => new(pos, notch, pairs);
+        public static StringCharRotor New(int pos, int[] notch, params StringCharRotorPair[] pairs) => new(pos, notch, pairs);
         /**
-        <inheritdoc cref="New(int, int[], TSingle[][])" />
+        <inheritdoc cref="New(int, int[], string[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Rotor(int pos, int[] notch, params TSingle[][] maps) 
+        protected StringCharRotor(int pos, int[] notch, params string[] maps) 
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(maps);
-            maps.ToList().ForEach(map => ArgumentNullException.ThrowIfNull(map));
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair<TSingle>, TSingle>(maps));
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
@@ -65,19 +64,20 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, params TSingle[][] maps) => new(pos, notch, maps);
+        public static StringCharRotor New(int pos, int[] notch, params string[] maps) => new(pos, notch, maps);
         /**
-        <inheritdoc cref="New(int, int[], TSingle[], TSingle[])" />
+        <inheritdoc cref="New(int, int[], string, string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Rotor(int pos, int[] notch, TSingle[] e, TSingle[] r)
+        protected StringCharRotor(int pos, int[] notch, string e, string r)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(notch);
-            ArgumentNullException.ThrowIfNull(e);
-            ArgumentNullException.ThrowIfNull(r);
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<RotorPair<TSingle>, TSingle>(e, r));
+            ArgumentException.ThrowIfNullOrEmpty(e);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            var pairs = RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(e.ToCharArray(), r.ToCharArray());
+            this.Setup(pos, notch, pairs);
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
@@ -86,7 +86,7 @@ namespace ZP.CSharp.Enigma
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, TSingle[] e, TSingle[] r) => new(pos, notch, e, r);
+        public static StringCharRotor New(int pos, int[] notch, string e, string r) => new(pos, notch, e, r);
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.AllowNextToStep()" />
         */
