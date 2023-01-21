@@ -9,7 +9,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma I implementation.</summary>
     */
-    public class EnigmaI : IStringEnigma<EnigmaI, AlphabeticalEntrywheel, EntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaI : IStringCharEnigma<EnigmaI, AlphabeticalEntrywheel, StringCharEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
@@ -59,7 +59,7 @@ namespace ZP.CSharp.Enigma.Models
         */
         public static AlphabeticalReflector C => AlphabeticalReflector.New("FAVBPCJDIEOGYHRKZLXMWNTQUS");
         /**
-        <inheritdoc cref="Enigma(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="New(string, ValueTuple{string, string, string}, ValueTuple{int, int, int})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -79,7 +79,7 @@ namespace ZP.CSharp.Enigma.Models
             this.Rotors[2].Position = pos.III;
         }
         /**
-        <inheritdoc cref="Enigma.New(Entrywheel, Reflector, Rotor[])" />
+        <inheritdoc cref="Enigma{TMessage, TSingle}.New(Entrywheel{TSingle}, Reflector{TSingle}, Rotor{TSingle}[])" />
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
