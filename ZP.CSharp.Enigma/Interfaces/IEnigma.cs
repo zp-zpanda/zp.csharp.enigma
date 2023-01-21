@@ -8,10 +8,10 @@ namespace ZP.CSharp.Enigma
     <summary>The interface for the enigma.</summary>
     */
     public interface IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>
-        where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>
-        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
+        where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>, new()
+        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
         where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
-        where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+        where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
         where TRotorPair : IRotorPair<TRotorPair, TSingle>
         where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
         where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
@@ -30,6 +30,13 @@ namespace ZP.CSharp.Enigma
         <summary>The reflector this enigma has.</summary>
         */
         public TReflector Reflector {get; set;}
+        /**
+        <summary>Creates a enigma with the rotors and the reflector provided.</summary>
+        <param name="entrywheel">The entrywheel.</param>
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        */
+        public static abstract TEnigma New(TEntrywheel entrywheel, TReflector reflector, params TRotor[] rotors);
         /**
         <summary>Runs the enigma on a character.</summary>
         <param name="c">The character to run on.</param>
