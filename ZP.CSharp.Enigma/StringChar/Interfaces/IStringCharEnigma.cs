@@ -10,10 +10,11 @@ namespace ZP.CSharp.Enigma
         IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, IEnumerable<char>, char>
         where TEnigma :
             IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>,
-            IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, IEnumerable<char>, char>
-        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
+            IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, IEnumerable<char>, char>,
+            new()
+        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>, new()
         where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
-        where TRotor : IRotor<TRotor, TRotorPair, char>
+        where TRotor : IRotor<TRotor, TRotorPair, char>, new()
         where TRotorPair : IRotorPair<TRotorPair, char>
         where TReflector : IReflector<TReflector, TReflectorPair, char>
         where TReflectorPair : IReflectorPair<TReflectorPair, char>
