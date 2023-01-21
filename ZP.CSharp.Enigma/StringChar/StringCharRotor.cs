@@ -30,33 +30,18 @@ namespace ZP.CSharp.Enigma
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected StringCharRotor(int pos, int[] notch, params StringCharRotorPair[] pairs)
+        public StringCharRotor()
         #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], TRotorPair[])" />
+        */
+        public static StringCharRotor New(int pos, int[] notch, params StringCharRotorPair[] pairs)
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(pairs);
             pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
-            this.Setup(pos, notch, pairs);
-        }
-        /**
-        <summary>Creates a rotor with the rotor pairs provided.</summary>
-        <param name="pos">The position.</param>
-        <param name="notch">The turning notch.</param>
-        <param name="pairs">The rotor pairs.</param>
-        */
-        public static StringCharRotor New(int pos, int[] notch, params StringCharRotorPair[] pairs) => new(pos, notch, pairs);
-        /**
-        <inheritdoc cref="New(int, int[], string[])" />
-        */
-        [SetsRequiredMembers]
-        #pragma warning disable CS8618
-        protected StringCharRotor(int pos, int[] notch, params string[] maps) 
-        #pragma warning restore CS8618
-        {
-            ArgumentNullException.ThrowIfNull(notch);
-            ArgumentNullException.ThrowIfNull(maps);
-            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
+            return new StringCharRotor().Setup(pos, notch, pairs);
         }
         /**
         <summary>Creates a rotor with rotor pairs created from two-character-long mappings.</summary>
@@ -64,20 +49,12 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public static StringCharRotor New(int pos, int[] notch, params string[] maps) => new(pos, notch, maps);
-        /**
-        <inheritdoc cref="New(int, int[], string, string)" />
-        */
-        [SetsRequiredMembers]
-        #pragma warning disable CS8618
-        protected StringCharRotor(int pos, int[] notch, string e, string r)
-        #pragma warning restore CS8618
+        public static StringCharRotor New(int pos, int[] notch, params string[] maps)
         {
             ArgumentNullException.ThrowIfNull(notch);
-            ArgumentException.ThrowIfNullOrEmpty(e);
-            ArgumentException.ThrowIfNullOrEmpty(r);
-            var pairs = RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(e.ToCharArray(), r.ToCharArray());
-            this.Setup(pos, notch, pairs);
+            ArgumentNullException.ThrowIfNull(maps);
+            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
+            return New(pos, notch, RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
         }
         /**
         <summary>Creates a rotor with rotor pairs created from a entry wheel-side and a reflector-side mapping.</summary>
@@ -86,7 +63,13 @@ namespace ZP.CSharp.Enigma
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static StringCharRotor New(int pos, int[] notch, string e, string r) => new(pos, notch, e, r);
+        public static StringCharRotor New(int pos, int[] notch, string e, string r)
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentException.ThrowIfNullOrEmpty(e);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            return New(pos, notch, RotorPairHelpers.GetPairsFrom<StringCharRotorPair, char>(e.ToCharArray(), r.ToCharArray()));
+        }
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.AllowNextToStep()" />
         */

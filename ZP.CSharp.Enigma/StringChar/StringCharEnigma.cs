@@ -28,20 +28,21 @@ namespace ZP.CSharp.Enigma
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected StringCharEnigma(StringCharEntrywheel entrywheel, StringCharReflector reflector, params StringCharRotor[] rotors)
+        public StringCharEnigma()
         #pragma warning restore CS8618
-        {
-            ArgumentNullException.ThrowIfNull(reflector);
-            ArgumentNullException.ThrowIfNull(rotors);
-            this.Setup(entrywheel, reflector, rotors);
-        }
+        {}
         /**
         <summary>Creates a enigma with the rotors and the reflector provided.</summary>
         <param name="entrywheel">The entrywheel.</param>
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         */
-        public static StringCharEnigma New(StringCharEntrywheel entrywheel, StringCharReflector reflector, params StringCharRotor[] rotors) => new(entrywheel, reflector, rotors);
+        public static StringCharEnigma New(StringCharEntrywheel entrywheel, StringCharReflector reflector, params StringCharRotor[] rotors)
+        {
+            ArgumentNullException.ThrowIfNull(reflector);
+            ArgumentNullException.ThrowIfNull(rotors);
+            return new StringCharEnigma().Setup(entrywheel, reflector, rotors);
+        }
         /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Step()" />
         */

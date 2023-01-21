@@ -100,7 +100,7 @@ namespace ZP.CSharp.Enigma.Implementations.Tests
         [InlineData(3)]
         public void RotorCanAllowNextToStep(int notch)
         {
-            var rotor = AlphabeticalRotor.New(0, new[]{notch}, new(AlphabeticalRotor.FixedDomain()));
+            var rotor = AlphabeticalRotor.New(0, new[]{notch}, (string) new(AlphabeticalRotor.FixedDomain()));
             for (int i = 0; i < AlphabeticalRotor.FixedDomain().Length; i++)
             {
                 Assert.Equal(i == notch, rotor.AllowNextToStep());

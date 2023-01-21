@@ -30,13 +30,11 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        public AlphabeticalRotor(int pos, int[] notch, string r)
+        public AlphabeticalRotor()
         #pragma warning restore CS8618
-        {
-            ArgumentNullException.ThrowIfNull(notch);
-            ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair, char>(FixedDomain(), r.ToCharArray()));
-        }
+        {}
+        public static AlphabeticalRotor New(int pos, int[] notch, params AlphabeticalRotorPair[] pairs)
+            => throw new NotSupportedException();
         /**
         <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
         <param name="pos">The position.</param>
@@ -44,7 +42,11 @@ namespace ZP.CSharp.Enigma.Implementations
         <param name="r">The reflector-side mapping.</param>
         */
         public static AlphabeticalRotor New(int pos, int[] notch, string r)
-            => new(pos, notch, r);
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            return new AlphabeticalRotor().Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair, char>(FixedDomain(), r.ToCharArray()));
+        }
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Domain()" />
         */

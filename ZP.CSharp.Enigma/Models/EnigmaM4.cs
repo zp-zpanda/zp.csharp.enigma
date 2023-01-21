@@ -84,8 +84,21 @@ namespace ZP.CSharp.Enigma.Models
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        public EnigmaM4(string reflector, (string IV, string III, string II, string I) rotors, (int IV, int III, int II, int I) pos)
+        public EnigmaM4()
         #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.New(TEntrywheel, TReflector, TRotor[])" />
+        */
+        public static EnigmaM4 New(AlphabeticalEntrywheel entrywheel, AlphabeticalReflector reflector, params AlphabeticalRotor[] rotor)
+            => throw new NotSupportedException();
+        /**
+        <inheritdoc cref="New(AlphabeticalEntrywheel, AlphabeticalReflector, AlphabeticalRotor[])" />
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        <param name="pos">The rotors' initial positions.</param>
+        */
+        public static EnigmaM4 New(string reflector, (string IV, string III, string II, string I) rotors, (int IV, int III, int II, int I) pos)
         {
             ArgumentException.ThrowIfNullOrEmpty(reflector);
             rotors.GetType()
@@ -94,21 +107,14 @@ namespace ZP.CSharp.Enigma.Models
                 .Cast<string>()
                 .ToList()
                 .ForEach(rotor => ArgumentException.ThrowIfNullOrEmpty(rotor));
-            this.Setup(AlphabeticalEntrywheel.Abc, GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
-            this.Rotors[0].Position = pos.I;
-            this.Rotors[1].Position = pos.II;
-            this.Rotors[2].Position = pos.III;
-            this.FourthRotor = GetFourthRotor(rotors.IV);
-            this.FourthRotor.Position = pos.IV;
+            var enigma = new EnigmaM4().Setup(AlphabeticalEntrywheel.Abc, GetReflector(reflector), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
+            enigma.Rotors[0].Position = pos.I;
+            enigma.Rotors[1].Position = pos.II;
+            enigma.Rotors[2].Position = pos.III;
+            enigma.FourthRotor = GetFourthRotor(rotors.IV);
+            enigma.FourthRotor.Position = pos.IV;
+            return enigma;
         }
-        /**
-        <inheritdoc cref="Enigma{TMessage, TSingle}.New(Entrywheel{TSingle}, Reflector{TSingle}, Rotor{TSingle}[])" />
-        <param name="reflector">The reflector.</param>
-        <param name="rotors">The rotors.</param>
-        <param name="pos">The rotors' initial positions.</param>
-        */
-        public static EnigmaM4 New(string reflector, (string IV, string III, string II, string I) rotors, (int IV, int III, int II, int I) pos)
-            => new(reflector, rotors, pos);
         private static AlphabeticalRotor GetRotor(string rotor)
             => new Dictionary<string, AlphabeticalRotor>(){
                 {"I", I},
