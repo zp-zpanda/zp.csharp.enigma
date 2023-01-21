@@ -18,10 +18,10 @@ namespace ZP.CSharp.Enigma.Helpers
             TEntrywheel entrywheel,
             TReflector reflector,
             params TRotor[] rotors)
-            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
-            where TRotor : IRotor<TRotor, TRotorPair, char>
+            where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
@@ -37,10 +37,10 @@ namespace ZP.CSharp.Enigma.Helpers
         public static char RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
             this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             char c)
-            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
-            where TRotor : IRotor<TRotor, TRotorPair, char>
+            where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
@@ -51,10 +51,10 @@ namespace ZP.CSharp.Enigma.Helpers
         public static string RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
             this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             string s)
-            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
-            where TRotor : IRotor<TRotor, TRotorPair, char>
+            where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
@@ -65,10 +65,10 @@ namespace ZP.CSharp.Enigma.Helpers
         public static IEnumerable<char> RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
             this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             IEnumerable<char> m)
-            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
-            where TRotor : IRotor<TRotor, TRotorPair, char>
+            where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
