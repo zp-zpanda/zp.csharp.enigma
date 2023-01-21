@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
 using System.Numerics;
+using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the rotor.</summary>
     */
     public interface IRotor<TRotor, TRotorPair, TSingle>
-        where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+        where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
         where TRotorPair : IRotorPair<TRotorPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
@@ -23,6 +24,19 @@ namespace ZP.CSharp.Enigma
         <summary>The rotor pairs this rotor has.</summary>
         */
         public TRotorPair[] Pairs {get; set;}
+        /**
+        <summary>Creates a rotor with the rotor pairs provided.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="pairs">The rotor pairs.</param>
+        */
+        public static virtual IRotor<TRotor, TRotorPair, TSingle> New(int pos, int[] notch, params TRotorPair[] pairs)
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentNullException.ThrowIfNull(pairs);
+            pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
+            return new TRotor().Setup(pos, notch, pairs);
+        }
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>

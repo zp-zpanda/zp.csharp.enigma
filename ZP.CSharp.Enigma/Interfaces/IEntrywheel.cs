@@ -7,7 +7,7 @@ namespace ZP.CSharp.Enigma
     <summary>The interface for the entrywheel.</summary>
     */
     public interface IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
-        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>
+        where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
         where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
@@ -15,6 +15,11 @@ namespace ZP.CSharp.Enigma
         <summary>The entrywheel pairs this entrywheel has.</summary>
         */
         public TEntrywheelPair[] Pairs {get; set;}
+        /**
+        <summary>Creates a entrywheel with the entrywheel pairs provided.</summary>
+        <param name="pairs">The entrywheel pairs.</param>
+        */
+        public static abstract TEntrywheel New(params TEntrywheelPair[] pairs);
         /**
         <summary>Checks if the entrywheel is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
@@ -66,6 +71,6 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this entrywheel.</summary>
         <returns>The domain.</returns>
         */
-        public virtual TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.PlugboardSide).ToArray();
+        public TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.PlugboardSide).ToArray();
     }
 }

@@ -32,20 +32,18 @@ namespace ZP.CSharp.Enigma
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Enigma(Entrywheel<TSingle> entrywheel, Reflector<TSingle> reflector, params Rotor<TSingle>[] rotors)
+        public Enigma()
         #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.New(TEntrywheel, TReflector, TRotor[])" />
+        */
+        public static Enigma<TMessage, TSingle> New(Entrywheel<TSingle> entrywheel, Reflector<TSingle> reflector, params Rotor<TSingle>[] rotors)
         {
             ArgumentNullException.ThrowIfNull(reflector);
             ArgumentNullException.ThrowIfNull(rotors);
-            this.Setup(entrywheel, reflector, rotors);
+            return new Enigma<TMessage, TSingle>().Setup(entrywheel, reflector, rotors);
         }
-        /**
-        <summary>Creates a rotor with the rotors and the reflector provided.</summary>
-        <param name="entrywheel">The entrywheel.</param>
-        <param name="reflector">The reflector.</param>
-        <param name="rotors">The rotors.</param>
-        */
-        public static Enigma<TMessage, TSingle> New(Entrywheel<TSingle> entrywheel, Reflector<TSingle> reflector, params Rotor<TSingle>[] rotors) => new(entrywheel, reflector, rotors);
         /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Step()" />
         */

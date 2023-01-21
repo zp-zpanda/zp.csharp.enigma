@@ -15,12 +15,12 @@ namespace ZP.CSharp.Enigma.Helpers
         <param name="notch">The turning notches.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public static void Setup<TRotor, TRotorPair, TSingle>(
+        public static TRotor Setup<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> rotor,
             int pos,
             int[] notch,
             params TRotorPair[] pairs)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
@@ -31,13 +31,14 @@ namespace ZP.CSharp.Enigma.Helpers
             }
             rotor.Position = pos % rotor.Pairs.Length;
             rotor.Notch = notch.Select(n => n % rotor.Pairs.Length).ToArray();
+            return (TRotor) rotor;
         }
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.IsValid()" />
         */
         public static bool IsValid<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.IsValid();
@@ -47,7 +48,7 @@ namespace ZP.CSharp.Enigma.Helpers
         public static TSingle FromEntryWheel<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r,
             TSingle c)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.FromEntryWheel(c);
@@ -57,7 +58,7 @@ namespace ZP.CSharp.Enigma.Helpers
         public static TSingle FromReflector<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r,
             TSingle c)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.FromReflector(c);
@@ -66,17 +67,17 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static TSingle[] Domain<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.Domain();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.TransposeIn(char)" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.TransposeIn(TSingle)" />
         */
         public static TSingle TransposeIn<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r,
             TSingle c)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.TransposeIn(c);
@@ -86,7 +87,7 @@ namespace ZP.CSharp.Enigma.Helpers
         public static TSingle TransposeOut<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r,
             TSingle c)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.TransposeOut(c);
@@ -96,7 +97,7 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static void StepWithDoubleSteppingMechanism<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle>[] rotors)
-            where TRotor : IRotor<TRotor, TRotorPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => rotors
