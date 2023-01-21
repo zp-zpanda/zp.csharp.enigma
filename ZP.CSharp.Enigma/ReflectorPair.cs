@@ -1,40 +1,42 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The reflector pair.</summary>
     */
-    public class ReflectorPair : IReflectorPair<ReflectorPair, char>, IEquatable<ReflectorPair>
+    public class ReflectorPair<TSingle> : IReflectorPair<ReflectorPair<TSingle>, TSingle>, IEquatable<ReflectorPair<TSingle>>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
-        private (char One, char Two) _Map;
+        private (TSingle One, TSingle Two) _Map;
         /**
         <summary>The mapping.</summary>
         */
-        public required (char One, char Two) Map {get => this._Map; set => this._Map = value;}
+        public required (TSingle One, TSingle Two) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="New(char, char)" />
+        <inheritdoc cref="New(TSingle, TSingle)" />
         */
         [SetsRequiredMembers]
-        protected ReflectorPair(char one, char two)
+        protected ReflectorPair(TSingle one, TSingle two)
         {
             if (one == two)
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
-            var map = Enumerable.Empty<char>().Append(one).Append(two).OrderBy(c => c);
+            var map = Enumerable.Empty<TSingle>().Append(one).Append(two).OrderBy(c => c);
             this.Map = (map.First(), map.Last());
         }
         /**
         <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle, TSingle)" />
         */
-        public static ReflectorPair New(char one, char two) => new(one, two);
+        public static ReflectorPair<TSingle> New(TSingle one, TSingle two) => new(one, two);
         /**
-        <inheritdoc cref="New(string)" />
+        <inheritdoc cref="New(TSingle[])" />
         */
         [SetsRequiredMembers]
-        protected ReflectorPair(string map)
+        protected ReflectorPair(TSingle[] map)
         {
             if (map.Length != 2)
             {
@@ -44,13 +46,13 @@ namespace ZP.CSharp.Enigma
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
-            var mapArr = map.ToCharArray().OrderBy(c => c);
+            var mapArr = map.OrderBy(c => c);
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(string)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle[])" />
         */
-        public static ReflectorPair New(string map) => new(map);
+        public static ReflectorPair<TSingle> New(TSingle[] map) => new(map);
         /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */
@@ -63,33 +65,33 @@ namespace ZP.CSharp.Enigma
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(ReflectorPair? pair) => pair is not null && pair.Map == this.Map;
+        public bool Equals(ReflectorPair<TSingle>? pair) => pair is not null && pair.Map == this.Map;
         /**
-        <inheritdoc cref="Equals(ReflectorPair?)" />
+        <inheritdoc cref="Equals(ReflectorPair{TSingle}?)" />
         <param name="obj">The object to compare to.</param>
-        <seealso cref="Equals(ReflectorPair?)" />
+        <seealso cref="Equals(ReflectorPair{TSingle}?)" />
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as ReflectorPair);
+        public override bool Equals(object? obj) => this.Equals(obj as ReflectorPair<TSingle>);
         /**
-        <inheritdoc cref="Equals(ReflectorPair?)" />
+        <inheritdoc cref="Equals(ReflectorPair{TSingle}?)" />
         <param name="pair1">Reflector pair 1.</param>
         <param name="pair2">Reflector pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(ReflectorPair?)" />
+        <seealso cref="Equals(ReflectorPair{TSingle}?)" />
         <seealso cref="operator !=" />
         */
-        public static bool operator ==(ReflectorPair pair1, ReflectorPair pair2) => pair1.Equals(pair2);
+        public static bool operator ==(ReflectorPair<TSingle> pair1, ReflectorPair<TSingle> pair2) => pair1.Equals(pair2);
         /**
-        <inheritdoc cref="Equals(ReflectorPair?)" />
+        <inheritdoc cref="Equals(ReflectorPair{TSingle}?)" />
         <summary>Checks rotor pair inequality.</summary>
         <param name="pair1">Reflector pair 1.</param>
         <param name="pair2">Reflector pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(ReflectorPair?)" />
+        <seealso cref="Equals(ReflectorPair{TSingle}?)" />
         <seealso cref="operator ==" />
         */
-        public static bool operator !=(ReflectorPair pair1, ReflectorPair pair2) => !pair1.Equals(pair2);
+        public static bool operator !=(ReflectorPair<TSingle> pair1, ReflectorPair<TSingle> pair2) => !pair1.Equals(pair2);
     }
 }
