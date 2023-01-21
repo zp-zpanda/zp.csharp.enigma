@@ -2,9 +2,9 @@ using System.Collections.Generic;
 namespace ZP.CSharp.Enigma.Helpers
 {
     /**
-    <summary>Helpers for the string enigma.</summary>
+    <summary>Helpers for the string-char enigma.</summary>
     */
-    public static class StringEnigmaHelpers
+    public static class StringCharEnigmaHelpers
     {
         /**
         <summary>Sets up the enigma.</summary>
@@ -14,11 +14,11 @@ namespace ZP.CSharp.Enigma.Helpers
         <param name="rotors">The rotors.</param>
         */
         public static TEnigma Setup<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> enigma,
+            this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> enigma,
             TEntrywheel entrywheel,
             TReflector reflector,
             params TRotor[] rotors)
-            where TEnigma : IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>
@@ -31,10 +31,13 @@ namespace ZP.CSharp.Enigma.Helpers
             (enigma as IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>).Reflector = reflector;
             return (TEnigma) enigma;
         }
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TSingle)" />
+        */
         public static char RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
+            this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             char c)
-            where TEnigma : IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>
@@ -42,10 +45,13 @@ namespace ZP.CSharp.Enigma.Helpers
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
             => (e as IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>).RunOn(c);
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TMessage)" />
+        */
         public static string RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
+            this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             string s)
-            where TEnigma : IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>
@@ -53,10 +59,13 @@ namespace ZP.CSharp.Enigma.Helpers
             where TReflector : IReflector<TReflector, TReflectorPair, char>
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
             => e.RunOn(s);
-            public static IEnumerable<char> RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
+        /**
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TMessage)" />
+        */
+        public static IEnumerable<char> RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
+            this IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
             IEnumerable<char> m)
-            where TEnigma : IStringEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
+            where TEnigma : IStringCharEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, char>
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>

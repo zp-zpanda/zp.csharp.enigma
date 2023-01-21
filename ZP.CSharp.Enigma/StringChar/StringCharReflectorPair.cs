@@ -1,12 +1,12 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-namespace ZP.CSharp.Enigma.Implementations
+namespace ZP.CSharp.Enigma
 {
     /**
-    <summary>The reflector pair.</summary>
+    <summary>The string-char reflector pair.</summary>
     */
-    public class AlphabeticalReflectorPair : IReflectorPair<AlphabeticalReflectorPair, char>, IEquatable<AlphabeticalReflectorPair>
+    public class StringCharReflectorPair : IReflectorPair<StringCharReflectorPair, char>, IEquatable<StringCharReflectorPair>
     {
         private (char One, char Two) _Map;
         /**
@@ -14,10 +14,10 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required (char One, char Two) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="ReflectorPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected AlphabeticalReflectorPair(char one, char two)
+        protected StringCharReflectorPair(char one, char two)
         {
             if (one == two)
             {
@@ -29,12 +29,12 @@ namespace ZP.CSharp.Enigma.Implementations
         /**
         <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle, TSingle)" />
         */
-        public static AlphabeticalReflectorPair New(char one, char two) => new(one, two);
+        public static StringCharReflectorPair New(char one, char two) => new(one, two);
         /**
-        <inheritdoc cref="ReflectorPair.New(string)" />
+        <inheritdoc cref="New(string)" />
         */
         [SetsRequiredMembers]
-        protected AlphabeticalReflectorPair(string map)
+        protected StringCharReflectorPair(string map)
         {
             if (map.Length != 2)
             {
@@ -48,6 +48,10 @@ namespace ZP.CSharp.Enigma.Implementations
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
+        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(string)" />
+        */
+        public static StringCharReflectorPair New(string map) => new(map);
+        /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */
         public override int GetHashCode() => this.Map.GetHashCode();
@@ -59,33 +63,33 @@ namespace ZP.CSharp.Enigma.Implementations
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(AlphabeticalReflectorPair? pair) => pair is not null && pair.Map == this.Map;
+        public bool Equals(StringCharReflectorPair? pair) => pair is not null && pair.Map == this.Map;
         /**
-        <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
+        <inheritdoc cref="Equals(StringCharReflectorPair?)" />
         <param name="obj">The object to compare to.</param>
-        <seealso cref="Equals(AlphabeticalReflectorPair?)" />
+        <seealso cref="Equals(StringCharReflectorPair?)" />
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as AlphabeticalReflectorPair);
+        public override bool Equals(object? obj) => this.Equals(obj as StringCharReflectorPair);
         /**
-        <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
+        <inheritdoc cref="Equals(StringCharReflectorPair?)" />
         <param name="pair1">Reflector pair 1.</param>
         <param name="pair2">Reflector pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(AlphabeticalReflectorPair?)" />
+        <seealso cref="Equals(StringCharReflectorPair?)" />
         <seealso cref="operator !=" />
         */
-        public static bool operator ==(AlphabeticalReflectorPair pair1, AlphabeticalReflectorPair pair2) => pair1.Equals(pair2);
+        public static bool operator ==(StringCharReflectorPair pair1, StringCharReflectorPair pair2) => pair1.Equals(pair2);
         /**
-        <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
+        <inheritdoc cref="Equals(StringCharReflectorPair?)" />
         <summary>Checks rotor pair inequality.</summary>
         <param name="pair1">Reflector pair 1.</param>
         <param name="pair2">Reflector pair 2.</param>
         <seealso cref="Equals(object?)" />
-        <seealso cref="Equals(AlphabeticalReflectorPair?)" />
+        <seealso cref="Equals(StringCharReflectorPair?)" />
         <seealso cref="operator ==" />
         */
-        public static bool operator !=(AlphabeticalReflectorPair pair1, AlphabeticalReflectorPair pair2) => !pair1.Equals(pair2);
+        public static bool operator !=(StringCharReflectorPair pair1, StringCharReflectorPair pair2) => !pair1.Equals(pair2);
     }
 }
