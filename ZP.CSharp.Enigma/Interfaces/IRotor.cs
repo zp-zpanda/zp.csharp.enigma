@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Numerics;
-using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
@@ -30,13 +29,8 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public static virtual IRotor<TRotor, TRotorPair, TSingle> New(int pos, int[] notch, params TRotorPair[] pairs)
-        {
-            ArgumentNullException.ThrowIfNull(notch);
-            ArgumentNullException.ThrowIfNull(pairs);
-            pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
-            return new TRotor().Setup(pos, notch, pairs);
-        }
+        public static virtual TRotor New(int pos, int[] notch, params TRotorPair[] pairs)
+            => throw new NotImplementedException();
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
