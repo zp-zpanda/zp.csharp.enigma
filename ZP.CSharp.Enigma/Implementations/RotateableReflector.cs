@@ -62,7 +62,7 @@ namespace ZP.CSharp.Enigma.Implementations
             => new()
             {
                 Reflector = reflector,
-                Interface = (TInterface) TInterface.New(pos, notch, RotorPairHelpers.GetPairsFrom<TInterfacePair, TSingle>(domain, domain))
+                Interface = TInterface.New(pos, notch, RotorPairHelpers.GetPairsFrom<TInterfacePair, TSingle>(domain, domain))
             };
         /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.Reflect(TSingle)" />
