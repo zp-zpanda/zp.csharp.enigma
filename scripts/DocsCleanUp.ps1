@@ -1,1 +1,1 @@
-Remove-Item ./ZP.CSharp.Enigma.Docs/docs-bin/ -Recurse
+Remove-Item ./ZP.CSharp.Enigma.Docs/docs-bin/ -Recurse -Force
