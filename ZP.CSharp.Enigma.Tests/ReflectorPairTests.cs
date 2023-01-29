@@ -1,31 +1,28 @@
 using System;
 using Xunit;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class ReflectorPairTests
     {
         [Theory]
-        [InlineData('a', 'z')]
-        [InlineData('m', 'n')]
-        [InlineData('我', '你')]
-        public void ReflectorPairCanBeSetWithTwoChars(char e, char r)
+        [InlineData(0, 1)]
+        [InlineData(2, 3)]
+        public void ReflectorPairCanBeSetWithTwoChars(int e, int r)
         {
-            var pair = ReflectorPair.New(e, r);
+            var pair = ReflectorPair<int>.New(e, r);
             var map = new[]{pair.Map.One, pair.Map.Two};
-            Assert.IsType<(char, char)>(pair.Map);
+            Assert.IsType<(int, int)>(pair.Map);
             Assert.Contains(e, map);
             Assert.Contains(r, map);
             Assert.True(map[0] < map[1]);
         }
         [Theory]
-        [InlineData('a')]
-        [InlineData('z')]
-        [InlineData('你')]
-        public void ReflectorPairCannotHaveSameCharOnBothSides(char c)
+        [InlineData(0)]
+        [InlineData(1)]
+        public void ReflectorPairCannotHaveSameCharOnBothSides(int c)
         {
-            Assert.Throws<ArgumentException>(() => {var pair = ReflectorPair.New(c, c);});
+            var action = () => {var pair = ReflectorPair<int>.New(c, c);};
+            Assert.Throws<ArgumentException>(action);
         }
     }
 }

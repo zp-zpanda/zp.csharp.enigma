@@ -1,6 +1,5 @@
-using System;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Helpers;
+using System.Collections.Generic;
+using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
     /**
@@ -11,21 +10,24 @@ namespace ZP.CSharp.Enigma.Helpers
         /**
         <summary>Sets up the enigma.</summary>
         <param name="enigma">The enigma to set up.</param>
+        <param name="entrywheel">The entrywheel.</param>
         <param name="reflector">The reflector.</param>
         <param name="rotors">The rotors.</param>
         */
-        public static TEnigma Setup<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> enigma,
+        public static TEnigma Setup<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>(
+            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle> enigma,
             TEntrywheel entrywheel,
             TReflector reflector,
             params TRotor[] rotors)
-            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
-            where TRotor : IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
+            where TRotorPair : IRotorPair<TRotorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TMessage : IEnumerable<TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
             enigma.Entrywheel = entrywheel;
             enigma.Rotors = rotors;
@@ -33,32 +35,36 @@ namespace ZP.CSharp.Enigma.Helpers
             return (TEnigma) enigma;
         }
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.RunOn(char)" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TSingle)" />
         */
-        public static char RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
-            char c)
-            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
-            where TRotor : IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+        public static TSingle RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>(
+            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle> e,
+            TSingle c)
+            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
+            where TRotorPair : IRotorPair<TRotorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TMessage : IEnumerable<TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => e.RunOn(c);
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair}.RunOn(string)" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TMessage)" />
         */
-        public static string RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>(
-            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair> e,
-            string s)
-            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair>
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
-            where TRotor : IRotor<TRotor, TRotorPair>
-            where TRotorPair : IRotorPair<TRotorPair>
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
-            => e.RunOn(s);
+        public static TMessage RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>(
+            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle> e,
+            TMessage m)
+            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
+            where TRotorPair : IRotorPair<TRotorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TMessage : IEnumerable<TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
+            => e.RunOn(m);
     }
 }

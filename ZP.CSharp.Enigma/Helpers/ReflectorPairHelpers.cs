@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Helpers;
+using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
     /**
@@ -13,9 +12,10 @@ namespace ZP.CSharp.Enigma.Helpers
         <summary>Gets pairs from multiple string maps.</summary>
         <param name="maps">The maps.</param>
         */
-        public static TReflectorPair[] GetPairsFrom<TReflectorPair>(
-            params string[] maps)
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+        public static TReflectorPair[] GetPairsFrom<TReflectorPair, TSingle>(
+            params TSingle[][] maps)
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
             if (!maps.All(map => map.Length == 2))
             {
@@ -27,9 +27,10 @@ namespace ZP.CSharp.Enigma.Helpers
         <summary>Gets pairs from a mapping.</summary>
         <param name="map">The mapping.</param>
         */
-        public static TReflectorPair[] GetPairsFrom<TReflectorPair>(
-            string map)
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+        public static TReflectorPair[] GetPairsFrom<TReflectorPair, TSingle>(
+            TSingle[] map)
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
             if (map.Length % 2 != 0)
             {

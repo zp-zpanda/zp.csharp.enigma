@@ -1,71 +1,59 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma;
+using System.Numerics;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The entrywheel.</summary>
     */
-    public class Entrywheel : IEntrywheel<Entrywheel, EntrywheelPair>
+    public class Entrywheel<TSingle> : IEntrywheel<Entrywheel<TSingle>, EntrywheelPair<TSingle>, TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
-        private EntrywheelPair[] _Pairs = Array.Empty<EntrywheelPair>();
+        private EntrywheelPair<TSingle>[] _Pairs = Array.Empty<EntrywheelPair<TSingle>>();
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Pairs" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Pairs" />
         */
-        public required EntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required EntrywheelPair<TSingle>[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="Entrywheel.New(int, int[], EntrywheelPair[])" />
+        <inheritdoc cref="New(EntrywheelPair{TSingle}[])" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Entrywheel(params EntrywheelPair[] pairs)
+        public Entrywheel()
         #pragma warning restore CS8618
+        {
+        }
+        /**
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(TEntrywheelPair[])" />
+        */
+        public static Entrywheel<TSingle> New(params EntrywheelPair<TSingle>[] pairs)
         {
             ArgumentNullException.ThrowIfNull(pairs);
             pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
-            this.Setup(pairs);
-        }
-        /**
-        <summary>Creates a entrywheel with the entrywheel pairs provided.</summary>
-        <param name="pairs">The entrywheel pairs.</param>
-        */
-        public static Entrywheel New(params EntrywheelPair[] pairs) => new(pairs);
-        /**
-        <inheritdoc cref="Entrywheel.New(int, int[], string[])" />
-        */
-        [SetsRequiredMembers]
-        #pragma warning disable CS8618
-        protected Entrywheel(params string[] maps) 
-        #pragma warning restore CS8618
-        {
-            ArgumentNullException.ThrowIfNull(maps);
-            maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(maps));
+            return new Entrywheel<TSingle>().Setup(pairs);
         }
         /**
         <summary>Creates a entrywheel with entrywheel pairs created from two-character-long mappings.</summary>
         <param name="maps">The entrywheel pair mappings.</param>
         */
-        public static Entrywheel New(params string[] maps) => new(maps);
-        /**
-        <inheritdoc cref="Entrywheel.New(int, int[], string, string)" />
-        */
-        [SetsRequiredMembers]
-        #pragma warning disable CS8618
-        protected Entrywheel(string p, string r)
-        #pragma warning restore CS8618
+        public static Entrywheel<TSingle> New(params TSingle[][] maps)
         {
-            ArgumentException.ThrowIfNullOrEmpty(p);
-            ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair>(p, r));
+            ArgumentNullException.ThrowIfNull(maps);
+            maps.ToList().ForEach(map => ArgumentNullException.ThrowIfNull(map));
+            return New(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair<TSingle>, TSingle>(maps));
         }
         /**
         <summary>Creates a entrywheel with entrywheel pairs created from a entrywheel-side and a reflector-side mapping.</summary>
         <param name="p">The plugboard-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static Entrywheel New(string p, string r) => new(p, r);
+        public static Entrywheel<TSingle> New(TSingle[] p, TSingle[] r)
+        {
+            ArgumentNullException.ThrowIfNull(p);
+            ArgumentNullException.ThrowIfNull(r);
+            return New(EntrywheelPairHelpers.GetPairsFrom<EntrywheelPair<TSingle>, TSingle>(p, r));
+        }
     }
 }

@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
-using ZP.CSharp.Enigma;
+using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>The interface for the rotor.</summary>
     */
-    public interface IRotor<TRotor, TRotorPair>
-        where TRotor : IRotor<TRotor, TRotorPair>
-        where TRotorPair : IRotorPair<TRotorPair>
+    public interface IRotor<TRotor, TRotorPair, TSingle>
+        where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
+        where TRotorPair : IRotorPair<TRotorPair, TSingle>
+        where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
         /**
         <summary>The position of this rotor.</summary>
@@ -22,6 +23,14 @@ namespace ZP.CSharp.Enigma
         <summary>The rotor pairs this rotor has.</summary>
         */
         public TRotorPair[] Pairs {get; set;}
+        /**
+        <summary>Creates a rotor with the rotor pairs provided.</summary>
+        <param name="pos">The position.</param>
+        <param name="notch">The turning notch.</param>
+        <param name="pairs">The rotor pairs.</param>
+        */
+        public static virtual TRotor New(int pos, int[] notch, params TRotorPair[] pairs)
+            => throw new NotImplementedException();
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
@@ -41,7 +50,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromEntryWheel(char c)
+        public TSingle FromEntryWheel(TSingle c)
         {
             try
             {
@@ -58,7 +67,7 @@ namespace ZP.CSharp.Enigma
         <returns>The mapped character.</returns>
         <exception cref="CharacterNotFoundException"><paramref name="c" /> cannot be mapped.</exception>
         */
-        public char FromReflector(char c)
+        public TSingle FromReflector(TSingle c)
         {
             try
             {
@@ -73,15 +82,15 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public virtual string Domain() => new(this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray());
+        public virtual TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray();
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>
         <returns>The transposed character.</returns>
         */
-        public char TransposeIn(char c)
+        public TSingle TransposeIn(TSingle c)
         {
-            var index = this.Domain().IndexOf(c);
+            var index = Array.IndexOf(this.Domain(), c);
             var length = this.Domain().Length;
             return this.Domain()[(index + this.Position) % length];
         }
@@ -90,9 +99,9 @@ namespace ZP.CSharp.Enigma
         <param name="c">The character to transpose.</param>
         <returns>The transposed character.</returns>
         */
-        public char TransposeOut(char c)
+        public TSingle TransposeOut(TSingle c)
         {
-            var index = this.Domain().IndexOf(c);
+            var index = Array.IndexOf(this.Domain(), c);
             var length = this.Domain().Length;
             return this.Domain()[(index - this.Position + length) % length];
         }

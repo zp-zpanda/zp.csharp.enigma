@@ -1,47 +1,48 @@
-using System;
+using System.Collections.Generic;
 using Xunit;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class EnigmaTests
     {
-        public Enigma TestEnigma = Enigma.New(
-            Entrywheel.New(
-                EntrywheelPair.New("aa"),
-                EntrywheelPair.New("bb"),
-                EntrywheelPair.New("cc"),
-                EntrywheelPair.New("dd")
+        public Enigma<IEnumerable<int>, int> TestEnigma = Enigma<IEnumerable<int>, int>.New(
+            Entrywheel<int>.New(
+                EntrywheelPair<int>.New(0, 0),
+                EntrywheelPair<int>.New(1, 1),
+                EntrywheelPair<int>.New(2, 2),
+                EntrywheelPair<int>.New(3, 3)
             ),
-            Reflector.New(
-                ReflectorPair.New("ab"),
-                ReflectorPair.New("cd")
+            Reflector<int>.New(
+                ReflectorPair<int>.New(0, 1),
+                ReflectorPair<int>.New(2, 3)
             ),
-            Rotor.New(
+            Rotor<int>.New(
                 0,
                 new[]{0},
-                RotorPair.New("ac"),
-                RotorPair.New("ba"),
-                RotorPair.New("cd"),
-                RotorPair.New("db")
+                RotorPair<int>.New(0, 2),
+                RotorPair<int>.New(1, 0),
+                RotorPair<int>.New(2, 3),
+                RotorPair<int>.New(3, 1)
             )
         );
         [Theory]
-        [InlineData('a')]
-        [InlineData('b')]
-        [InlineData('c')]
-        [InlineData('d')]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
         public void EnigmaWillNotReturnInputAsOutput(char c)
         {
-            Assert.NotEqual(c, this.TestEnigma.RunOn(c));
+            var enigma = this.TestEnigma;
+            var result = enigma.RunOn(c);
+            Assert.NotEqual(c, result);
         }
         [Theory]
-        [InlineData("abcd", "cdab")]
-        public void EnigmaWillReturnCipheredOutput(string plain, string cipher)
+        [InlineData(new[]{0, 1, 2, 3}, new[]{2, 3, 0, 1})]
+        public void EnigmaWillReturnCipheredOutput(int[] plain, int[] cipher)
         {
-            Assert.Equal(cipher, this.TestEnigma.RunOn(plain));
-            Assert.Equal(plain, this.TestEnigma.RunOn(cipher));
+            var enigma = this.TestEnigma;
+            var result = enigma.RunOn(plain);
+            Assert.Equal(cipher, result);
         }
     }
 }

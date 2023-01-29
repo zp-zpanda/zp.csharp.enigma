@@ -1,44 +1,40 @@
 using System;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using ZP.CSharp.Enigma;
 using ZP.CSharp.Enigma.Helpers;
-using ZP.CSharp.Enigma.Implementations;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**
     <summary>The alphabetical rotor.</summary>
     */
-    public class AlphabeticalRotor : IFixedDomainRotor<AlphabeticalRotor, AlphabeticalRotorPair>
+    public class AlphabeticalRotor : IFixedDomainRotor<AlphabeticalRotor, AlphabeticalRotorPair, char>
     {
         
         private AlphabeticalRotorPair[] _Pairs = Array.Empty<AlphabeticalRotorPair>();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Pairs" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Pairs" />
         */
         public required AlphabeticalRotorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         private int _Position = 0;
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Position" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Position" />
         */
         public required int Position {get => this._Position; set => this._Position = value;}
         private int[] _Notch = new int[]{0};
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Notch" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Notch" />
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="AlphabeticalRotor.New(int, int[], string)" />
+        <inheritdoc cref="New(int, int[], string)" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        public AlphabeticalRotor(int pos, int[] notch, string r)
+        public AlphabeticalRotor()
         #pragma warning restore CS8618
-        {
-            ArgumentNullException.ThrowIfNull(notch);
-            ArgumentException.ThrowIfNullOrEmpty(r);
-            this.Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair>(FixedDomain(), r));
-        }
+        {}
+        public static AlphabeticalRotor New(int pos, int[] notch, params AlphabeticalRotorPair[] pairs)
+            => throw new NotSupportedException();
         /**
         <summary>Creates a rotor with rotor pairs created from the reflector-side mapping.</summary>
         <param name="pos">The position.</param>
@@ -46,17 +42,21 @@ namespace ZP.CSharp.Enigma.Implementations
         <param name="r">The reflector-side mapping.</param>
         */
         public static AlphabeticalRotor New(int pos, int[] notch, string r)
-            => new(pos, notch, r);
+        {
+            ArgumentNullException.ThrowIfNull(notch);
+            ArgumentException.ThrowIfNullOrEmpty(r);
+            return new AlphabeticalRotor().Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair, char>(FixedDomain(), r.ToCharArray()));
+        }
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Domain()" />
         */
-        public static string FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public static char[] FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.AllowNextToStep()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.AllowNextToStep()" />
         */
         public bool AllowNextToStep() => this.Notch.Contains(this.Position);
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair}.Step()" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Step()" />
         */
         public void Step() => this.Position = ((this.Position + 1) % this.Pairs.Length);
     }

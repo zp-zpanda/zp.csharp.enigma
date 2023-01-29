@@ -1,28 +1,23 @@
-using System;
 using Xunit;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class EntrywheelPairTests
     {
         [Theory]
-        [InlineData('a', 'z')]
-        [InlineData('m', 'n')]
-        [InlineData('你', '我')]
+        [InlineData(0, 1)]
+        [InlineData(2, 3)]
         public void EntrywheelPairCanBeSetWithTwoChars(char p, char r)
         {
-            var pair = EntrywheelPair.New(p, r);
+            var pair = EntrywheelPair<int>.New(p, r);
             Assert.Equal(p, pair.Map.PlugboardSide);
             Assert.Equal(r, pair.Map.ReflectorSide);
         }
         [Theory]
-        [InlineData('a')]
-        [InlineData('z')]
-        [InlineData('你')]
+        [InlineData(0)]
+        [InlineData(1)]
         public void EntrywheelPairCanHaveSameCharOnBothSides(char c)
         {
-            var pair = EntrywheelPair.New(c, c);
+            var pair = EntrywheelPair<int>.New(c, c);
             Assert.Equal(pair.Map.PlugboardSide, pair.Map.ReflectorSide);
         }
     }

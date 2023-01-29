@@ -1,28 +1,23 @@
-using System;
 using Xunit;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Tests;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class RotorPairTests
     {
         [Theory]
-        [InlineData('a', 'z')]
-        [InlineData('m', 'n')]
-        [InlineData('你', '我')]
-        public void RotorPairCanBeSetWithTwoChars(char e, char r)
+        [InlineData(0, 1)]
+        [InlineData(2, 3)]
+        public void RotorPairCanBeSetWithTwoChars(int e, int r)
         {
-            var pair = RotorPair.New(e, r);
+            var pair = RotorPair<int>.New(e, r);
             Assert.Equal(e, pair.Map.EntryWheelSide);
             Assert.Equal(r, pair.Map.ReflectorSide);
         }
         [Theory]
-        [InlineData('a')]
-        [InlineData('z')]
-        [InlineData('你')]
-        public void RotorPairCanHaveSameCharOnBothSides(char c)
+        [InlineData(0)]
+        [InlineData(1)]
+        public void RotorPairCanHaveSameCharOnBothSides(int c)
         {
-            var pair = RotorPair.New(c, c);
+            var pair = RotorPair<int>.New(c, c);
             Assert.Equal(pair.Map.EntryWheelSide, pair.Map.ReflectorSide);
         }
     }

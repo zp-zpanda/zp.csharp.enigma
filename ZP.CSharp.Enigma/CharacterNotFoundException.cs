@@ -1,12 +1,13 @@
 using System;
 using System.Runtime.Serialization;
-using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma
 {
     /**
     <summary>Represents the situation where no character could be found.</summary>
-    <seealso cref="IRotor{TRotor, TRotorPair}.FromEntryWheel(char)" />
-    <seealso cref="IRotor{TRotor, TRotorPair}.FromReflector(char)" />
+    <seealso cref="IRotor{TRotor, TRotorPair, TSingle}.FromEntryWheel(TSingle)" />
+    <seealso cref="IRotor{TRotor, TRotorPair, TSingle}.FromReflector(TSingle)" />
+    <seealso cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.FromPlugboard(TSingle)" />
+    <seealso cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.FromReflector(TSingle)" />
     */
     [Serializable]
     public class CharacterNotFoundException : Exception
@@ -16,17 +17,17 @@ namespace ZP.CSharp.Enigma
         */
         public const string ErrorMessage = "Character not found.";
         /**
-        <seealso cref="Exception.Exception(string)" />
+        <seealso cref="Exception(string)" />
         */
         public CharacterNotFoundException() : base(ErrorMessage)
         {}
         /**
-        <seealso cref="Exception.Exception(string, Exception)" />
+        <seealso cref="Exception(string, Exception)" />
         */
         public CharacterNotFoundException(Exception inner) : base(ErrorMessage, inner)
         {}
         /**
-        <seealso cref="Exception.Exception(SerializationInfo, StreamingContext)" />
+        <seealso cref="Exception(SerializationInfo, StreamingContext)" />
         */
         protected CharacterNotFoundException(SerializationInfo info,
             StreamingContext context) : base(info, context)

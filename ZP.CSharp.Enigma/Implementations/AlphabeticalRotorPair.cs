@@ -1,27 +1,23 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**
     <summary>The alphabetical rotor pair.</summary>
     */
-    public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair>, IEquatable<AlphabeticalRotorPair>
+    public class AlphabeticalRotorPair : IRotorPair<AlphabeticalRotorPair, char>, IEquatable<AlphabeticalRotorPair>
     {
         private (char EntryWheelSide, char ReflectorSide) _Map;
         /**
-        <inheritdoc cref="IRotorPair.Map" />
+        <inheritdoc cref="IRotorPair{TRotorPair, TSingle}.Map" />
         */
         public required (char EntryWheelSide, char ReflectorSide) Map {get => this._Map; set => this._Map = value;}
         /**
-        <inheritdoc cref="AlphabeticalRotorPair.New(char, char)" />
+        <inheritdoc cref="New(char, char)" />
         */
         [SetsRequiredMembers]
-        protected AlphabeticalRotorPair(char eSide, char rSide)
-        {
-            this.Map = (eSide, rSide);
-        }
+        protected AlphabeticalRotorPair(char eSide, char rSide) => this.Map = (eSide, rSide);
         /**
         <summary>Creates a rotor pair with two characters.</summary>
         <param name="eSide">The character on the entry wheel side.</param>
@@ -58,14 +54,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(AlphabeticalRotorPair? pair)
-        {
-            if (pair is null)
-            {
-                return false;
-            }
-            return pair.Map == this.Map;
-        }
+        public bool Equals(AlphabeticalRotorPair? pair) => pair is not null && pair.Map == this.Map;
         /**
         <inheritdoc cref="Equals(AlphabeticalRotorPair?)" />
         <param name="obj">The object to compare to.</param>

@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Helpers;
+using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
     /**
@@ -14,51 +12,57 @@ namespace ZP.CSharp.Enigma.Helpers
         <param name="entrywheel">The entrywheel to set up.</param>
         <param name="pairs">The entrywheel pairs.</param>
         */
-        public static void Setup<TEntrywheel, TEntrywheelPair>(
-            this IEntrywheel<TEntrywheel, TEntrywheelPair> entrywheel,
+        public static TEntrywheel Setup<TEntrywheel, TEntrywheelPair, TSingle>(
+            this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> entrywheel,
             params TEntrywheelPair[] pairs)
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
             entrywheel.Pairs = pairs;
             if (!entrywheel.IsValid())
             {
                 throw new ArgumentException("Entrywheel pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
             }
+            return (TEntrywheel) entrywheel;
         }
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.IsValid()" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.IsValid()" />
         */
-        public static bool IsValid<TEntrywheel, TEntrywheelPair>(
-            this IEntrywheel<TEntrywheel, TEntrywheelPair> e)
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+        public static bool IsValid<TEntrywheel, TEntrywheelPair, TSingle>(
+            this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> e)
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => e.IsValid();
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.FromPlugboard(char)" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.FromPlugboard(TSingle)" />
         */
-        public static char FromPlugboard<TEntrywheel, TEntrywheelPair>(
-            this IEntrywheel<TEntrywheel, TEntrywheelPair> e,
-            char c)
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+        public static TSingle FromPlugboard<TEntrywheel, TEntrywheelPair, TSingle>(
+            this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> e,
+            TSingle c)
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => e.FromPlugboard(c);
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.FromReflector(char)" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.FromReflector(TSingle)" />
         */
-        public static char FromReflector<TEntrywheel, TEntrywheelPair>(
-            this IEntrywheel<TEntrywheel, TEntrywheelPair> e,
-            char c)
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+        public static TSingle FromReflector<TEntrywheel, TEntrywheelPair, TSingle>(
+            this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> e,
+            TSingle c)
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => e.FromReflector(c);
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair}.Domain()" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Domain()" />
         */
-        public static string Domain<TEntrywheel, TEntrywheelPair>(
-            this IEntrywheel<TEntrywheel, TEntrywheelPair> e)
-            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair>
-            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair>
+        public static TSingle[] Domain<TEntrywheel, TEntrywheelPair, TSingle>(
+            this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> e)
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => e.Domain();
         /*
         <inheritdoc cref="IRotor{TRotor, TRotorPair}.Domain()" />

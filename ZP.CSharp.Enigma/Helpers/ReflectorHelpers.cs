@@ -1,6 +1,5 @@
 using System;
-using ZP.CSharp.Enigma;
-using ZP.CSharp.Enigma.Helpers;
+using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
     /**
@@ -13,11 +12,12 @@ namespace ZP.CSharp.Enigma.Helpers
         <param name="reflector">The reflector to set up.</param>
         <param name="pairs">The reflector pairs.</param>
         */
-        public static void Setup<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> reflector,
+        public static void Setup<TReflector, TReflectorPair, TSingle>(
+            this IReflector<TReflector, TReflectorPair, TSingle> reflector,
             TReflectorPair[] pairs)
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
             reflector.Pairs = pairs;
             if (!reflector.IsValid())
@@ -26,21 +26,23 @@ namespace ZP.CSharp.Enigma.Helpers
             }
         }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.IsValid()" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.IsValid()" />
         */
-        public static bool IsValid<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r)
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+        public static bool IsValid<TReflector, TReflectorPair, TSingle>(
+            this IReflector<TReflector, TReflectorPair, TSingle> r)
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.IsValid();
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair}.Reflect(char)" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.Reflect(TSingle)" />
         */
-        public static char Reflect<TReflector, TReflectorPair>(
-            this IReflector<TReflector, TReflectorPair> r,
-            char c)
-            where TReflector : IReflector<TReflector, TReflectorPair>
-            where TReflectorPair : IReflectorPair<TReflectorPair>
+        public static TSingle Reflect<TReflector, TReflectorPair, TSingle>(
+            this IReflector<TReflector, TReflectorPair, TSingle> r,
+            TSingle c)
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.Reflect(c);
     }
 }

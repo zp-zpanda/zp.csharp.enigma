@@ -1,13 +1,12 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using ZP.CSharp.Enigma.Implementations;
 namespace ZP.CSharp.Enigma.Implementations
 {
     /**
     <summary>The reflector pair.</summary>
     */
-    public class AlphabeticalReflectorPair : IReflectorPair<AlphabeticalReflectorPair>, IEquatable<AlphabeticalReflectorPair>
+    public class AlphabeticalReflectorPair : IReflectorPair<AlphabeticalReflectorPair, char>, IEquatable<AlphabeticalReflectorPair>
     {
         private (char One, char Two) _Map;
         /**
@@ -28,11 +27,11 @@ namespace ZP.CSharp.Enigma.Implementations
             this.Map = (map.First(), map.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair}.New(char, char)" />
+        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle, TSingle)" />
         */
         public static AlphabeticalReflectorPair New(char one, char two) => new(one, two);
         /**
-        <inheritdoc cref="ReflectorPair.WithMap(string)" />
+        <inheritdoc cref="ReflectorPair.New(string)" />
         */
         [SetsRequiredMembers]
         protected AlphabeticalReflectorPair(string map)
@@ -60,14 +59,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public bool Equals(AlphabeticalReflectorPair? pair)
-        {
-            if (pair is null)
-            {
-                return false;
-            }
-            return pair.Map == this.Map;
-        }
+        public bool Equals(AlphabeticalReflectorPair? pair) => pair is not null && pair.Map == this.Map;
         /**
         <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
         <param name="obj">The object to compare to.</param>
@@ -75,7 +67,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <seealso cref="operator ==" />
         <seealso cref="operator !=" />
         */
-        public override bool Equals(object? obj) => this.Equals(obj as ReflectorPair);
+        public override bool Equals(object? obj) => this.Equals(obj as AlphabeticalReflectorPair);
         /**
         <inheritdoc cref="Equals(AlphabeticalReflectorPair?)" />
         <param name="pair1">Reflector pair 1.</param>
