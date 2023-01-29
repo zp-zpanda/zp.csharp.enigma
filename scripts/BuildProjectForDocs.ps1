@@ -1,1 +1,1 @@
-dotnet build -o docs-out
+dotnet build -o ./ZP.CSharp.Enigma.Docs/docs-bin
