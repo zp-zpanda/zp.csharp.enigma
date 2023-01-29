@@ -1,1 +1,3 @@
-docfx build ./ZP.CSharp.Enigma.Docs/docfx.json -o docs
+Set-Location ./ZP.CSharp.Enigma.Docs
+dotnet run
+Set-Location ..
