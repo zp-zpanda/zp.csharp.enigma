@@ -1,0 +1,90 @@
+{
+    
+    "version" : "2.0.0",
+    "tasks" : [
+        {
+            "label" : "build",
+            "detail" : "Build Project",
+            "type" : "process",
+            "command" : "dotnet",
+            "args" : [
+                "build"
+            ],
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "build-docs",
+            "detail" : "Build Docs",
+            "dependsOn" : [
+                "move-old-docs",
+                "build-for-docs",
+                "build-docfx",
+                "docs-clean-up"
+            ],
+            "dependsOrder" : "sequence",
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "move-old-docs",
+            "detail" : "Move Old Docs",
+            "type" : "process",
+            "command" : "pwsh",
+            "args" : [
+                "-File",
+                "./scripts/move-old-docs.ps1"
+            ],
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "build-for-docs",
+            "detail" : "Build Project For Docs",
+            "type" : "process",
+            "command" : "pwsh",
+            "args" : [
+                "-File",
+                "./scripts/build-for-docs.ps1"
+            ],
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "build-docfx",
+            "detail" : "Build DocFX Project",
+            "type" : "process",
+            "command" : "pwsh",
+            "args" : [
+                "-File",
+                "./scripts/build-docfx.ps1"
+            ],
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "docs-clean-up",
+            "detail" : "Docs Clean Up",
+            "type" : "process",
+            "command" : "pwsh",
+            "args" : [
+                "-File",
+                "./scripts/docs-clean-up.ps1"
+            ],
+            "group" : "build",
+            "problemMatcher" : "$msCompile"
+        },
+        {
+            "label" : "test",
+            "detail" : "Run Tests",
+            "command" : "dotnet",
+            "args" : [
+                "test",
+                "-l",
+                "console;verbosity=normal"
+            ],
+            "group" : "test",
+            "problemMatcher" : "$msCompile"
+        }
+    ]
+}
