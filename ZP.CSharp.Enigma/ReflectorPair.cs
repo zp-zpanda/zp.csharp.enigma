@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
+using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma
 {
     /**
@@ -50,9 +51,9 @@ namespace ZP.CSharp.Enigma
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(TSingle[])" />
+        <inheritdoc cref="ReflectorPairHelpers.GetPairFrom{TReflectorPair, TSingle}(TSingle[])" />
         */
-        public static ReflectorPair<TSingle> New(TSingle[] map) => new(map);
+        public static ReflectorPair<TSingle> New(TSingle[] map) => ReflectorPairHelpers.GetPairFrom<ReflectorPair<TSingle>, TSingle>(map);
         /**
         <summary>Produces the hash code for the reflector pair.</summary>
         */
