@@ -12,7 +12,7 @@ namespace ZP.CSharp.Enigma.Models
     public class EnigmaZ
     {
         /**
-        
+        <summary>Enigma Z implementations with string-char components.</summary>
         */
         public class WithStringChar
             : IStringCharEnigma<WithStringChar,
@@ -54,7 +54,7 @@ namespace ZP.CSharp.Enigma.Models
             */
             public static StringCharRotor III => StringCharRotor.New(0, new[]{9}, "1234567890", "3581620794");
             /**
-            <inheritdoc cref="New(ValueTuple{string, string, string}, ValueTuple{int, int, int})" />
+            <inheritdoc cref="New(ValueTuple{string, string, string}, ValueTuple{int, int, int, int})" />
             */
             [SetsRequiredMembers]
             #pragma warning disable CS8618
@@ -67,7 +67,7 @@ namespace ZP.CSharp.Enigma.Models
             public static WithStringChar New(StringCharEntrywheel entrywheel, RotateableReflector<StringCharReflector, StringCharReflectorPair, StringCharRotor, StringCharRotorPair, char> reflector, params StringCharRotor[] rotors)
                 => new WithStringChar().Setup(entrywheel, reflector, rotors);
             /**
-            <inheritdoc cref="New(StringCharEntrywheel, StringCharReflector, StringCharRotor[])" />
+            <inheritdoc cref="New(StringCharEntrywheel, RotateableReflector{StringCharReflector, StringCharReflectorPair, StringCharRotor, StringCharRotorPair, char}, StringCharRotor[])" />
             <param name="rotors">The rotors.</param>
             <param name="pos">The rotors' initial positions.</param>
             */
@@ -101,6 +101,9 @@ namespace ZP.CSharp.Enigma.Models
             */
             public void Step() => this.Rotors.Append(this.Reflector.Interface).ToArray().StepWithDoubleSteppingMechanism();
         }
+        /**
+        <summary>Enigma Z implementations with int components.</summary>
+        */
         public class WithInt32
             : IEnigma<WithInt32,
                 Entrywheel<int>,
@@ -144,7 +147,7 @@ namespace ZP.CSharp.Enigma.Models
             */
             public static Rotor<int> III => Rotor<int>.New(0, new[]{9}, new[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}, new[]{3, 5, 8, 1, 6, 2, 0, 7, 9, 4});
             /**
-            <inheritdoc cref="New(ValueTuple{string, string, string}, ValueTuple{int, int, int})" />
+            <inheritdoc cref="New(ValueTuple{string, string, string}, ValueTuple{int, int, int, int})" />
             */
             [SetsRequiredMembers]
             #pragma warning disable CS8618
@@ -157,7 +160,7 @@ namespace ZP.CSharp.Enigma.Models
             public static WithInt32 New(Entrywheel<int> entrywheel, RotateableReflector<Reflector<int>, ReflectorPair<int>, Rotor<int>, RotorPair<int>, int> reflector, params Rotor<int>[] rotors)
                 => new WithInt32().Setup(entrywheel, reflector, rotors);
             /**
-            <inheritdoc cref="New(StringCharEntrywheel, StringCharReflector, StringCharRotor[])" />
+            <inheritdoc cref="New(Entrywheel{int}, RotateableReflector{Reflector{int}, ReflectorPair{int}, Rotor{int}, RotorPair{int}, int}, Rotor{int}[])" />
             <param name="rotors">The rotors.</param>
             <param name="pos">The rotors' initial positions.</param>
             */

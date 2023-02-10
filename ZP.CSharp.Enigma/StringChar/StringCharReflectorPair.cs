@@ -48,7 +48,7 @@ namespace ZP.CSharp.Enigma
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
-        <inheritdoc cref="IReflectorPair{TReflectorPair, TSingle}.New(string)" />
+        <inheritdoc cref="ReflectorPair{TSingle}.New(TSingle[])" />
         */
         public static StringCharReflectorPair New(string map) => new(map);
         /**

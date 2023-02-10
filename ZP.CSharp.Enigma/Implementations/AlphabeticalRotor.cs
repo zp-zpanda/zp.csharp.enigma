@@ -33,6 +33,9 @@ namespace ZP.CSharp.Enigma.Implementations
         public AlphabeticalRotor()
         #pragma warning restore CS8618
         {}
+        /**
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], TRotorPair[])"/>
+        */
         public static AlphabeticalRotor New(int pos, int[] notch, params AlphabeticalRotorPair[] pairs)
             => throw new NotSupportedException();
         /**

@@ -31,7 +31,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public static AlphabeticalReflector New(params AlphabeticalReflectorPair[] pairs) => new(pairs);
         /**
-        <inheritdoc cref="Reflector.New(string[])" />
+        <inheritdoc cref="Reflector{TSingle}.New(TSingle[][])"/>
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
