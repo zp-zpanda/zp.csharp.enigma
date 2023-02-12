@@ -26,6 +26,25 @@ namespace ZP.CSharp.Enigma.Helpers
             }
         }
         /**
+        <summary>Modifies the reflector to be with the provided reflector pairs.</summary>
+        <param name="reflector">The reflector to modify.</param>
+        <param name="pairs">The reflector pairs.</param>
+        */
+        public static TReflector WithPairs<TReflector, TReflectorPair, TSingle>(
+            this IReflector<TReflector, TReflectorPair, TSingle> reflector,
+            params TReflectorPair[] pairs)
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
+        {
+            var newReflector = TReflector.New(pairs);
+            if (!newReflector.IsValid())
+            {
+                throw new ArgumentException("Reflector pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
+            }
+            return newReflector;
+        }
+        /**
         <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.IsValid()" />
         */
         public static bool IsValid<TReflector, TReflectorPair, TSingle>(

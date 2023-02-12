@@ -35,6 +35,28 @@ namespace ZP.CSharp.Enigma.Helpers
             return (TEnigma) enigma;
         }
         /**
+        <summary>Modifies the enigma to be with the provided entrywheel, rotors, and reflector.</summary>
+        <param name="enigma">The enigma to modify.</param>
+        <param name="entrywheel">The entrywheel.</param>
+        <param name="reflector">The reflector.</param>
+        <param name="rotors">The rotors.</param>
+        */
+        public static TEnigma With<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>(
+            this IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle> enigma,
+            TEntrywheel entrywheel,
+            TReflector reflector,
+            params TRotor[] rotors)
+            where TEnigma : IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>, new()
+            where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
+            where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
+            where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
+            where TRotorPair : IRotorPair<TRotorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
+            where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
+            where TMessage : IEnumerable<TSingle>
+            where TSingle : IEqualityOperators<TSingle, TSingle, bool>
+            => TEnigma.New(entrywheel, reflector, rotors);
+        /**
         <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.RunOn(TSingle)" />
         */
         public static TSingle RunOn<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle>(
