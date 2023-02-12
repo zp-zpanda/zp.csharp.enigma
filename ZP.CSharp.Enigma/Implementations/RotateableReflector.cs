@@ -50,7 +50,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
         */
         public static RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle> New(params TReflectorPair[] pairs)
-            => throw new NotImplementedException();
+            => throw new NotSupportedException();
         /**
         <summary>Creates a moveable reflector with the actual reflector provided.</summary>
         <param name="pos">The position.</param>
