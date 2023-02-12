@@ -24,7 +24,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TMessage : IEnumerable<TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
@@ -45,7 +45,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TMessage : IEnumerable<TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
@@ -61,7 +61,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TMessage : IEnumerable<TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>

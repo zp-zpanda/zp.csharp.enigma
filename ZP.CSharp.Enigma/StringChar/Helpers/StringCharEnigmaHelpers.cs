@@ -23,7 +23,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
-            where TReflector : IReflector<TReflector, TReflectorPair, char>
+            where TReflector : IReflector<TReflector, TReflectorPair, char>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
         {
             (enigma as IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>).Entrywheel = entrywheel;
@@ -42,7 +42,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
-            where TReflector : IReflector<TReflector, TReflectorPair, char>
+            where TReflector : IReflector<TReflector, TReflectorPair, char>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
             => (e as IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>).RunOn(c);
         /**
@@ -56,7 +56,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
-            where TReflector : IReflector<TReflector, TReflectorPair, char>
+            where TReflector : IReflector<TReflector, TReflectorPair, char>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
             => e.RunOn(s);
         /**
@@ -70,7 +70,7 @@ namespace ZP.CSharp.Enigma.Helpers
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
             where TRotor : IRotor<TRotor, TRotorPair, char>, new()
             where TRotorPair : IRotorPair<TRotorPair, char>
-            where TReflector : IReflector<TReflector, TReflectorPair, char>
+            where TReflector : IReflector<TReflector, TReflectorPair, char>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, char>
             => e.RunOn(m);
     }

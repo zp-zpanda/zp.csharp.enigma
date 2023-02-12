@@ -15,7 +15,7 @@ namespace ZP.CSharp.Enigma.Helpers
         public static void Setup<TReflector, TReflectorPair, TSingle>(
             this IReflector<TReflector, TReflectorPair, TSingle> reflector,
             TReflectorPair[] pairs)
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
@@ -30,7 +30,7 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static bool IsValid<TReflector, TReflectorPair, TSingle>(
             this IReflector<TReflector, TReflectorPair, TSingle> r)
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.IsValid();
@@ -40,7 +40,7 @@ namespace ZP.CSharp.Enigma.Helpers
         public static TSingle Reflect<TReflector, TReflectorPair, TSingle>(
             this IReflector<TReflector, TReflectorPair, TSingle> r,
             TSingle c)
-            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+            where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
             => r.Reflect(c);

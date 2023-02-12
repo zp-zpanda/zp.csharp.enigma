@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Implementations
     */
     public class RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle>
         : IReflector<RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle>, TReflectorPair, TSingle> 
-        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
         where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
         where TInterface : IRotor<TInterface, TInterfacePair, TSingle>, new()
         where TInterfacePair : IRotorPair<TInterfacePair, TSingle>

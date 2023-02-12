@@ -19,6 +19,14 @@ namespace ZP.CSharp.Enigma
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
+        public StringCharReflector()
+        #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="New(StringCharReflectorPair[])" />
+        */
+        [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected StringCharReflector(params StringCharReflectorPair[] pairs)
         #pragma warning restore CS8618
         {

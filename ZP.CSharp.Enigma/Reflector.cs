@@ -21,6 +21,14 @@ namespace ZP.CSharp.Enigma
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
+        public Reflector()
+        #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="New(ReflectorPair{TSingle}[])" />
+        */
+        [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected Reflector(params ReflectorPair<TSingle>[] pairs)
         #pragma warning restore CS8618
         {

@@ -8,7 +8,7 @@ namespace ZP.CSharp.Enigma
     <summary>The interface for the reflector.</summary>
     */
     public interface IReflector<TReflector, TReflectorPair, TSingle> 
-        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>
+        where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
         where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {

@@ -16,7 +16,7 @@ namespace ZP.CSharp.Enigma
         where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, char>
         where TRotor : IRotor<TRotor, TRotorPair, char>, new()
         where TRotorPair : IRotorPair<TRotorPair, char>
-        where TReflector : IReflector<TReflector, TReflectorPair, char>
+        where TReflector : IReflector<TReflector, TReflectorPair, char>, new()
         where TReflectorPair : IReflectorPair<TReflectorPair, char>
     {
         string IEnigma<TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, string, char>.RunOn(string s) => this.RunOn(s);

@@ -19,6 +19,14 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
+        public AlphabeticalReflector()
+        #pragma warning restore CS8618
+        {}
+        /**
+        <inheritdoc cref="New(AlphabeticalReflectorPair[])" />
+        */
+        [SetsRequiredMembers]
+        #pragma warning disable CS8618
         protected AlphabeticalReflector(params AlphabeticalReflectorPair[] pairs)
         #pragma warning restore CS8618
         {
