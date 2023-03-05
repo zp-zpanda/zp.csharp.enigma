@@ -15,16 +15,14 @@ namespace ZP.CSharp.Enigma.Models
         <summary>Enigma Z implementations with string-char components.</summary>
         */
         public class WithStringChar
-            : IStringCharEnigma<WithStringChar,
-                StringCharEntrywheel,
-                StringCharEntrywheelPair,
-                StringCharRotor,
-                StringCharRotorPair,
-                RotateableReflector<StringCharReflector,
-                    StringCharReflectorPair,
-                    StringCharRotor,
-                    StringCharRotorPair,
-                    char>, StringCharReflectorPair>
+            : IEnigma<WithStringChar,
+                Entrywheel<char>, EntrywheelPair<char>,
+                Rotor<char>, RotorPair<char>,
+                RotateableReflector<
+                    Reflector<char>, ReflectorPair<char>,
+                    Rotor<char>, RotorPair<char>, char>,
+                ReflectorPair<char>,
+                char>
         {
             private StringCharEntrywheel _Entrywheel;
             /**

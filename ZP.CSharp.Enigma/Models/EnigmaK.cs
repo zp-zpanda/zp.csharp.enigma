@@ -9,7 +9,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma K implementation.</summary>
     */
-    public class EnigmaK : IStringCharEnigma<EnigmaK, AlphabeticalEntrywheel, StringCharEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaK : IEnigma<EnigmaK, AlphabeticalEntrywheel, AlphabeticalEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair, char>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**

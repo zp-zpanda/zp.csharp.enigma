@@ -9,7 +9,7 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma M4 implementation, used by the Kriegsmarine.</summary>
     */
-    public class EnigmaM4 : IStringCharEnigma<EnigmaM4, AlphabeticalEntrywheel, StringCharEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaM4 : IEnigma<EnigmaM4, AlphabeticalEntrywheel, AlphabeticalEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair, char>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
