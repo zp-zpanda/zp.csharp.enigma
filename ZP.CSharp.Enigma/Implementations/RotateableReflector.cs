@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
@@ -39,7 +40,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public TReflectorPair[] Pairs {get => this.Reflector.Pairs; set => this.Reflector.Pairs = value;}
         /**
-        <inheritdoc cref="New(int, int[], TReflector, TSingle[])"/>
+        <inheritdoc cref="New(int, int[], TReflector, IEnumerable{TSingle})"/>
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -47,9 +48,9 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(IEnumerable{TReflectorPair})" />
         */
-        public static RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle> New(params TReflectorPair[] pairs)
+        public static RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle> New(IEnumerable<TReflectorPair> pairs)
             => throw new NotSupportedException();
         /**
         <summary>Creates a moveable reflector with the actual reflector provided.</summary>
@@ -58,7 +59,7 @@ namespace ZP.CSharp.Enigma.Implementations
         <param name="reflector">The actual reflector.</param>
         <param name="domain">The domain.</param>
         */
-        public static RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle> New(int pos, int[] notch, TReflector reflector, TSingle[] domain)
+        public static RotateableReflector<TReflector, TReflectorPair, TInterface, TInterfacePair, TSingle> New(int pos, int[] notch, TReflector reflector, IEnumerable<TSingle> domain)
             => new()
             {
                 Reflector = reflector,

@@ -1,28 +1,30 @@
-using System.Collections.Generic;
 using Xunit;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma.Tests
 {
     public class EnigmaTests
     {
-        public static Enigma<IEnumerable<int>, int> TestEnigma => Enigma<IEnumerable<int>, int>.New(
+        public static Enigma<int> TestEnigma => Enigma<int>.New(
             Entrywheel<int>.New(
-                EntrywheelPair<int>.New(0, 0),
-                EntrywheelPair<int>.New(1, 1),
-                EntrywheelPair<int>.New(2, 2),
-                EntrywheelPair<int>.New(3, 3)
+                new[]{
+                    EntrywheelPair<int>.New(0, 0),
+                    EntrywheelPair<int>.New(1, 1),
+                    EntrywheelPair<int>.New(2, 2),
+                    EntrywheelPair<int>.New(3, 3)}
             ),
-            Reflector<int>.New(
-                ReflectorPair<int>.New(0, 1),
-                ReflectorPair<int>.New(2, 3)
-            ),
-            Rotor<int>.New(
+            new[]{Rotor<int>.New(
                 0,
                 new[]{0},
-                RotorPair<int>.New(0, 2),
-                RotorPair<int>.New(1, 0),
-                RotorPair<int>.New(2, 3),
-                RotorPair<int>.New(3, 1)
+                new[]{
+                    RotorPair<int>.New(0, 2),
+                    RotorPair<int>.New(1, 0),
+                    RotorPair<int>.New(2, 3),
+                    RotorPair<int>.New(3, 1)}
+            )},
+            Reflector<int>.New(
+                new[]{
+                    ReflectorPair<int>.New(0, 1),
+                    ReflectorPair<int>.New(2, 3)}
             )
         );
         [Theory]

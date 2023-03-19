@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Tests
         {
             var pair1 = EntrywheelPair<int>.New(0, 1);
             var pair2 = EntrywheelPair<int>.New(1, 0);
-            var entrywheel = Entrywheel<int>.New(pair1, pair2);
+            var entrywheel = Entrywheel<int>.New(new[]{pair1, pair2});
             Assert.Contains(pair1, entrywheel.Pairs);
             Assert.Contains(pair2, entrywheel.Pairs);
         }

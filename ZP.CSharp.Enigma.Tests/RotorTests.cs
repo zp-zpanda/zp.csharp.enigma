@@ -11,7 +11,7 @@ namespace ZP.CSharp.Enigma.Tests
         {
             var pair1 = RotorPair<int>.New(0, 1);
             var pair2 = RotorPair<int>.New(1, 0);
-            var rotor = Rotor<int>.New(0, new[]{0}, pair1, pair2);
+            var rotor = Rotor<int>.New(0, new[]{0}, new[]{pair1, pair2});
             Assert.Contains(pair1, rotor.Pairs);
             Assert.Contains(pair2, rotor.Pairs);
         }
@@ -122,7 +122,7 @@ namespace ZP.CSharp.Enigma.Tests
         [InlineData(345, 56)]
         public void RotorCanAllowNextToStep(int total, int notch)
         {
-            var map = Enumerable.Range(0, total).ToArray();
+            var map = Enumerable.Range(0, total);
             var rotor = Rotor<int>.New(0, new[]{notch}, map, map);
             var canStepArr = Enumerable.Range(0, total).Select(pos => pos == notch);
             Assert.All(canStepArr, canStep => {

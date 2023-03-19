@@ -6,9 +6,10 @@ namespace ZP.CSharp.Enigma.Helpers.Tests
     public class ReflectorHelpersTests
     {
         public static Reflector<int> TestReflector => Reflector<int>.New(
+            new[]{
                 ReflectorPair<int>.New(0, 1),
-                ReflectorPair<int>.New(2, 3)
-            );
+                ReflectorPair<int>.New(2, 3)}
+        );
         [Fact]
         public void DefaultChainShouldNotHaveSideEffects()
         {

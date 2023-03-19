@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
@@ -14,12 +16,12 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static void Setup<TReflector, TReflectorPair, TSingle>(
             this IReflector<TReflector, TReflectorPair, TSingle> reflector,
-            TReflectorPair[] pairs)
+            IEnumerable<TReflectorPair> pairs)
             where TReflector : IReflector<TReflector, TReflectorPair, TSingle>, new()
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            reflector.Pairs = pairs;
+            reflector.Pairs = pairs.ToArray();
             if (!reflector.IsValid())
             {
                 throw new ArgumentException("Reflector pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");

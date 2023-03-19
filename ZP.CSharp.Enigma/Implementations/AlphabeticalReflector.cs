@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ZP.CSharp.Enigma.Helpers;
@@ -15,7 +16,7 @@ namespace ZP.CSharp.Enigma.Implementations
         */
         public required AlphabeticalReflectorPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="New(AlphabeticalReflectorPair[])" />
+        <inheritdoc cref="New(IEnumerable{AlphabeticalReflectorPair})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -23,11 +24,11 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="New(AlphabeticalReflectorPair[])" />
+        <inheritdoc cref="New(IEnumerable{AlphabeticalReflectorPair})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected AlphabeticalReflector(params AlphabeticalReflectorPair[] pairs)
+        protected AlphabeticalReflector(IEnumerable<AlphabeticalReflectorPair> pairs)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(pairs);
@@ -35,11 +36,11 @@ namespace ZP.CSharp.Enigma.Implementations
             this.Setup(pairs);
         }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(IEnumerable{TReflectorPair})" />
         */
-        public static AlphabeticalReflector New(params AlphabeticalReflectorPair[] pairs) => new(pairs);
+        public static AlphabeticalReflector New(IEnumerable<AlphabeticalReflectorPair> pairs) => new(pairs);
         /**
-        <inheritdoc cref="Reflector{TSingle}.New(TSingle[][])"/>
+        <inheritdoc cref="Reflector{TSingle}.New(IEnumerable{IEnumerable{TSingle}})"/>
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -48,7 +49,7 @@ namespace ZP.CSharp.Enigma.Implementations
         {
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentException.ThrowIfNullOrEmpty(map));
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair, char>(maps.Select(s => s.ToCharArray()).ToArray()));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair, char>(maps));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
@@ -64,7 +65,7 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {
             ArgumentException.ThrowIfNullOrEmpty(map);
-            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair, char>(map.ToCharArray()));
+            this.Setup(ReflectorPairHelpers.GetPairsFrom<AlphabeticalReflectorPair, char>(map));
         }
         /**
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>

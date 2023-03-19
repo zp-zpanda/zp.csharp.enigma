@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
@@ -19,12 +20,12 @@ namespace ZP.CSharp.Enigma.Helpers
             this IRotor<TRotor, TRotorPair, TSingle> rotor,
             int pos,
             int[] notch,
-            params TRotorPair[] pairs)
+            IEnumerable<TRotorPair> pairs)
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            rotor.Pairs = pairs;
+            rotor.Pairs = pairs.ToArray();
             if (!rotor.IsValid())
             {
                 throw new ArgumentException("Rotor pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
@@ -44,7 +45,7 @@ namespace ZP.CSharp.Enigma.Helpers
             this IRotor<TRotor, TRotorPair, TSingle> rotor,
             int pos,
             int[] notch,
-            params TRotorPair[] pairs)
+            IEnumerable<TRotorPair> pairs)
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
@@ -88,7 +89,7 @@ namespace ZP.CSharp.Enigma.Helpers
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Domain()" />
         */
-        public static TSingle[] Domain<TRotor, TRotorPair, TSingle>(
+        public static IEnumerable<TSingle> Domain<TRotor, TRotorPair, TSingle>(
             this IRotor<TRotor, TRotorPair, TSingle> r)
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
@@ -119,7 +120,7 @@ namespace ZP.CSharp.Enigma.Helpers
         <param name="rotors">The rotors to step.</param>
         */
         public static void StepWithDoubleSteppingMechanism<TRotor, TRotorPair, TSingle>(
-            this IRotor<TRotor, TRotorPair, TSingle>[] rotors)
+            this IEnumerable<IRotor<TRotor, TRotorPair, TSingle>> rotors)
             where TRotor : IRotor<TRotor, TRotorPair, TSingle>, new()
             where TRotorPair : IRotorPair<TRotorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>

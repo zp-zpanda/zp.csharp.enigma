@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma.Implementations.Tests
@@ -19,7 +20,7 @@ namespace ZP.CSharp.Enigma.Implementations.Tests
             var rotor = AlphabeticalRotor.New(0, new[]{0}, r);
             var i = 0;
             Assert.All(rotor.Pairs, pair => {
-                Assert.Equal(pair, AlphabeticalRotorPair.New(AlphabeticalRotor.FixedDomain()[i], rChars[i]));
+                Assert.Equal(pair, AlphabeticalRotorPair.New(AlphabeticalRotor.FixedDomain().ElementAt(i), rChars[i]));
                 i++;
             });
         }
@@ -100,8 +101,8 @@ namespace ZP.CSharp.Enigma.Implementations.Tests
         [InlineData(3)]
         public void RotorCanAllowNextToStep(int notch)
         {
-            var rotor = AlphabeticalRotor.New(0, new[]{notch}, (string) new(AlphabeticalRotor.FixedDomain()));
-            for (int i = 0; i < AlphabeticalRotor.FixedDomain().Length; i++)
+            var rotor = AlphabeticalRotor.New(0, new[]{notch}, new string(AlphabeticalRotor.FixedDomain().ToArray()));
+            for (int i = 0; i < AlphabeticalRotor.FixedDomain().Count(); i++)
             {
                 Assert.Equal(i == notch, rotor.AllowNextToStep());
                 rotor.Step();

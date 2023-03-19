@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
 {
@@ -14,12 +16,12 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static TEntrywheel Setup<TEntrywheel, TEntrywheelPair, TSingle>(
             this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> entrywheel,
-            params TEntrywheelPair[] pairs)
+            IEnumerable<TEntrywheelPair> pairs)
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            entrywheel.Pairs = pairs;
+            entrywheel.Pairs = pairs.ToArray();
             if (!entrywheel.IsValid())
             {
                 throw new ArgumentException("Entrywheel pairs are not valid. They must be bijective (i.e. one-to-one, fully invertible).");
@@ -33,7 +35,7 @@ namespace ZP.CSharp.Enigma.Helpers
         */
         public static TEntrywheel WithPairs<TEntrywheel, TEntrywheelPair, TSingle>(
             this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> entrywheel,
-            params TEntrywheelPair[] pairs)
+            IEnumerable<TEntrywheelPair> pairs)
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
@@ -77,7 +79,7 @@ namespace ZP.CSharp.Enigma.Helpers
         /**
         <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Domain()" />
         */
-        public static TSingle[] Domain<TEntrywheel, TEntrywheelPair, TSingle>(
+        public static IEnumerable<TSingle> Domain<TEntrywheel, TEntrywheelPair, TSingle>(
             this IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle> e)
             where TEntrywheel : IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>, new()
             where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>

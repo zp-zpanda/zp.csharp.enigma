@@ -10,7 +10,7 @@ namespace ZP.CSharp.Enigma.Tests
         {
             var pair1 = ReflectorPair<int>.New(0, 1);
             var pair2 = ReflectorPair<int>.New(2, 3);
-            var reflector = Reflector<int>.New(pair1, pair2);
+            var reflector = Reflector<int>.New(new[]{pair1, pair2});
             Assert.Contains(pair1, reflector.Pairs);
             Assert.Contains(pair2, reflector.Pairs);
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
@@ -22,7 +23,7 @@ namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
         */
         public required TEntrywheelPair[] Pairs {get => this.Entrywheel.Pairs; set => this.Entrywheel.Pairs = value;}
         /**
-        <inheritdoc cref="New(TEntrywheelPair[])" />
+        <inheritdoc cref="New(IEnumerable{TEntrywheelPair})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -30,9 +31,9 @@ namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(TEntrywheelPair[])" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(IEnumerable{TEntrywheelPair})" />
         */
-        public static SideEffectRecordingEntrywheelWrapper<TEntrywheel, TEntrywheelPair, TSingle> New(params TEntrywheelPair[] pairs)
+        public static SideEffectRecordingEntrywheelWrapper<TEntrywheel, TEntrywheelPair, TSingle> New(IEnumerable<TEntrywheelPair> pairs)
             => throw new NotSupportedException("This entrywheel is for encapsulation purposes only.");
         /**
         <summary>Wraps the entrywheel for side-effect-recording.</summary>

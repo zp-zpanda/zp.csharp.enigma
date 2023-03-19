@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
@@ -38,7 +39,7 @@ namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], TRotorPair[])" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], IEnumerable{TRotorPair})" />
         */
         public static SideEffectRecordingRotorWrapper<TRotor, TRotorPair, TSingle> New(params TRotorPair[] pairs)
             => throw new NotSupportedException("This rotor is for encapsulation purposes only.");

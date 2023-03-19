@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma
@@ -19,7 +20,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a entrywheel with the entrywheel pairs provided.</summary>
         <param name="pairs">The entrywheel pairs.</param>
         */
-        public static abstract TEntrywheel New(params TEntrywheelPair[] pairs);
+        public static abstract TEntrywheel New(IEnumerable<TEntrywheelPair> pairs);
         /**
         <summary>Checks if the entrywheel is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
         <returns><c><see langword="true" /></c> if valid, else <c><see langword="false" /></c>.</returns>
@@ -71,6 +72,6 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this entrywheel.</summary>
         <returns>The domain.</returns>
         */
-        public TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.PlugboardSide).ToArray();
+        public IEnumerable<TSingle> Domain() => this.Pairs.Select(pair => pair.Map.PlugboardSide);
     }
 }
