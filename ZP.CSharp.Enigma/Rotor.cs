@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
@@ -27,7 +28,7 @@ namespace ZP.CSharp.Enigma
         */
         public required int[] Notch {get => this._Notch; set => this._Notch = value;}
         /**
-        <inheritdoc cref="New(int, int[], RotorPair{TSingle}[])" />
+        <inheritdoc cref="New(int, int[], IEnumerable{RotorPair{TSingle}})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -35,9 +36,9 @@ namespace ZP.CSharp.Enigma
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], TRotorPair[])" />
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], IEnumerable{TRotorPair})" />
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, params RotorPair<TSingle>[] pairs)
+        public static Rotor<TSingle> New(int pos, int[] notch, IEnumerable<RotorPair<TSingle>> pairs)
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(pairs);
@@ -50,7 +51,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="maps">The rotor pair mappings.</param>
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, params TSingle[][] maps)
+        public static Rotor<TSingle> New(int pos, int[] notch, IEnumerable<IEnumerable<TSingle>> maps)
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(maps);
@@ -64,7 +65,7 @@ namespace ZP.CSharp.Enigma
         <param name="e">The entry wheel-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static Rotor<TSingle> New(int pos, int[] notch, TSingle[] e, TSingle[] r)
+        public static Rotor<TSingle> New(int pos, int[] notch, IEnumerable<TSingle> e, IEnumerable<TSingle> r)
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentNullException.ThrowIfNull(e);

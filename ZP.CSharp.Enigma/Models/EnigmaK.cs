@@ -9,21 +9,21 @@ namespace ZP.CSharp.Enigma.Models
     /**
     <summary>Enigma K implementation.</summary>
     */
-    public class EnigmaK : IStringCharEnigma<EnigmaK, AlphabeticalEntrywheel, StringCharEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair>
+    public class EnigmaK : IEnigma<EnigmaK, AlphabeticalEntrywheel, AlphabeticalEntrywheelPair, AlphabeticalRotor, AlphabeticalRotorPair, AlphabeticalReflector, AlphabeticalReflectorPair, char>
     {
         private AlphabeticalEntrywheel _Entrywheel;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Entrywheel" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Entrywheel" />
         */
         public required AlphabeticalEntrywheel Entrywheel {get => this._Entrywheel; set => this._Entrywheel = value;}
         private AlphabeticalRotor[] _Rotors = Array.Empty<AlphabeticalRotor>();
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Rotors" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Rotors" />
         */
         public AlphabeticalRotor[] Rotors {get => this._Rotors; set => this._Rotors = value;}
         private AlphabeticalReflector _Reflector;
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Reflector" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Reflector" />
         */
         public AlphabeticalReflector Reflector {get => this._Reflector; set => this._Reflector = value;}
         /**
@@ -47,12 +47,12 @@ namespace ZP.CSharp.Enigma.Models
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.New(TEntrywheel, TReflector, TRotor[])" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.New(TEntrywheel, IEnumerable{TRotor}, TReflector)" />
         */
-        public static EnigmaK New(AlphabeticalEntrywheel entrywheel, AlphabeticalReflector reflector, params AlphabeticalRotor[] rotor)
+        public static EnigmaK New(AlphabeticalEntrywheel entrywheel, IEnumerable<AlphabeticalRotor> rotors, AlphabeticalReflector reflector)
             => throw new NotSupportedException();
         /**
-        <inheritdoc cref="New(AlphabeticalEntrywheel, AlphabeticalReflector, AlphabeticalRotor[])" />
+        <inheritdoc cref="New(AlphabeticalEntrywheel, IEnumerable{AlphabeticalRotor}, AlphabeticalReflector)" />
         <param name="rotors">The rotors.</param>
         <param name="pos">The rotors' initial positions.</param>
         */
@@ -64,7 +64,7 @@ namespace ZP.CSharp.Enigma.Models
                 .Cast<string>()
                 .ToList()
                 .ForEach(rotor => ArgumentException.ThrowIfNullOrEmpty(rotor));
-            var enigma = new EnigmaK().Setup(AlphabeticalEntrywheel.Qwertz, AlphabeticalReflector.New("AIBMCEDTFGHRJYKSLQNZOXPWUV"), GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III));
+            var enigma = new EnigmaK().Setup(AlphabeticalEntrywheel.Qwertz, new[]{GetRotor(rotors.I), GetRotor(rotors.II), GetRotor(rotors.III)}, AlphabeticalReflector.New("AIBMCEDTFGHRJYKSLQNZOXPWUV"));
             enigma.Rotors[0].Position = pos.I;
             enigma.Rotors[1].Position = pos.II;
             enigma.Rotors[2].Position = pos.III;
@@ -77,7 +77,7 @@ namespace ZP.CSharp.Enigma.Models
                 {"III", III}
             }[rotor];
         /**
-        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TMessage, TSingle}.Step()" />
+        <inheritdoc cref="IEnigma{TEnigma, TEntrywheel, TEntrywheelPair, TRotor, TRotorPair, TReflector, TReflectorPair, TSingle}.Step()" />
         */
         public void Step() => this.Rotors.StepWithDoubleSteppingMechanism();
     }

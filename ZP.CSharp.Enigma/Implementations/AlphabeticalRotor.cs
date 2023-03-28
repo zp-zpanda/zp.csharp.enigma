@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using ZP.CSharp.Enigma.Helpers;
@@ -34,7 +35,7 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], TRotorPair[])"/>
+        <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.New(int, int[], IEnumerable{TRotorPair})"/>
         */
         public static AlphabeticalRotor New(int pos, int[] notch, params AlphabeticalRotorPair[] pairs)
             => throw new NotSupportedException();
@@ -48,12 +49,12 @@ namespace ZP.CSharp.Enigma.Implementations
         {
             ArgumentNullException.ThrowIfNull(notch);
             ArgumentException.ThrowIfNullOrEmpty(r);
-            return new AlphabeticalRotor().Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair, char>(FixedDomain(), r.ToCharArray()));
+            return new AlphabeticalRotor().Setup(pos, notch, RotorPairHelpers.GetPairsFrom<AlphabeticalRotorPair, char>(FixedDomain(), r));
         }
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.Domain()" />
         */
-        public static char[] FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        public static IEnumerable<char> FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         /**
         <inheritdoc cref="IRotor{TRotor, TRotorPair, TSingle}.AllowNextToStep()" />
         */

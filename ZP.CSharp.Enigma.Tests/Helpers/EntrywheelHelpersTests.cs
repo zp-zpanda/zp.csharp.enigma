@@ -6,20 +6,22 @@ namespace ZP.CSharp.Enigma.Helpers.Tests
     public class EntrywheelHelpersTests
     {
         public static Entrywheel<int> TestEntrywheel => Entrywheel<int>.New(
-            EntrywheelPair<int>.New(0, 0),
-            EntrywheelPair<int>.New(1, 1),
-            EntrywheelPair<int>.New(2, 2),
-            EntrywheelPair<int>.New(3, 3)
+            new[]{
+                EntrywheelPair<int>.New(0, 0),
+                EntrywheelPair<int>.New(1, 1),
+                EntrywheelPair<int>.New(2, 2),
+                EntrywheelPair<int>.New(3, 3)}
         );
         [Fact]
         public void DefaultChainShouldNotHaveSideEffects()
         {
             var entrywheel = TestEntrywheel;
             var newEntrywheel = entrywheel.WithPairs(
-                    EntrywheelPair<int>.New(0, 2),
-                    EntrywheelPair<int>.New(1, 1),
-                    EntrywheelPair<int>.New(2, 0),
-                    EntrywheelPair<int>.New(3, 3)
+                    new[]{
+                        EntrywheelPair<int>.New(0, 2),
+                        EntrywheelPair<int>.New(1, 1),
+                        EntrywheelPair<int>.New(2, 0),
+                        EntrywheelPair<int>.New(3, 3)}
                 );
             Assert.False(ReferenceEquals(entrywheel, newEntrywheel));
         }

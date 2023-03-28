@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
@@ -51,7 +52,7 @@ namespace ZP.CSharp.Enigma
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**
-        <inheritdoc cref="ReflectorPairHelpers.GetPairFrom{TReflectorPair, TSingle}(TSingle[])" />
+        <inheritdoc cref="ReflectorPairHelpers.GetPairFrom{TReflectorPair, TSingle}(IEnumerable{TSingle})" />
         */
         public static ReflectorPair<TSingle> New(TSingle[] map) => ReflectorPairHelpers.GetPairFrom<ReflectorPair<TSingle>, TSingle>(map);
         /**

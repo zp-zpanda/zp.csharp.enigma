@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
@@ -9,10 +10,10 @@ namespace ZP.CSharp.Enigma
         where TEntrywheelPair : IEntrywheelPair<TEntrywheelPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
-        TSingle[] IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>.Domain() => TEntrywheel.FixedDomain();
+        IEnumerable<TSingle> IEntrywheel<TEntrywheel, TEntrywheelPair, TSingle>.Domain() => TEntrywheel.FixedDomain();
         /**
         <summary>Gets the fixed domain.</summary>
         */
-        public static abstract TSingle[] FixedDomain();
+        public static abstract IEnumerable<TSingle> FixedDomain();
     }
 }

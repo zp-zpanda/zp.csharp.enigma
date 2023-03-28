@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers
@@ -12,27 +13,27 @@ namespace ZP.CSharp.Enigma.Helpers
         <summary>Gets pairs from multiple two-character-long maps.</summary>
         <param name="maps">The maps.</param>
         */
-        public static TReflectorPair[] GetPairsFrom<TReflectorPair, TSingle>(
-            params TSingle[][] maps)
+        public static IEnumerable<TReflectorPair> GetPairsFrom<TReflectorPair, TSingle>(
+            IEnumerable<IEnumerable<TSingle>> maps)
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            if (!maps.All(map => map.Length == 2))
+            if (!maps.All(map => map.Count() == 2))
             {
                 throw new ArgumentException("Mappings are not two characters long. Expected mappings: \"{One}{Two}\"");
             }
-            return maps.Select(map => TReflectorPair.New(map.First(), map.Last())).ToArray();
+            return maps.Select(map => TReflectorPair.New(map.First(), map.Last()));
         }
         /**
         <summary>Gets a pair from a two-character-long mapping.</summary>
         <param name="map">The mapping.</param>
         */
         public static TReflectorPair GetPairFrom<TReflectorPair, TSingle>(
-            TSingle[] map)
+            IEnumerable<TSingle> map)
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            if (map.Length != 2)
+            if (map.Count() != 2)
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{One}{Two}\"");
             }
@@ -40,18 +41,18 @@ namespace ZP.CSharp.Enigma.Helpers
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
-            return GetPairsFrom<TReflectorPair, TSingle>(map.OrderBy(c => c).ToArray()).Single();
+            return GetPairsFrom<TReflectorPair, TSingle>(map.OrderBy(c => c)).Single();
         }
         /**
         <summary>Gets pairs from a mapping.</summary>
         <param name="map">The mapping.</param>
         */
-        public static TReflectorPair[] GetPairsFrom<TReflectorPair, TSingle>(
-            TSingle[] map)
+        public static IEnumerable<TReflectorPair> GetPairsFrom<TReflectorPair, TSingle>(
+            IEnumerable<TSingle> map)
             where TReflectorPair : IReflectorPair<TReflectorPair, TSingle>
             where TSingle : IEqualityOperators<TSingle, TSingle, bool>
         {
-            if (map.Length % 2 != 0)
+            if (map.Count() % 2 != 0)
             {
                 throw new ArgumentException("Mapping has unpaired characters. Expected mapping: \"{Pair1.One}{Pair1.Two}{Pair2.One}{Pair2.Two}...\"");
             }
@@ -59,8 +60,7 @@ namespace ZP.CSharp.Enigma.Helpers
                 .Select((c, index) => (Index: Math.DivRem(index, 2, out int _), Char: c))
                 .GroupBy(data => data.Index)
                 .Select(group => group.Select(data => data.Char))
-                .Select(map => TReflectorPair.New(map.First(), map.Last()))
-                .ToArray();
+                .Select(map => TReflectorPair.New(map.First(), map.Last()));
         }
     }
 }

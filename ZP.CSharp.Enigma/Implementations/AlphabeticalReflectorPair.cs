@@ -36,7 +36,7 @@ namespace ZP.CSharp.Enigma.Implementations
         [SetsRequiredMembers]
         protected AlphabeticalReflectorPair(string map)
         {
-            if (map.Length != 2)
+            if (map.Count() != 2)
             {
                 throw new ArgumentException("Mapping is not two characters long. Expected mapping: \"{One}{Two}\"");
             }
@@ -44,7 +44,7 @@ namespace ZP.CSharp.Enigma.Implementations
             {
                 throw new ArgumentException("Reflector must have two different characters to map to.");
             }
-            var mapArr = map.ToCharArray().OrderBy(c => c);
+            var mapArr = map.OrderBy(c => c);
             this.Map = (mapArr.First(), mapArr.Last());
         }
         /**

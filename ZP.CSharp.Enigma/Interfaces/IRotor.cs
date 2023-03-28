@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 namespace ZP.CSharp.Enigma
@@ -29,7 +30,7 @@ namespace ZP.CSharp.Enigma
         <param name="notch">The turning notch.</param>
         <param name="pairs">The rotor pairs.</param>
         */
-        public static virtual TRotor New(int pos, int[] notch, params TRotorPair[] pairs)
+        public static virtual TRotor New(int pos, int[] notch, IEnumerable<TRotorPair> pairs)
             => throw new NotImplementedException();
         /**
         <summary>Checks if the rotor is in a valid state, in which it is bijective (i.e. one-to-one, fully invertible).</summary>
@@ -82,7 +83,7 @@ namespace ZP.CSharp.Enigma
         <summary>Get the domain of this rotor.</summary>
         <returns>The domain.</returns>
         */
-        public virtual TSingle[] Domain() => this.Pairs.Select(pair => pair.Map.EntryWheelSide).ToArray();
+        public virtual IEnumerable<TSingle> Domain() => this.Pairs.Select(pair => pair.Map.EntryWheelSide);
         /**
         <summary>Transposes a character coming to the rotor.</summary>
         <param name="c">The character to transpose.</param>
@@ -90,9 +91,9 @@ namespace ZP.CSharp.Enigma
         */
         public TSingle TransposeIn(TSingle c)
         {
-            var index = Array.IndexOf(this.Domain(), c);
-            var length = this.Domain().Length;
-            return this.Domain()[(index + this.Position) % length];
+            var index = Array.IndexOf(this.Domain().ToArray(), c);
+            var length = this.Domain().Count();
+            return this.Domain().ElementAt((index + this.Position) % length);
         }
         /**
         <summary>Transposes a character going away from the rotor.</summary>
@@ -101,9 +102,9 @@ namespace ZP.CSharp.Enigma
         */
         public TSingle TransposeOut(TSingle c)
         {
-            var index = Array.IndexOf(this.Domain(), c);
-            var length = this.Domain().Length;
-            return this.Domain()[(index - this.Position + length) % length];
+            var index = Array.IndexOf(this.Domain().ToArray(), c);
+            var length = this.Domain().Count();
+            return this.Domain().ElementAt((index - this.Position + length) % length);
         }
         /**
         <summary>Returns whether this rotor allows the next to step or not.</summary>

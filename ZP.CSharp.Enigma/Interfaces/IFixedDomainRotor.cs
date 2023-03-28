@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 namespace ZP.CSharp.Enigma
 {
@@ -9,10 +10,10 @@ namespace ZP.CSharp.Enigma
         where TRotorPair : IRotorPair<TRotorPair, TSingle>
         where TSingle : IEqualityOperators<TSingle, TSingle, bool>
     {
-        TSingle[] IRotor<TRotor, TRotorPair, TSingle>.Domain() => TRotor.FixedDomain();
+        IEnumerable<TSingle> IRotor<TRotor, TRotorPair, TSingle>.Domain() => TRotor.FixedDomain();
         /**
         <summary>Gets the fixed domain.</summary>
         */
-        public static abstract TSingle[] FixedDomain();
+        public static abstract IEnumerable<TSingle> FixedDomain();
     }
 }

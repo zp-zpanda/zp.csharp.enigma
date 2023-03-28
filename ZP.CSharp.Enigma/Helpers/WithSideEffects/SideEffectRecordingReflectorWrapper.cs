@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
@@ -22,7 +23,7 @@ namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
         */
         public required TReflectorPair[] Pairs {get => this.Reflector.Pairs; set => this.Reflector.Pairs = value;}
         /**
-        <inheritdoc cref="New(TReflectorPair[])" />
+        <inheritdoc cref="New(IEnumerable{TReflectorPair})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -30,9 +31,9 @@ namespace ZP.CSharp.Enigma.Helpers.WithSideEffects
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(IEnumerable{TReflectorPair})" />
         */
-        public static SideEffectRecordingReflectorWrapper<TReflector, TReflectorPair, TSingle> New(params TReflectorPair[] pairs)
+        public static SideEffectRecordingReflectorWrapper<TReflector, TReflectorPair, TSingle> New(IEnumerable<TReflectorPair> pairs)
             => throw new NotSupportedException("This reflector is for encapsulation purposes only.");
         /**
         <summary>Wraps the reflector for side-effect-recording.</summary>

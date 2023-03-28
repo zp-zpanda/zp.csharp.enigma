@@ -8,10 +8,11 @@ namespace ZP.CSharp.Enigma.Helpers.Tests
         public static Rotor<int> TestRotor => Rotor<int>.New(
                 0,
                 new[]{0},
-                RotorPair<int>.New(0, 2),
-                RotorPair<int>.New(1, 0),
-                RotorPair<int>.New(2, 3),
-                RotorPair<int>.New(3, 1)
+                new[]{
+                    RotorPair<int>.New(0, 2),
+                    RotorPair<int>.New(1, 0),
+                    RotorPair<int>.New(2, 3),
+                    RotorPair<int>.New(3, 1)}
             );
         [Fact]
         public void DefaultChainShouldNotHaveSideEffects()
@@ -20,10 +21,11 @@ namespace ZP.CSharp.Enigma.Helpers.Tests
             var newRotor = rotor.With(
                     0,
                     new[]{0},
-                    RotorPair<int>.New(0, 0),
-                    RotorPair<int>.New(1, 3),
-                    RotorPair<int>.New(2, 1),
-                    RotorPair<int>.New(3, 2)
+                    new[]{
+                        RotorPair<int>.New(0, 0),
+                        RotorPair<int>.New(1, 3),
+                        RotorPair<int>.New(2, 1),
+                        RotorPair<int>.New(3, 2)}
                 );
             Assert.False(ReferenceEquals(rotor, newRotor));
         }

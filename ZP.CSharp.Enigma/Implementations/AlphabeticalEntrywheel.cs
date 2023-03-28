@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ZP.CSharp.Enigma.Helpers;
 namespace ZP.CSharp.Enigma.Implementations
@@ -6,25 +7,25 @@ namespace ZP.CSharp.Enigma.Implementations
     /**
     <summary>The alphabetical entrywheel.</summary>
     */
-    public class AlphabeticalEntrywheel : IFixedDomainEntrywheel<AlphabeticalEntrywheel, StringCharEntrywheelPair, char>
+    public class AlphabeticalEntrywheel : IFixedDomainEntrywheel<AlphabeticalEntrywheel, AlphabeticalEntrywheelPair, char>
     {
         /**
         <summary>The ABC entrywheel.</summary>
         */
         public static AlphabeticalEntrywheel Abc
-            => New((string) new(FixedDomain()));
+            => New(FixedDomain());
         /**
         <summary>The QWERTZ entrywheel.</summary>
         */
         public static AlphabeticalEntrywheel Qwertz
             => New("QWERTZUIOASDFGHJKPYXCVBNML");
-        private StringCharEntrywheelPair[] _Pairs = Array.Empty<StringCharEntrywheelPair>();
+        private AlphabeticalEntrywheelPair[] _Pairs = Array.Empty<AlphabeticalEntrywheelPair>();
         /**
         <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Pairs" />
         */
-        public required StringCharEntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
+        public required AlphabeticalEntrywheelPair[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="StringCharEntrywheel.New(string, string)" />
+        <inheritdoc cref="New(IEnumerable{char})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -32,21 +33,25 @@ namespace ZP.CSharp.Enigma.Implementations
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(TEntrywheelPair[])" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(IEnumerable{TEntrywheelPair})" />
         */
-        public static AlphabeticalEntrywheel New(params StringCharEntrywheelPair[] pair)
+        public static AlphabeticalEntrywheel New(IEnumerable<AlphabeticalEntrywheelPair> pair)
             => throw new NotSupportedException();
+        #pragma warning disable CS1572
         /**
-        <inheritdoc cref="StringCharEntrywheel.New(string, string)" />
+        <summary>Creates a entrywheel with entrywheel pairs created from a entrywheel-side and a reflector-side mapping.</summary>
+        <param name="p">The plugboard-side mapping.</param>
+        <param name="r">The reflector-side mapping.</param>
         */
-        public static AlphabeticalEntrywheel New(string p)
+        #pragma warning restore CS1572
+        public static AlphabeticalEntrywheel New(IEnumerable<char> p)
         {
-            ArgumentException.ThrowIfNullOrEmpty(p);
-            return new AlphabeticalEntrywheel().Setup(EntrywheelPairHelpers.GetPairsFrom<StringCharEntrywheelPair, char>(p.ToCharArray(), FixedDomain()));
+            ArgumentNullException.ThrowIfNull(p);
+            return new AlphabeticalEntrywheel().Setup(EntrywheelPairHelpers.GetPairsFrom<AlphabeticalEntrywheelPair, char>(p, FixedDomain()));
         }
         /**
         <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.Domain()" />
         */
-        public static char[] FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        public static IEnumerable<char> FixedDomain() => "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
@@ -17,7 +18,7 @@ namespace ZP.CSharp.Enigma
         */
         public required ReflectorPair<TSingle>[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="New(ReflectorPair{TSingle}[])" />
+        <inheritdoc cref="New(IEnumerable{ReflectorPair{TSingle}})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -25,11 +26,11 @@ namespace ZP.CSharp.Enigma
         #pragma warning restore CS8618
         {}
         /**
-        <inheritdoc cref="New(ReflectorPair{TSingle}[])" />
+        <inheritdoc cref="New(IEnumerable{ReflectorPair{TSingle}})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(params ReflectorPair<TSingle>[] pairs)
+        protected Reflector(IEnumerable<ReflectorPair<TSingle>> pairs)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(pairs);
@@ -37,15 +38,15 @@ namespace ZP.CSharp.Enigma
             this.Setup(pairs);
         }
         /**
-        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(TReflectorPair[])" />
+        <inheritdoc cref="IReflector{TReflector, TReflectorPair, TSingle}.New(IEnumerable{TReflectorPair})" />
         */
-        public static Reflector<TSingle> New(params ReflectorPair<TSingle>[] pairs) => new(pairs);
+        public static Reflector<TSingle> New(IEnumerable<ReflectorPair<TSingle>> pairs) => new(pairs);
         /**
-        <inheritdoc cref="New(TSingle[][])" />
+        <inheritdoc cref="New(IEnumerable{IEnumerable{TSingle}})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(params TSingle[][] maps)
+        protected Reflector(IEnumerable<IEnumerable<TSingle>> maps)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(maps);
@@ -56,13 +57,13 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a reflector with reflector pairs created from two-character-long mappings.</summary>
         <param name="maps">The reflector pair mappings.</param>
         */
-        public static Reflector<TSingle> New(params TSingle[][] maps) => new(maps);
+        public static Reflector<TSingle> New(IEnumerable<IEnumerable<TSingle>> maps) => new(maps);
         /**
-        <inheritdoc cref="New(TSingle[])" />
+        <inheritdoc cref="New(IEnumerable{TSingle})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
-        protected Reflector(TSingle[] map)
+        protected Reflector(IEnumerable<TSingle> map)
         #pragma warning restore CS8618
         {
             ArgumentNullException.ThrowIfNull(map);
@@ -72,6 +73,6 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a reflector with reflector pairs created from a mapping.</summary>
         <param name="map">The mapping.</param>
         */
-        public static Reflector<TSingle> New(TSingle[] map) => new(map);
+        public static Reflector<TSingle> New(IEnumerable<TSingle> map) => new(map);
     }
 }

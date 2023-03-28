@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
@@ -17,7 +18,7 @@ namespace ZP.CSharp.Enigma
         */
         public required EntrywheelPair<TSingle>[] Pairs {get => this._Pairs; set => this._Pairs = value;}
         /**
-        <inheritdoc cref="New(EntrywheelPair{TSingle}[])" />
+        <inheritdoc cref="New(IEnumerable{EntrywheelPair{TSingle}})" />
         */
         [SetsRequiredMembers]
         #pragma warning disable CS8618
@@ -26,9 +27,9 @@ namespace ZP.CSharp.Enigma
         {
         }
         /**
-        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(TEntrywheelPair[])" />
+        <inheritdoc cref="IEntrywheel{TEntrywheel, TEntrywheelPair, TSingle}.New(IEnumerable{TEntrywheelPair})" />
         */
-        public static Entrywheel<TSingle> New(params EntrywheelPair<TSingle>[] pairs)
+        public static Entrywheel<TSingle> New(IEnumerable<EntrywheelPair<TSingle>> pairs)
         {
             ArgumentNullException.ThrowIfNull(pairs);
             pairs.ToList().ForEach(pair => ArgumentNullException.ThrowIfNull(pair));
@@ -38,7 +39,7 @@ namespace ZP.CSharp.Enigma
         <summary>Creates a entrywheel with entrywheel pairs created from two-character-long mappings.</summary>
         <param name="maps">The entrywheel pair mappings.</param>
         */
-        public static Entrywheel<TSingle> New(params TSingle[][] maps)
+        public static Entrywheel<TSingle> New(IEnumerable<IEnumerable<TSingle>> maps)
         {
             ArgumentNullException.ThrowIfNull(maps);
             maps.ToList().ForEach(map => ArgumentNullException.ThrowIfNull(map));
@@ -49,7 +50,7 @@ namespace ZP.CSharp.Enigma
         <param name="p">The plugboard-side mapping.</param>
         <param name="r">The reflector-side mapping.</param>
         */
-        public static Entrywheel<TSingle> New(TSingle[] p, TSingle[] r)
+        public static Entrywheel<TSingle> New(IEnumerable<TSingle> p, IEnumerable<TSingle> r)
         {
             ArgumentNullException.ThrowIfNull(p);
             ArgumentNullException.ThrowIfNull(r);
