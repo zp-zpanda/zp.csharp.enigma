@@ -6,9 +6,10 @@
             "label" : "build",
             "detail" : "Build Project",
             "type" : "process",
-            "command" : "dotnet",
+            "command" : "pwsh",
             "args" : [
-                "build"
+                "-File",
+                "./scripts/build.ps1"
             ],
             "group" : "build",
             "problemMatcher" : "$msCompile"
@@ -77,13 +78,13 @@
         {
             "label" : "test",
             "detail" : "Run Tests",
-            "command" : "dotnet",
+            "type" : "process",
+            "command" : "pwsh",
             "args" : [
-                "test",
-                "-l",
-                "console;verbosity=normal"
+                "-File",
+                "./scripts/test.ps1"
             ],
-            "group" : "test",
+            "group" : "build",
             "problemMatcher" : "$msCompile"
         }
     ]
